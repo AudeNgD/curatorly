@@ -46,27 +46,38 @@ function Exhibition() {
   wall4.position.z = 5;
   wall4.rotation.y = Math.PI / 2;
 
-  sceneElements.push(wall1, wall2, wall3, wall4);
+  const floorGeo = new THREE.BoxGeometry(10, 10, 1);
+  const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const floor = new THREE.Mesh(floorGeo, floorMaterial);
+  floor.position.x = 0;
+  floor.position.y = -5;
+  floor.position.z = 5;
+  floor.rotation.x = Math.PI / 2;
 
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  const cube = new THREE.Mesh(geometry, material);
+  const ceilingGeo = new THREE.BoxGeometry(10, 10, 1);
+  const ceilingMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  const ceiling = new THREE.Mesh(ceilingGeo, ceilingMaterial);
+  ceiling.position.x = 0;
+  ceiling.position.y = 5;
+  ceiling.position.z = 5;
+  ceiling.rotation.x = Math.PI / 2;
+  sceneElements.push(wall1, wall2, wall3, wall4, floor, ceiling);
 
-  const exWallGeo = new THREE.BoxGeometry(5, 3, 1);
-  const exWallMaterial = new THREE.MeshBasicMaterial({ color: 0xff0034 });
+  const exWallGeo = new THREE.BoxGeometry(5, 3, 0.5);
+  const exWallMaterial = new THREE.MeshBasicMaterial({ color: 0x008fff });
   const exWall = new THREE.Mesh(exWallGeo, exWallMaterial);
-  exWall.position.x = -5;
-  exWall.position.y = 0;
-  exWall.position.z = 0;
+  exWall.position.x = 0;
+  exWall.position.y = -3;
+  exWall.position.z = 2;
 
   sceneElements.push(exWall);
-  sceneElements.push(cube);
 
   for (const element of sceneElements) {
     scene.add(element);
   }
-  //scene.add(exWall, cube);
 
+  camera.position.x = 5;
+  camera.position.y = 0;
   camera.position.z = 5;
 
   //   function animate() {
@@ -79,13 +90,11 @@ function Exhibition() {
 
   const controls = new OrbitControls(camera, renderer.domElement);
 
-  function animate() {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+  function setScene() {
     renderer.render(scene, camera);
   }
 
-  renderer.setAnimationLoop(animate);
+  renderer.setAnimationLoop(setScene);
   return <div>Exhibition</div>;
 }
 
