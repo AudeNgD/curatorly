@@ -4,6 +4,8 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Shortlist from "./components/Shortlist";
 import SearchResults from "./components/SearchResults";
+import Home from "./page/Home";
+import Exhibition from "./page/Exhibition";
 
 function App() {
   return (
@@ -19,7 +21,8 @@ function App() {
         >
           <Route path="/shortlist" element={<Shortlist />}></Route>
           <Route path="/results" element={<SearchResults />}></Route>
-          <Route path="/" element={<Navigate to="/results" />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/exhibition" element={<Exhibition />}></Route>
         </Route>
       </Routes>
     </>
