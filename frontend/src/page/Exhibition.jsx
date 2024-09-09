@@ -17,8 +17,9 @@ function Exhibition() {
 
   // Create a room
   const sceneElements = [];
-  const axesHelper = new THREE.AxesHelper(5);
+  const axesHelper = new THREE.AxesHelper(3);
   sceneElements.push(axesHelper);
+
   const roomWallGeo = new THREE.BoxGeometry(10, 10, 1);
   const roomWallMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
   const roomWall = new THREE.Mesh(roomWallGeo, roomWallMaterial);
@@ -28,18 +29,21 @@ function Exhibition() {
   wall1.position.y = 0;
 
   const wall2 = roomWall.clone();
-  wall2.position.x = 0;
+  wall2.position.x = -5;
   wall2.position.y = 0;
+  wall2.position.z = 5;
   wall2.rotation.y = Math.PI / 2;
 
   const wall3 = roomWall.clone();
   wall3.position.x = 0;
-  wall3.position.y = 10;
+  wall3.position.y = 0;
+  wall3.position.z = 10;
   //wall3.rotation.y = Math.PI;
 
   const wall4 = roomWall.clone();
-  wall4.position.x = 10;
-  wall4.position.y = 10;
+  wall4.position.x = 5;
+  wall4.position.y = 0;
+  wall4.position.z = 5;
   wall4.rotation.y = Math.PI / 2;
 
   sceneElements.push(wall1, wall2, wall3, wall4);
