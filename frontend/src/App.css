@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+/* NAV BAR */
+nav {
+  background-color: rgba(255, 255, 255, 0.87);
+  color: #242424;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 800;
+  top: 0px;
+  padding-right: 40px;
+}
