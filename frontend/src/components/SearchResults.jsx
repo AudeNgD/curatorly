@@ -6,14 +6,19 @@ import { FaRegHeart } from "react-icons/fa6";
 function SearchResults() {
   const [results, setResults] = useState();
   const searchParams = "Leonardo da Vinci";
-  const [favourites, setFavourites] = useState([]);
-  const [toggledFavourites, isToggledFavourites] = useState([]);
+  //const [favourites, setFavourites] = useState(getStoredData);
+  const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
 
   useEffect(() => {
     testConcurrentAPIs(searchParams).then((res) => {
       setResults(res);
     });
   }, []);
+
+  function getStoredData() {
+    const storedData = localStorage.getItem("favourites");
+    return storedData ? JSON.parse(storedData) : [];
+  }
 
   function handleFavouriteClick(id) {
     let currentFavourites = [...toggledFavourites];
@@ -23,6 +28,7 @@ function SearchResults() {
       currentFavourites = currentFavourites.filter((item) => item !== id);
     }
     isToggledFavourites(currentFavourites);
+    localStorage.setItem("favourites", JSON.stringify(currentFavourites));
   }
 
   return (
