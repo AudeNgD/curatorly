@@ -81,12 +81,16 @@ function Exhibition() {
       exWall2
     );
 
-    // Add objects to the scene
-    sceneElements.forEach((element) => scene.add(element));
-
     // Setup lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1000, 5);
+    pointLight.position.set(4, 2, -5);
+    scene.add(pointLight);
+
+    // Add objects to the scene
+    sceneElements.forEach((element) => scene.add(element));
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableZoom = false;
