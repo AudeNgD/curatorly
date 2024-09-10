@@ -4,7 +4,7 @@ import * as THREE from "three";
 class RoomWall extends THREE.Mesh {
   constructor() {
     super();
-    this.geometry = new THREE.BoxGeometry(10, 10, 1);
+    this.geometry = new THREE.BoxGeometry(20, 10, 1);
     this.material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
   }
 }
@@ -13,7 +13,7 @@ class RoomWall extends THREE.Mesh {
 class ExhibitionWall extends THREE.Mesh {
   constructor() {
     super();
-    this.geometry = new THREE.BoxGeometry(5, 3, 0.5);
+    this.geometry = new THREE.BoxGeometry(10, 5, 0.5);
     this.material = new THREE.MeshBasicMaterial({
       color: new THREE.Color("orange").convertSRGBToLinear(),
     });

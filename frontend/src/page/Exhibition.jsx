@@ -13,7 +13,15 @@ function Exhibition() {
       0.1,
       1000
     );
-    camera.position.z = 5;
+    camera.position.set(0, 0, 0.1);
+    camera.lookAt(5, 5, 5);
+
+    const dir = new THREE.Vector3(0, 0, 1);
+    dir.normalize();
+    const origin = new THREE.Vector3(0, 0, 0);
+    const length = 10;
+    const hex = 0xffff00;
+    const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -29,35 +37,40 @@ function Exhibition() {
     const sceneElements = [];
 
     const wall1 = new RoomWall();
-    wall1.position.set(0, 0, 0);
+    wall1.position.set(0, 2, -10);
 
     const wall2 = new RoomWall();
-    wall2.position.set(-5, 0, 5);
+    wall2.position.set(-10, 2, 0);
     wall2.rotation.y = Math.PI / 2;
 
     const wall3 = new RoomWall();
-    wall3.position.set(0, 0, 10);
+    wall3.position.set(0, 2, 10);
 
     const wall4 = new RoomWall();
-    wall4.position.set(5, 0, 5);
+    wall4.position.set(10, 2, 0);
     wall4.rotation.y = Math.PI / 2;
 
     const floor = new RoomWall();
-    floor.position.set(0, -5, 5);
+    floor.position.set(0, -2, 0);
     floor.rotation.x = Math.PI / 2;
+    floor.geometry = new THREE.BoxGeometry(20, 20, 1);
+    floor.material.color.set("brown");
 
     const ceiling = new RoomWall();
-    ceiling.position.set(0, 5, 5);
+    ceiling.position.set(0, 6, 0);
     ceiling.rotation.x = Math.PI / 2;
+    ceiling.geometry = new THREE.BoxGeometry(20, 20, 1);
+    ceiling.material.color.set("grey");
 
     const exWall1 = new ExhibitionWall();
-    exWall1.position.set(0, -3, 2);
+    exWall1.position.set(0, 0, -8);
 
     const exWall2 = new ExhibitionWall();
-    exWall2.position.set(-3, -3, 7);
+    exWall2.position.set(-8, 0, 0);
     exWall2.rotation.y = Math.PI / 2;
 
     sceneElements.push(
+      arrowHelper,
       wall1,
       wall2,
       wall3,
@@ -76,6 +89,9 @@ function Exhibition() {
     scene.add(ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
+    // controls.enableZoom = false;
+    // controls.maxAzimuthAngle = Math.PI / 2;
+    // controls.minAzimuthAngle = -Math.PI / 2;
 
     // Event listeners
     function onPointerMove(event) {
@@ -119,14 +135,12 @@ function Exhibition() {
       }
     }
 
-    // Attach event listeners
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("click", onClick);
-
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
+
       controls.update();
+      //controls.autoRotate = true;
       renderer.render(scene, camera);
     }
 
