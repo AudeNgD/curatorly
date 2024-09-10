@@ -1,100 +1,130 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as THREE from "three";
-import CameraControl from "../experience/Camera";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomWall, ExhibitionWall } from "../experience/GalleryObjects";
 
 function Exhibition() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  useEffect(() => {
+    // Setup Three.js scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
 
-  // Create a room
-  const sceneElements = [];
-  const axesHelper = new THREE.AxesHelper(3);
-  sceneElements.push(axesHelper);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    document.body.appendChild(renderer.domElement);
 
-  const roomWallGeo = new THREE.BoxGeometry(10, 10, 1);
-  const roomWallMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-  const roomWall = new THREE.Mesh(roomWallGeo, roomWallMaterial);
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let hoveredObject = null; // Track currently hovered object
 
-  const wall1 = roomWall.clone();
-  wall1.position.x = 0;
-  wall1.position.y = 0;
+    // Create scene elements
+    const sceneElements = [];
 
-  const wall2 = roomWall.clone();
-  wall2.position.x = -5;
-  wall2.position.y = 0;
-  wall2.position.z = 5;
-  wall2.rotation.y = Math.PI / 2;
+    const wall1 = new RoomWall();
+    wall1.position.set(0, 0, 0);
+    const wall2 = new RoomWall();
+    wall2.position.set(-5, 0, 5);
+    wall2.rotation.y = Math.PI / 2;
 
-  const wall3 = roomWall.clone();
-  wall3.position.x = 0;
-  wall3.position.y = 0;
-  wall3.position.z = 10;
-  //wall3.rotation.y = Math.PI;
+    const wall3 = new RoomWall();
+    wall3.position.set(0, 0, 10);
 
-  const wall4 = roomWall.clone();
-  wall4.position.x = 5;
-  wall4.position.y = 0;
-  wall4.position.z = 5;
-  wall4.rotation.y = Math.PI / 2;
+    const wall4 = new RoomWall();
+    wall4.position.set(5, 0, 5);
+    wall4.rotation.y = Math.PI / 2;
 
-  const floorGeo = new THREE.BoxGeometry(10, 10, 1);
-  const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  const floor = new THREE.Mesh(floorGeo, floorMaterial);
-  floor.position.x = 0;
-  floor.position.y = -5;
-  floor.position.z = 5;
-  floor.rotation.x = Math.PI / 2;
+    const floor = new RoomWall();
+    floor.position.set(0, -5, 5);
+    floor.rotation.x = Math.PI / 2;
 
-  const ceilingGeo = new THREE.BoxGeometry(10, 10, 1);
-  const ceilingMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-  const ceiling = new THREE.Mesh(ceilingGeo, ceilingMaterial);
-  ceiling.position.x = 0;
-  ceiling.position.y = 5;
-  ceiling.position.z = 5;
-  ceiling.rotation.x = Math.PI / 2;
-  sceneElements.push(wall1, wall2, wall3, wall4, floor, ceiling);
+    const ceiling = new RoomWall();
+    ceiling.position.set(0, 5, 5);
+    ceiling.rotation.x = Math.PI / 2;
+    const exWall1 = new ExhibitionWall();
+    exWall1.position.set(0, -3, 2);
 
-  const exWallGeo = new THREE.BoxGeometry(5, 3, 0.5);
-  const exWallMaterial = new THREE.MeshBasicMaterial({ color: 0x008fff });
-  const exWall = new THREE.Mesh(exWallGeo, exWallMaterial);
-  exWall.position.x = 0;
-  exWall.position.y = -3;
-  exWall.position.z = 2;
+    sceneElements.push(wall1, wall2, wall3, wall4, floor, ceiling, exWall1);
 
-  sceneElements.push(exWall);
+    // Add objects to the scene
+    sceneElements.forEach((element) => scene.add(element));
 
-  for (const element of sceneElements) {
-    scene.add(element);
-  }
+    // Setup lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
 
-  camera.position.x = 5;
-  camera.position.y = 0;
-  camera.position.z = 5;
+    const controls = new OrbitControls(camera, renderer.domElement);
 
-  //   function animate() {
-  //     cube.rotation.x += 0.01;
-  //     cube.rotation.y += 0.01;
-  //     this.cameraControl = new CameraControl(renderer, camera, () => {
-  //       window.requestAnimationFrame(() => renderer.render(scene, camera));
-  //     });
-  //   }
+    // Event listeners
+    function onPointerMove(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
 
-  function setScene() {
-    renderer.render(scene, camera);
-  }
+      if (intersects.length > 0) {
+        const intersectedObject = intersects[0].object;
 
-  renderer.setAnimationLoop(setScene);
+        // Handle hover in
+        if (hoveredObject !== intersectedObject) {
+          if (hoveredObject && hoveredObject.onPointerOut) {
+            hoveredObject.onPointerOut(); // Call the pointer out on the previously hovered object
+          }
+          if (intersectedObject.onPointerOver) {
+            intersectedObject.onPointerOver(); // Call the pointer over on the new object
+          }
+          hoveredObject = intersectedObject;
+        }
+      } else if (hoveredObject) {
+        // No intersection, reset the previous hovered object
+        if (hoveredObject.onPointerOut) {
+          hoveredObject.onPointerOut();
+        }
+        hoveredObject = null;
+      }
+    }
+
+    function onClick(event) {
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      if (intersects.length > 0) {
+        const intersectedObject = intersects[0].object;
+        if (intersectedObject.onClick) {
+          intersectedObject.onClick(); // Handle object click
+        }
+      }
+    }
+
+    // Attach event listeners
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("click", onClick);
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Clean up event listeners on unmount
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("click", onClick);
+      document.body.removeChild(renderer.domElement);
+    };
+  }, []);
+
   return <div>Exhibition</div>;
 }
 
