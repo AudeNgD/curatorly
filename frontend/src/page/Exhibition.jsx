@@ -138,6 +138,7 @@ function Exhibition() {
         const intersectedObject = intersects[0].object;
         if (intersectedObject.onClick) {
           intersectedObject.onClick(); // Handle object click
+          controls.target = intersectedObject.position;
         }
       }
     }
