@@ -30,6 +30,7 @@ function Exhibition() {
 
     const wall1 = new RoomWall();
     wall1.position.set(0, 0, 0);
+
     const wall2 = new RoomWall();
     wall2.position.set(-5, 0, 5);
     wall2.rotation.y = Math.PI / 2;
@@ -48,10 +49,24 @@ function Exhibition() {
     const ceiling = new RoomWall();
     ceiling.position.set(0, 5, 5);
     ceiling.rotation.x = Math.PI / 2;
+
     const exWall1 = new ExhibitionWall();
     exWall1.position.set(0, -3, 2);
 
-    sceneElements.push(wall1, wall2, wall3, wall4, floor, ceiling, exWall1);
+    const exWall2 = new ExhibitionWall();
+    exWall2.position.set(-3, -3, 7);
+    exWall2.rotation.y = Math.PI / 2;
+
+    sceneElements.push(
+      wall1,
+      wall2,
+      wall3,
+      wall4,
+      floor,
+      ceiling,
+      exWall1,
+      exWall2
+    );
 
     // Add objects to the scene
     sceneElements.forEach((element) => scene.add(element));
