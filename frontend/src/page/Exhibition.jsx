@@ -14,15 +14,16 @@ function Exhibition() {
       1000
     );
     camera.position.set(0, 0, 0.1);
-    camera.lookAt(5, 5, 5);
+    //camera.lookAt(5, 5, 5);
 
+    /*
     const dir = new THREE.Vector3(0, 0, 1);
     dir.normalize();
     const origin = new THREE.Vector3(0, 0, 0);
-    const length = 10;
+    const length = 5;
     const hex = 0xffff00;
     const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
-
+    */
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -70,7 +71,6 @@ function Exhibition() {
     exWall2.rotation.y = Math.PI / 2;
 
     sceneElements.push(
-      arrowHelper,
       wall1,
       wall2,
       wall3,
@@ -89,11 +89,14 @@ function Exhibition() {
     scene.add(ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    // controls.enableZoom = false;
-    // controls.maxAzimuthAngle = Math.PI / 2;
-    // controls.minAzimuthAngle = -Math.PI / 2;
+    controls.enableZoom = false;
 
     // Event listeners
+
+    // Attach event listeners to window
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("click", onClick);
+
     function onPointerMove(event) {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
