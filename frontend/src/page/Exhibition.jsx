@@ -139,6 +139,10 @@ function Exhibition() {
         if (intersectedObject.onClick) {
           intersectedObject.onClick(); // Handle object click
           controls.target = intersectedObject.position;
+          const distance = camera.position.distanceTo(
+            intersectedObject.position
+          );
+          camera.position.set(0, distance, 0);
         }
       }
     }
