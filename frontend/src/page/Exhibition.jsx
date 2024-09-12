@@ -142,9 +142,16 @@ function Exhibition() {
             z: -center.z / 10,
             duration: 2,
             onUpdate: () => {
-              camera.fov = 35;
-              camera.updateProjectionMatrix();
               camera.lookAt(center);
+              // camera.fov = 35;
+              // camera.updateProjectionMatrix();
+            },
+          });
+          gsap.to(camera, {
+            fov: 35,
+            duration: 2,
+            onUpdate: () => {
+              camera.updateProjectionMatrix();
             },
           });
         }
