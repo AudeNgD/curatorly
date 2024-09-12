@@ -3,9 +3,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomWall, ExhibitionWall } from "../experience/GalleryObjects";
 import { gsap } from "gsap";
-import { cameraNear } from "three/webgpu";
+import Door from "../experience/Door";
+import loadRoomLabel from "../experience/RoomLabel";
+import loadDoorLabel from "../experience/DoorLabel";
 
 function Exhibition() {
+  const [currentSceneIndex, setCurrentSceneIndex] = React.useState(0);
+  const roomLabels = ["Room 1", "Room 2"];
+  const doorLabels = ["Door 2", "Door 3"];
+
   useEffect(() => {
     // Setup Three.js scene
     const scene = new THREE.Scene();
@@ -44,6 +50,10 @@ function Exhibition() {
     wall4.position.set(10, 2, 0);
     wall4.rotation.y = Math.PI / 2;
 
+    const door = new Door();
+    door.position.set(9, -0.5, -8);
+    door.rotation.y = Math.PI / 2;
+
     const floor = new RoomWall();
     floor.position.set(0, -2, 0);
     floor.rotation.x = Math.PI / 2;
@@ -63,11 +73,20 @@ function Exhibition() {
     exWall2.position.set(-8, 0, 0);
     exWall2.rotation.y = Math.PI / 2;
 
+    loadRoomLabel(`${roomLabels[currentSceneIndex]}`, function (textMesh) {
+      scene.add(textMesh);
+    });
+
+    loadDoorLabel(`${doorLabels[currentSceneIndex]}`, function (textMesh) {
+      scene.add(textMesh);
+    });
+
     sceneElements.push(
       wall1,
       wall2,
       wall3,
       wall4,
+      door,
       floor,
       ceiling,
       exWall1,
@@ -130,11 +149,11 @@ function Exhibition() {
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
         if (intersectedObject.onClick) {
+          console.log(intersectedObject);
           intersectedObject.onClick(); // Handle object click
 
           const aabb = new THREE.Box3().setFromObject(intersectedObject);
           const center = aabb.getCenter(new THREE.Vector3());
-          const size = aabb.getSize(new THREE.Vector3());
 
           gsap.to(camera.position, {
             x: -center.x / 10,
@@ -143,8 +162,6 @@ function Exhibition() {
             duration: 2,
             onUpdate: () => {
               camera.lookAt(center);
-              // camera.fov = 35;
-              // camera.updateProjectionMatrix();
             },
           });
           gsap.to(camera, {
@@ -152,6 +169,11 @@ function Exhibition() {
             duration: 2,
             onUpdate: () => {
               camera.updateProjectionMatrix();
+            },
+            onComplete: () => {
+              if (intersectedObject.isOpen) {
+                setCurrentSceneIndex(1);
+              }
             },
           });
         }
@@ -161,9 +183,7 @@ function Exhibition() {
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
-
       controls.update();
-      //controls.autoRotate = true;
       renderer.render(scene, camera);
     }
 
@@ -175,7 +195,7 @@ function Exhibition() {
       window.removeEventListener("click", onClick);
       document.body.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [currentSceneIndex]);
 
   return <div>Exhibition</div>;
 }
