@@ -6,6 +6,8 @@ import { gsap } from "gsap";
 import Door from "../experience/Door";
 import loadRoomLabel from "../experience/RoomLabel";
 import loadDoorLabel from "../experience/DoorLabel";
+import createRoomWalls from "../experience/RoomWalls";
+import createFloor from "../experience/Floor";
 
 function Exhibition() {
   const [currentSceneIndex, setCurrentSceneIndex] = React.useState(0);
@@ -26,12 +28,20 @@ function Exhibition() {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.outputEncoding = THREE.sRGBEncoding;
+    //renderer.outputEncoding = THREE.sRGBEncoding;
     document.body.appendChild(renderer.domElement);
 
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
     let hoveredObject = null; // Track currently hovered object
+
+    // Setup lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1000, 5);
+    pointLight.position.set(4, 2, -5);
+    scene.add(pointLight);
 
     // Create scene elements
     const sceneElements = [];
@@ -54,17 +64,17 @@ function Exhibition() {
     door.position.set(9, -0.5, -8);
     door.rotation.y = Math.PI / 2;
 
-    const floor = new RoomWall();
-    floor.position.set(0, -2, 0);
-    floor.rotation.x = Math.PI / 2;
-    floor.geometry = new THREE.BoxGeometry(20, 20, 1);
-    floor.material.color.set("brown");
+    // const floor = new RoomWall();
+    // floor.position.set(0, -2, 0);
+    // floor.rotation.x = Math.PI / 2;
+    // floor.geometry = new THREE.BoxGeometry(20, 20, 1);
+    //floor.material.color.set("brown");
 
     const ceiling = new RoomWall();
     ceiling.position.set(0, 6, 0);
     ceiling.rotation.x = Math.PI / 2;
     ceiling.geometry = new THREE.BoxGeometry(20, 20, 1);
-    ceiling.material.color.set("grey");
+    //ceiling.material.color.set("grey");
 
     const exWall1 = new ExhibitionWall();
     exWall1.position.set(0, 0, -8);
@@ -81,25 +91,21 @@ function Exhibition() {
       scene.add(textMesh);
     });
 
+    const walls = createRoomWalls();
+    const floor = createFloor();
+
     sceneElements.push(
-      wall1,
-      wall2,
-      wall3,
-      wall4,
+      walls,
+      // wall1,
+      // wall2,
+      // wall3,
+      // wall4,
       door,
       floor,
-      ceiling,
+      // ceiling,
       exWall1,
       exWall2
     );
-
-    // Setup lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xffffff, 1000, 5);
-    pointLight.position.set(4, 2, -5);
-    scene.add(pointLight);
 
     // Add objects to the scene
     sceneElements.forEach((element) => scene.add(element));
