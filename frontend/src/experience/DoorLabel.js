@@ -9,14 +9,15 @@ function loadDoorLabel(text, callback) {
   loader.load("/fonts/helvetiker_regular.typeface.json", function (font) {
     let geometry = new TextGeometry(text, {
       font: font,
-      size: 1,
+      size: 0.25,
       depth: 0.1,
       curveSegments: 12,
       bevelEnabled: false,
     });
     let material = new THREE.MeshBasicMaterial({ color: 0xffffff });
     let textMesh = new THREE.Mesh(geometry, material);
-    textMesh.position.set(0, 3, -6);
+    textMesh.position.set(9, 1, -8.5);
+    textMesh.rotation.y = -Math.PI / 2;
     callback(textMesh);
   });
 }

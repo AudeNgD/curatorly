@@ -9,7 +9,8 @@ import loadDoorLabel from "../experience/DoorLabel";
 
 function Exhibition() {
   const [currentSceneIndex, setCurrentSceneIndex] = React.useState(0);
-  const objectInScene = ["Room 1", "Room 2"];
+  const roomLabels = ["Room 1", "Room 2"];
+  const doorLabels = ["Door 2", "Door 3"];
 
   useEffect(() => {
     // Setup Three.js scene
@@ -72,12 +73,11 @@ function Exhibition() {
     exWall2.position.set(-8, 0, 0);
     exWall2.rotation.y = Math.PI / 2;
 
-    // loadDoorLabel(`${objectInScene[currentSceneIndex]}`, function (textMesh) {
-    //   console.log(textMesh);
-    //   sceneElements.push(textMesh);
-    // });
+    loadRoomLabel(`${roomLabels[currentSceneIndex]}`, function (textMesh) {
+      scene.add(textMesh);
+    });
 
-    loadDoorLabel(`${objectInScene[currentSceneIndex]}`, function (textMesh) {
+    loadDoorLabel(`${doorLabels[currentSceneIndex]}`, function (textMesh) {
       scene.add(textMesh);
     });
 
@@ -170,11 +170,12 @@ function Exhibition() {
             onUpdate: () => {
               camera.updateProjectionMatrix();
             },
+            onComplete: () => {
+              if (intersectedObject.isOpen) {
+                setCurrentSceneIndex(1);
+              }
+            },
           });
-
-          if (intersectedObject.isOpen) {
-            setCurrentSceneIndex(2);
-          }
         }
       }
     }
@@ -194,7 +195,7 @@ function Exhibition() {
       window.removeEventListener("click", onClick);
       document.body.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [currentSceneIndex]);
 
   return <div>Exhibition</div>;
 }

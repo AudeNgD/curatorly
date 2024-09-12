@@ -17,7 +17,7 @@ function loadRoomLabel(text, callback) {
     });
     let material = new THREE.MeshBasicMaterial({ color: 0xffffff });
     let textMesh = new THREE.Mesh(geometry, material);
-    textMesh.position.set(0, 6, -10);
+    textMesh.position.set(0, 3, -6);
     callback(textMesh);
   });
 }
