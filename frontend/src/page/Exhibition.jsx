@@ -3,10 +3,14 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomWall, ExhibitionWall } from "../experience/GalleryObjects";
 import { gsap } from "gsap";
-import { cameraNear } from "three/webgpu";
 import Door from "../experience/Door";
+import loadRoomLabel from "../experience/RoomLabel";
+import loadDoorLabel from "../experience/DoorLabel";
 
 function Exhibition() {
+  const [currentSceneIndex, setCurrentSceneIndex] = React.useState(0);
+  const objectInScene = ["Room 1", "Room 2"];
+
   useEffect(() => {
     // Setup Three.js scene
     const scene = new THREE.Scene();
@@ -67,6 +71,15 @@ function Exhibition() {
     const exWall2 = new ExhibitionWall();
     exWall2.position.set(-8, 0, 0);
     exWall2.rotation.y = Math.PI / 2;
+
+    // loadDoorLabel(`${objectInScene[currentSceneIndex]}`, function (textMesh) {
+    //   console.log(textMesh);
+    //   sceneElements.push(textMesh);
+    // });
+
+    loadDoorLabel(`${objectInScene[currentSceneIndex]}`, function (textMesh) {
+      scene.add(textMesh);
+    });
 
     sceneElements.push(
       wall1,
@@ -136,6 +149,7 @@ function Exhibition() {
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
         if (intersectedObject.onClick) {
+          console.log(intersectedObject);
           intersectedObject.onClick(); // Handle object click
 
           const aabb = new THREE.Box3().setFromObject(intersectedObject);
@@ -157,6 +171,10 @@ function Exhibition() {
               camera.updateProjectionMatrix();
             },
           });
+
+          if (intersectedObject.isOpen) {
+            setCurrentSceneIndex(2);
+          }
         }
       }
     }
