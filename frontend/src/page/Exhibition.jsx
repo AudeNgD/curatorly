@@ -8,6 +8,7 @@ import loadRoomLabel from "../experience/RoomLabel";
 import loadDoorLabel from "../experience/DoorLabel";
 import createRoomWalls from "../experience/RoomWalls";
 import createFloor from "../experience/Floor";
+import setupLighting from "../experience/Lighting";
 
 function Exhibition() {
   const [currentSceneIndex, setCurrentSceneIndex] = React.useState(0);
@@ -23,10 +24,11 @@ function Exhibition() {
       0.1,
       1000
     );
-    camera.position.set(0, 0, 0.1);
+    camera.position.set(0, 0, 5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    //renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.outerWidth, window.outerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     //renderer.outputEncoding = THREE.sRGBEncoding;
     document.body.appendChild(renderer.domElement);
@@ -36,39 +38,20 @@ function Exhibition() {
     let hoveredObject = null; // Track currently hovered object
 
     // Setup lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
+    // const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    // scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1000, 5);
-    pointLight.position.set(4, 2, -5);
-    scene.add(pointLight);
+    // const pointLight = new THREE.PointLight(0xffffff, 1000, 5);
+    // pointLight.position.set(4, 2, -5);
+    // scene.add(pointLight);
+    const lights = setupLighting();
 
     // Create scene elements
     const sceneElements = [];
 
-    const wall1 = new RoomWall();
-    wall1.position.set(0, 2, -10);
-
-    const wall2 = new RoomWall();
-    wall2.position.set(-10, 2, 0);
-    wall2.rotation.y = Math.PI / 2;
-
-    const wall3 = new RoomWall();
-    wall3.position.set(0, 2, 10);
-
-    const wall4 = new RoomWall();
-    wall4.position.set(10, 2, 0);
-    wall4.rotation.y = Math.PI / 2;
-
     const door = new Door();
-    door.position.set(9, -0.5, -8);
+    door.position.set(39, -2.5, -38);
     door.rotation.y = Math.PI / 2;
-
-    // const floor = new RoomWall();
-    // floor.position.set(0, -2, 0);
-    // floor.rotation.x = Math.PI / 2;
-    // floor.geometry = new THREE.BoxGeometry(20, 20, 1);
-    //floor.material.color.set("brown");
 
     const ceiling = new RoomWall();
     ceiling.position.set(0, 6, 0);
@@ -77,10 +60,10 @@ function Exhibition() {
     //ceiling.material.color.set("grey");
 
     const exWall1 = new ExhibitionWall();
-    exWall1.position.set(0, 0, -8);
+    exWall1.position.set(0, -0.5, -38);
 
     const exWall2 = new ExhibitionWall();
-    exWall2.position.set(-8, 0, 0);
+    exWall2.position.set(-38, -0.5, 0);
     exWall2.rotation.y = Math.PI / 2;
 
     loadRoomLabel(`${roomLabels[currentSceneIndex]}`, function (textMesh) {
@@ -95,11 +78,8 @@ function Exhibition() {
     const floor = createFloor();
 
     sceneElements.push(
+      lights,
       walls,
-      // wall1,
-      // wall2,
-      // wall3,
-      // wall4,
       door,
       floor,
       // ceiling,
@@ -111,7 +91,7 @@ function Exhibition() {
     sceneElements.forEach((element) => scene.add(element));
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = false;
+    //controls.enableZoom = false;
 
     // Event listeners
 

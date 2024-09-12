@@ -36,23 +36,20 @@ function createRoomWalls() {
     "/texture/lumpy-wet-concrete-bl/lumpy-wet-concrete_metallic.png"
   );
 
-  rwTextureNormal.wrapS = THREE.RepeatWrapping;
-  rwTextureNormal.wrapT = THREE.RepeatWrapping;
+  const textures = [
+    rwTextureNormal,
+    rwTextureAlbedo,
+    rwTextureRoughness,
+    rwTextureAO,
+    rwTextureMetallic,
+    rwTextureHeight,
+  ];
 
-  rwTextureAlbedo.wrapS = THREE.RepeatWrapping;
-  rwTextureAlbedo.wrapT = THREE.RepeatWrapping;
-
-  rwTextureRoughness.wrapS = THREE.RepeatWrapping;
-  rwTextureRoughness.wrapT = THREE.RepeatWrapping;
-
-  rwTextureAO.wrapS = THREE.RepeatWrapping;
-  rwTextureAO.wrapT = THREE.RepeatWrapping;
-
-  rwTextureMetallic.wrapS = THREE.RepeatWrapping;
-  rwTextureMetallic.wrapT = THREE.RepeatWrapping;
-
-  rwTextureHeight.wrapS = THREE.RepeatWrapping;
-  rwTextureHeight.wrapT = THREE.RepeatWrapping;
+  textures.forEach((texture) => {
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(10, 10);
+  });
 
   const rwMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
@@ -83,7 +80,39 @@ function createRoomWalls() {
   rWall.position.x = 20;
   rWall.rotation.y = Math.PI / 2;
 
-  roomWallsGroup.add(fWall, bWall, lWall, rWall);
+  // wall lines
+  const wallEdgesFWall = new THREE.EdgesGeometry(fWall.geometry);
+  const wallEdgesBWall = new THREE.EdgesGeometry(bWall.geometry);
+  const wallEdgesLWall = new THREE.EdgesGeometry(lWall.geometry);
+  const wallEdgesRWall = new THREE.EdgesGeometry(rWall.geometry);
+
+  const wallLineFWall = new THREE.LineSegments(
+    wallEdgesFWall,
+    new THREE.LineBasicMaterial({ color: 0x660000 })
+  );
+  const wallLineBWall = new THREE.LineSegments(
+    wallEdgesBWall,
+    new THREE.LineBasicMaterial({ color: 0x660000 })
+  );
+  const wallLineLWall = new THREE.LineSegments(
+    wallEdgesLWall,
+    new THREE.LineBasicMaterial({ color: 0x660000 })
+  );
+  const wallLineRWall = new THREE.LineSegments(
+    wallEdgesRWall,
+    new THREE.LineBasicMaterial({ color: 0x660000 })
+  );
+
+  roomWallsGroup.add(
+    fWall,
+    bWall,
+    lWall,
+    rWall,
+    wallLineFWall,
+    wallLineBWall,
+    wallLineLWall,
+    wallLineRWall
+  );
 
   return roomWallsGroup;
 }

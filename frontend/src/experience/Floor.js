@@ -50,7 +50,7 @@ function createFloor() {
     side: THREE.DoubleSide,
   });
 
-  const floorGeometry = new THREE.PlaneGeometry(45, 45);
+  const floorGeometry = new THREE.PlaneGeometry(80, 80);
 
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 
