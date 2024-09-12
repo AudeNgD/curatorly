@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomWall, ExhibitionWall } from "../experience/GalleryObjects";
+import { gsap } from "gsap";
+import { cameraNear } from "three/webgpu";
 
 function Exhibition() {
   useEffect(() => {
@@ -14,16 +16,7 @@ function Exhibition() {
       1000
     );
     camera.position.set(0, 0, 0.1);
-    //camera.lookAt(5, 5, 5);
 
-    /*
-    const dir = new THREE.Vector3(0, 0, 1);
-    dir.normalize();
-    const origin = new THREE.Vector3(0, 0, 0);
-    const length = 5;
-    const hex = 0xffff00;
-    const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
-    */
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -138,11 +131,22 @@ function Exhibition() {
         const intersectedObject = intersects[0].object;
         if (intersectedObject.onClick) {
           intersectedObject.onClick(); // Handle object click
-          controls.target = intersectedObject.position;
-          const distance = camera.position.distanceTo(
-            intersectedObject.position
-          );
-          camera.position.set(0, distance, 0);
+
+          const aabb = new THREE.Box3().setFromObject(intersectedObject);
+          const center = aabb.getCenter(new THREE.Vector3());
+          const size = aabb.getSize(new THREE.Vector3());
+
+          gsap.to(camera.position, {
+            x: -center.x / 10,
+            y: -center.y / 10,
+            z: -center.z / 10,
+            duration: 2,
+            onUpdate: () => {
+              camera.fov = 35;
+              camera.updateProjectionMatrix();
+              camera.lookAt(center);
+            },
+          });
         }
       }
     }
