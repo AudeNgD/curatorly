@@ -24,7 +24,7 @@ export const fetchArtworks = (params) => {
     const rijksFormatting = artistName.split(" ").join("+");
     const rijksQuery = `?key=${
       import.meta.env.VITE_APP_RIJKS_API_KEY
-    }&q=${rijksFormatting}`;
+    }&involvedMaker=${rijksFormatting}`;
     console.log("rijksQuery", rijksQuery);
     const europeanaQuery = `?query=who:(${artistName})`;
     console.log("europeanaQuery", europeanaQuery);
