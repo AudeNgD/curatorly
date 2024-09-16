@@ -3,7 +3,7 @@ import "./App.css";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Shortlist from "./components/Shortlist";
-import SearchResults from "./components/SearchResults";
+import SearchResults from "./page/SearchResults";
 import Home from "./page/Home";
 import Exhibition from "./page/Exhibition";
 
