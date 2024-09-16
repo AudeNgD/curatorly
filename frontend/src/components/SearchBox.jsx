@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Checkbox from "./Checkbox";
+import { Link, useNavigate } from "react-router-dom";
 
 function SearchBox() {
   const [europeanaChecked, setEuropeanaChecked] = useState(true);
   const [rijksmuseumChecked, setRijksmuseumChecked] = useState(true);
   const [artistName, setArtistName] = useState("");
+
+  const navigate = useNavigate();
 
   function handleEuropeanaCheckbox(event) {
     setEuropeanaChecked(!europeanaChecked);
@@ -14,14 +17,20 @@ function SearchBox() {
   }
 
   function getArtistName(event) {
-    const artistName = event.target.value;
-    console.log(artistName);
-    setArtistName(artistName);
+    if (event.target.value !== undefined) {
+      const artistName = event.target.value;
+      setArtistName(artistName);
+    }
   }
 
   function submitSearch(event) {
     event.preventDefault();
-    console.log(event.target.value);
+    const aName = artistName.split(" ").join("+");
+    const eChecked = europeanaChecked;
+    const rChecked = rijksmuseumChecked;
+    const qString = `?aname=${aName}&echeck=${eChecked}&rcheck=${rChecked}`;
+
+    navigate(`/results${qString}`);
   }
 
   return (
@@ -29,12 +38,12 @@ function SearchBox() {
       <div id="search-form-checkboxes">
         <Checkbox
           label="Europeana"
-          value="europeana"
+          value={europeanaChecked}
           onChange={handleEuropeanaCheckbox}
         />
         <Checkbox
           label="Rijksmuseum"
-          value="rijksmuseum"
+          value={rijksmuseumChecked}
           onChange={handleRijksmuseumCheckbox}
         />
       </div>

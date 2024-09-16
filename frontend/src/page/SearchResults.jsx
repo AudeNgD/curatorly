@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { testConcurrentAPIs } from "../../services/apis";
+import { fetchArtworks } from "../../services/apis";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
 
 function SearchResults() {
+  const [searchParams, setSearchParams] = useState(useSearchParams());
   const [results, setResults] = useState();
-  const searchParams = "Leonardo da Vinci";
-  //const [favourites, setFavourites] = useState(getStoredData);
   const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
 
   useEffect(() => {
-    testConcurrentAPIs(searchParams).then((res) => {
+    fetchArtworks(searchParams).then((res) => {
       setResults(res);
     });
   }, []);
