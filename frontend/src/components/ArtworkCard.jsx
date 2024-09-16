@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa6";
 
-export default function ArtworkCard({ artworks }) {
+export default function ArtworkCard(props) {
+  const results = props.artworks;
   const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
 
   function getStoredData() {
@@ -22,11 +23,11 @@ export default function ArtworkCard({ artworks }) {
   }
   return (
     <>
-      <p id="card-count">Found {artworks.length} artworks</p>
+      <p id="card-count">Found {results.length} artworks</p>
       <div id="artwork-card">
-        {artworks.map((artwork) => {
+        {results.map((artwork, index) => {
           return (
-            <div key={artwork.id} className="card">
+            <div key={artwork.id + index} className="card">
               <img src={artwork.imageUrl} alt={artwork.title} />
               <button
                 className="fav-button"

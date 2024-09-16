@@ -13,15 +13,14 @@ export default function ResultsList() {
   useEffect(() => {
     fetchArtworks(searchParams).then((res) => {
       const formattedRes = formatResponse(res);
-      console.log(formattedRes);
       setResults(formattedRes);
     });
   }, []);
 
   return (
     <div id="results-container">
-      {results && results.count && results.count !== 0 ? (
-        <ArtworkCard artworks={results.artwork} />
+      {results && results.length > 0 ? (
+        <ArtworkCard artworks={results} />
       ) : (
         <p>No results found</p>
       )}

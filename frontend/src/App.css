@@ -260,7 +260,7 @@ nav > ul > li > a:hover {
   width: 80%;
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
 }
@@ -271,7 +271,7 @@ nav > ul > li > a:hover {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-content: flex-start;
   gap: 10px;
 }
 
@@ -280,7 +280,7 @@ nav > ul > li > a:hover {
   font-family: "Karla", sans-serif;
   color: var(--dark-brown);
   margin: 0;
-  padding-left: 85px;
+  padding-right: 1160px;
 }
 
 .card {

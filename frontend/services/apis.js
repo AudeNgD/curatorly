@@ -16,40 +16,60 @@ export const fetchArtworks = (params) => {
   const artistName = params[0].get("aname");
   const europeanaChecked = params[0].get("echeck");
   const rijksmuseumChecked = params[0].get("rcheck");
+  console.log(rijksmuseumChecked);
 
   let europeanaPromise = null;
   let rijskPromise = null;
+
+  //if artist name is empty, return all top artworks from both museums
+  if (artistName === "") {
+    const rijksQuery = `?key=${
+      import.meta.env.VITE_APP_RIJKS_API_KEY
+    }&toppieces=true`;
+    const europeanaQuery = `?query=who:*`;
+    rijskPromise = rijksAPI.get(rijksQuery);
+    europeanaPromise = europeanaAPI.get(europeanaQuery);
+  }
 
   if (artistName !== "") {
     const rijksFormatting = artistName.split(" ").join("+");
     const rijksQuery = `?key=${
       import.meta.env.VITE_APP_RIJKS_API_KEY
-    }&involvedMaker=${rijksFormatting}`;
-    console.log("rijksQuery", rijksQuery);
+    }&involvedMaker=${rijksFormatting}&profile=rich`;
     const europeanaQuery = `?query=who:(${artistName})`;
-    console.log("europeanaQuery", europeanaQuery);
-
     rijskPromise = rijksAPI.get(rijksQuery);
-    console.log("rijskPromise", rijskPromise);
-
     europeanaPromise = europeanaAPI.get(europeanaQuery);
-    console.log("europeanaPromise", europeanaPromise);
   }
   //send only the promises for the museums that have been checked
+  //as a param it is a string
   let promises = [];
-  if (europeanaChecked) {
+  if (europeanaChecked === "true") {
     promises.push(europeanaPromise);
   }
-  if (rijksmuseumChecked) {
+  if (rijksmuseumChecked === "true") {
     promises.push(rijskPromise);
   }
 
+  if (promises.length === 0) {
+    return Promise.resolve(null);
+  }
+
   return Promise.all(promises).then((results) => {
-    const data = {
-      items: results[0].data.items,
-      artObjects: results[1].data.artObjects,
-    };
-    console.log("data", data);
+    let data = {};
+
+    if (results.length === 1) {
+      if (results[0].data.items) {
+        return (data = { items: results[0].data.items, artObjects: [] });
+      } else {
+        return (data = { items: [], artObjects: results[0].data.artObjects });
+      }
+    } else if (results.length === 2) {
+      return (data = {
+        items: results[0].data.items,
+        artObjects: results[1].data.artObjects,
+      });
+    }
+    console.log(data);
     return data;
   });
 };
