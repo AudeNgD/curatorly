@@ -9,27 +9,31 @@ const europeanaAPI = axios.create({
 });
 
 const rijksAPI = axios.create({
-  baseURL: `https://www.rijksmuseum.nl/api/en/collection?key=${
-    import.meta.env.VITE_APP_RIJKS_API_KEY
-  }&`,
+  baseURL: `https://www.rijksmuseum.nl/api/en/collection`,
 });
 
 export const fetchArtworks = (params) => {
   const artistName = params[0].get("aname");
   const europeanaChecked = params[0].get("echeck");
   const rijksmuseumChecked = params[0].get("rcheck");
-  console.log("here params", params[0].get("aname"));
 
   let europeanaPromise = null;
   let rijskPromise = null;
 
   if (artistName !== "") {
     const rijksFormatting = artistName.split(" ").join("+");
-    const rijksQuery = `involvedMaker=${rijksFormatting}`;
+    const rijksQuery = `?key=${
+      import.meta.env.VITE_APP_RIJKS_API_KEY
+    }&q=${rijksFormatting}`;
+    console.log("rijksQuery", rijksQuery);
     const europeanaQuery = `?query=who:(${artistName})`;
+    console.log("europeanaQuery", europeanaQuery);
 
     rijskPromise = rijksAPI.get(rijksQuery);
+    console.log("rijskPromise", rijskPromise);
+
     europeanaPromise = europeanaAPI.get(europeanaQuery);
+    console.log("europeanaPromise", europeanaPromise);
   }
   //send only the promises for the museums that have been checked
   let promises = [];
@@ -45,6 +49,7 @@ export const fetchArtworks = (params) => {
       items: results[0].data.items,
       artObjects: results[1].data.artObjects,
     };
+    console.log("data", data);
     return data;
   });
 };
