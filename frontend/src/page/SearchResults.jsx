@@ -8,7 +8,7 @@ import formatResponse from "../utils/responseFormatting";
 
 function SearchResults() {
   const searchParams = useSearchParams();
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState([]);
   const [queryParamsString, setQueryParamsString] = useState("");
 
   useEffect(() => {
@@ -22,7 +22,6 @@ function SearchResults() {
     if (queryParamsString) {
       fetchArtworks(searchParams).then((res) => {
         const formattedRes = formatResponse(res);
-        console.log(formattedRes);
         setResults((...currentResults) => formattedRes);
       });
     }

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 export default function Filter({ artworks }) {
+  console.log("in filter", artworks);
   const [results, setResults] = useState({ ...artworks });
   const [expanded, setExpanded] = useState(false);
   const [uniqueArtists, setUniqueArtists] = useState([]);
@@ -18,9 +19,10 @@ export default function Filter({ artworks }) {
     if (results && results.length > 0) {
       const artistList = results.map((result) => result.artist);
       const uniqueArtists = [...new Set(artistList)];
+
       setUniqueArtists(uniqueArtists);
     }
-  }, [results, artworks]);
+  }, [artworks, results]);
 
   const handleToggle = () => {
     setExpanded(!expanded);
@@ -29,16 +31,11 @@ export default function Filter({ artworks }) {
   const handleFilter = (event) => {
     event.preventDefault();
     const artist = event.target.value;
-
     setCurrentSearchParams((params) => {
       params.set("aname", artist);
-      console.log(params);
       return params;
     });
-
     const qString = createSearchParams(currentSearchParams).toString();
-
-    console.log(qString);
     navigate(`/results?${qString}`);
   };
 
