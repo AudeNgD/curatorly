@@ -1,5 +1,4 @@
 export default function formatResponse(response) {
-  console.log(response);
   const artObjects = response.artObjects ? response.artObjects : [];
   const items = response.items ? response.items : [];
   let formattedArtObjects = {};

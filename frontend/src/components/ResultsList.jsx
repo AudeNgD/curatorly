@@ -6,16 +6,17 @@ import { fetchArtworks } from "../../services/apis";
 import formatResponse from "../utils/responseFormatting";
 import ArtworkCard from "./ArtworkCard";
 
-export default function ResultsList() {
-  const [searchParams, setSearchParams] = useState(useSearchParams());
-  const [results, setResults] = useState({});
+export default function ResultsList(props) {
+  //   const [searchParams, setSearchParams] = useState(useSearchParams());
+  //   const [results, setResults] = useState({});
 
-  useEffect(() => {
-    fetchArtworks(searchParams).then((res) => {
-      const formattedRes = formatResponse(res);
-      setResults(formattedRes);
-    });
-  }, []);
+  //   useEffect(() => {
+  //     fetchArtworks(searchParams).then((res) => {
+  //       const formattedRes = formatResponse(res);
+  //       setResults(formattedRes);
+  //     });
+  //   }, []);
+  const results = props.artworks;
 
   return (
     <div id="results-container">

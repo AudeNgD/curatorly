@@ -10,13 +10,16 @@ const europeanaAPI = axios.create({
 
 const rijksAPI = axios.create({
   baseURL: `https://www.rijksmuseum.nl/api/en/collection`,
+  headers: {
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
 });
 
 export const fetchArtworks = (params) => {
   const artistName = params[0].get("aname");
   const europeanaChecked = params[0].get("echeck");
   const rijksmuseumChecked = params[0].get("rcheck");
-  console.log(rijksmuseumChecked);
 
   let europeanaPromise = null;
   let rijskPromise = null;
@@ -69,7 +72,6 @@ export const fetchArtworks = (params) => {
         artObjects: results[1].data.artObjects,
       });
     }
-    console.log(data);
     return data;
   });
 };
