@@ -1,71 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { fetchArtworks } from "../../services/apis";
-import { FaHeart } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa6";
+import React from "react";
+import Filter from "../components/Filter";
+import ResultsList from "../components/ResultsList";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { fetchArtworks } from "../../services/apis";
+import formatResponse from "../utils/responseFormatting";
 
 function SearchResults() {
-  const [searchParams, setSearchParams] = useState(useSearchParams());
-  const [results, setResults] = useState();
-  const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
+  const searchParams = useSearchParams();
+  const [results, setResults] = useState({});
+  const [queryParamsString, setQueryParamsString] = useState("");
 
   useEffect(() => {
-    fetchArtworks(searchParams).then((res) => {
-      setResults(res);
-    });
-  }, []);
-
-  function getStoredData() {
-    const storedData = localStorage.getItem("favourites");
-    return storedData ? JSON.parse(storedData) : [];
-  }
-
-  function handleFavouriteClick(id) {
-    let currentFavourites = [...toggledFavourites];
-    if (!currentFavourites.includes(id)) {
-      currentFavourites = [...currentFavourites, id];
-    } else {
-      currentFavourites = currentFavourites.filter((item) => item !== id);
+    const paramsString = searchParams.toString();
+    if (paramsString !== queryParamsString) {
+      setQueryParamsString(paramsString); // Only update if it has changed
     }
-    isToggledFavourites(currentFavourites);
-    localStorage.setItem("favourites", JSON.stringify(currentFavourites));
-  }
+  }, [searchParams, queryParamsString]);
+
+  useEffect(() => {
+    if (queryParamsString) {
+      fetchArtworks(searchParams).then((res) => {
+        const formattedRes = formatResponse(res);
+        console.log(formattedRes);
+        setResults((...currentResults) => formattedRes);
+      });
+    }
+  }, [queryParamsString]);
 
   return (
-    <>
-      {results && results.items && results.items.length > 0 ? (
-        <>
-          {results.items.map((result) => {
-            return (
-              <div key={result.id}>
-                <h2>{result.title}</h2>
-                <img src={result.edmPreview} alt={result.title} />
-                <button
-                  onClick={() => handleFavouriteClick(result.id)}
-                  value={result}
-                >
-                  {toggledFavourites.includes(result.id) ? (
-                    <FaHeart />
-                  ) : (
-                    <FaRegHeart />
-                  )}
-                </button>
-              </div>
-            );
-          })}
-          {results.artObjects.map((result) => {
-            return (
-              <div key={result.id}>
-                <h2>{result.title}</h2>
-                <img src={result.webImage.url} alt={result.title} />
-              </div>
-            );
-          })}
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </>
+    <div id="searchresults-container">
+      <h1>Search Results</h1>
+      <section id="filter-results">
+        <Filter artworks={results} />
+        <ResultsList artworks={results} />
+      </section>
+    </div>
   );
 }
 

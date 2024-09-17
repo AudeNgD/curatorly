@@ -27,6 +27,7 @@ body {
   --dark-brown: #555345;
   --light-grey: #e9e8ec;
   --light-cream: #d9c3a0;
+  --dark-purple: #8134df;
 }
 
 .playfair-display-normal {
@@ -215,5 +216,220 @@ nav > ul > li > a:hover {
 }
 
 #search-form > button:hover {
+  color: var(--light-cream);
+}
+
+/* SEARCH RESULTS */
+
+#searchresults-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;
+  justify-content: center; */
+  background-color: var(--light-grey);
+}
+
+#searchresults-container > h1 {
+  font-size: 3.5em;
+  color: var(--dark-brown);
+  font-family: "Playfair Display", serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* FILTERS */
+
+#filter-results {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  margin-top: 20px;
+}
+
+#filter-container {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: baseline;
+  padding-left: 50px;
+}
+
+#filter-container > h2 {
+  font-size: 1.5em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  align-items: baseline;
+  padding: 0;
+}
+
+.filter-list-title {
+  padding: 0;
+  margin: 0;
+  color: var(--dark-brown);
+  text-align: left;
+}
+
+.collapsed {
+  list-style: "+ ";
+}
+
+.expanded {
+  list-style: "- ";
+}
+
+.filter-title {
+  font-size: 1.2em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-grey);
+  border: none;
+}
+
+.filter-option-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-option {
+  font-size: 1em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+  list-style: ">";
+  background-color: var(--light-grey);
+  border: none;
+}
+
+.filter-option:hover {
+  border-bottom: 1px solid var(--dark-brown);
+}
+
+/* RESULTS */
+
+#results-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#artwork-card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 10px;
+}
+
+#card-count {
+  font-size: 1.5em;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+  padding-right: 1160px;
+}
+
+.card {
+  width: 300px;
+  height: 450px;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-grey);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card > img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.fav-button {
+  margin-top: -30px;
+  margin-left: 245px;
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+  padding-top: 3px;
+  background-color: var(--dark-purple);
+  border-color: var(--dark-purple);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-family: "Karla", sans-serif;
+  font-weight: 600;
+  color: var(--dark-brown);
+  /* height: 40px; */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 0;
+  text-overflow: ellipsis"...";
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
+}
+
+.card-artist {
+  font-size: 1.2em;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+}
+
+.card-museum {
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+}
+
+.card > a {
+  width: 100%;
+  height: 40px;
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  font-weight: 600;
+  background-color: var(--dark-brown);
+  margin-top: 10px;
+  padding: 0px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.card > a:hover {
   color: var(--light-cream);
 }
