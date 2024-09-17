@@ -1,11 +1,11 @@
 export default function formatResponse(response) {
   const artObjects = response.artObjects ? response.artObjects : [];
   const items = response.items ? response.items : [];
-  let formattedArtObjects = {};
-  let formattedItems = {};
+  let formattedArtObjects = [];
+  let formattedItems = [];
 
   if (artObjects.length === 0 && items.length === 0) {
-    return {};
+    return [];
   }
 
   if (artObjects.length > 0) {
@@ -49,5 +49,6 @@ export default function formatResponse(response) {
   }
 
   const artwork = formattedArtObjects.concat(formattedItems);
+  //returns an array of objects
   return artwork;
 }
