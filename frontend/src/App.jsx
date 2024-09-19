@@ -23,9 +23,9 @@ function App() {
           <Route path="/shortlist" element={<Shortlist />}></Route>
           <Route path="/results" element={<SearchResults />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
-          <Route path="/2d-exhibition" element={<Exhibition2D />}></Route>
         </Route>
+        <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
+        <Route path="/2d-exhibition" element={<Exhibition2D />}></Route>
       </Routes>
     </>
   );
