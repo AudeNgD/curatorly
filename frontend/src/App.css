@@ -555,6 +555,7 @@ nav > ul > li > a:hover {
 
 #twod-artwork-middle {
   height: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -611,11 +612,35 @@ nav > ul > li > a:hover {
 #twod-artwork-image {
   border: 5px solid var(--light-cream);
   display: block;
+  max-width: 89%;
+  max-height: 89%;
+  /* width: auto;
+  height: auto; */
+  border-radius: 10px;
+}
+
+#twod-zoom-image {
+  border: 5px solid var(--light-cream);
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  /* width: auto;
+  height: auto; */
+  border-radius: 10px;
+}
+
+#twod-zoom-container {
+  display: inline-block;
+  position: relative;
   max-width: 90%;
   max-height: 90%;
-  width: auto;
-  height: auto;
-  border-radius: 10px;
+}
+
+#twod-zoom-img-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #twod-artwork-buttons {
@@ -654,4 +679,9 @@ nav > ul > li > a:hover {
 .active {
   border: 4px solid black;
   height: 145px;
+}
+
+.zoom {
+  display: block;
+  position: relative;
 }

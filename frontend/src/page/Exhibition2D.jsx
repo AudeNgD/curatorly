@@ -5,8 +5,8 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import { TbZoomCheckFilled } from "react-icons/tb";
 import { TbZoomCancelFilled } from "react-icons/tb";
 import { FaInfo } from "react-icons/fa";
-
 import Tooltip from "@mui/material/Tooltip";
+import ZoomIn from "../components/ZoomIn";
 
 function Exhibition2D() {
   const [shortlist, setShortlist] = useState([]);
@@ -36,7 +36,6 @@ function Exhibition2D() {
         e.key === "ArrowRight" &&
         currentArtworkIndex < shortlist.length - 1
       ) {
-        console.log("here");
         setCurrentArtworkIndex((artworkIdx) => artworkIdx + 1);
       }
     }
@@ -48,23 +47,10 @@ function Exhibition2D() {
     };
   }, [currentArtworkIndex]);
 
+  //handle zoom in image
+
   function handleZoomClick() {
     setZoomActive(!zoomActive);
-  }
-
-  function handleMouseZoom(e) {
-    if (zoomActive) {
-      const image = e.target;
-      const offsetX = e.nativeEvent.offsetX;
-      const offsetY = e.nativeEvent.offsetY;
-      const { width, height } = image.getBoundingClientRect();
-      const x = (offsetX / width) * 100;
-      const y = (offsetY / height) * 100;
-      image.style.offsetX = `${x}%`;
-      image.style.offsetY = `${y}%`;
-      image.style.transformOrigin = `${x}% ${y}%`;
-      image.style.transform = "scale(1.1)";
-    }
   }
 
   function handleInfoClick() {
@@ -102,12 +88,19 @@ function Exhibition2D() {
           ) : null}
         </div>
         <div id="twod-artwork-middle">
-          <img
-            id="twod-artwork-image"
-            src={currentArtwork?.imageUrl}
-            alt={currentArtwork?.title}
-            onMouseMove={handleMouseZoom}
-          />
+          {zoomActive ? (
+            <ZoomIn
+              src={currentArtwork?.imageUrl}
+              alt={currentArtwork?.title}
+              id="twod-zoom-image"
+            />
+          ) : (
+            <img
+              id="twod-artwork-image"
+              src={currentArtwork?.imageUrl}
+              alt={currentArtwork?.title}
+            />
+          )}
 
           <div id="twod-artwork-buttons">
             <button id="twod-artwork-zoom" onClick={handleZoomClick}>
