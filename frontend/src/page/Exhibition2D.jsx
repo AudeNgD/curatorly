@@ -26,6 +26,28 @@ function Exhibition2D() {
     }
   });
 
+  //detect keyboard events arrow left and right to move between artworks
+
+  useEffect(() => {
+    function handleKeyPress(e) {
+      if (e.key === "ArrowLeft" && currentArtworkIndex > 0) {
+        setCurrentArtworkIndex((artworkIdx) => artworkIdx - 1);
+      } else if (
+        e.key === "ArrowRight" &&
+        currentArtworkIndex < shortlist.length - 1
+      ) {
+        console.log("here");
+        setCurrentArtworkIndex((artworkIdx) => artworkIdx + 1);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [currentArtworkIndex]);
+
   function handleZoomClick() {
     setZoomActive(!zoomActive);
   }
@@ -66,6 +88,8 @@ function Exhibition2D() {
               <p>{currentArtwork?.description}</p>
               <p>{currentArtwork?.artist}</p>
               <p>{currentArtwork?.year}</p>
+              <p>{currentArtwork?.medium}</p>
+              <p>{currentArtwork?.museum}</p>
             </div>
           ) : null}
           {currentArtworkIndex > 0 ? (
