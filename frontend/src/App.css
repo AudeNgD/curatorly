@@ -29,6 +29,7 @@ body {
   --light-grey: #e9e8ec;
   --light-cream: #d9c3a0;
   --dark-purple: #8134df;
+  --light-cream-transparent: rgba(217, 195, 160, 0.5);
 }
 
 .playfair-display-normal {
@@ -513,11 +514,28 @@ nav > ul > li > a:hover {
   flex-direction: row;
   justify-content: space-between;
   padding-top: 30px;
+  padding-left: 40px;
+}
+
+#two2d-back-button {
+  height: 40px;
+  width: 40px;
+  font-size: 1em;
+  color: var(--dark-brown);
+  font-weight: 600;
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 0px;
+  border-radius: 50%;
+}
+
+#two2d-back-button:hover {
+  color: var(--light-cream);
 }
 
 #twod-current-artwork {
   width: 100%;
-  height: 70vh;
+  height: 75vh;
   display: flex;
   flex-direction: row;
   row-gap: 20px;
@@ -537,42 +555,34 @@ nav > ul > li > a:hover {
   border: 2px solid var(--light-cream);
 }
 
-#twod-artwork-frame {
-  max-width: 70vw;
+#twod-artwork-image {
+  border: 5px solid var(--light-cream);
   width: 70%;
-  height: 70%;
-  max-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  height: 100%;
+  object-fit: scale-down;
 }
 
-#twod-artwork-frame > img {
-  border: 5px solid var(--light-cream);
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+#twod-artwork-image :hover {
+  zoom: normal;
 }
 
 #twod-artworks-banner {
   width: 100%;
-  height: 40px;
+  height: 150px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: var(--light-cream);
-}
-
-.twod-banner-card {
-  width: 200px;
-  height: 40px;
+  background-color: var(--light-cream-transparent);
 }
 
 .twod-banner-image {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 130px;
   object-fit: cover;
+}
+
+.active {
+  border: 5px solid black;
+  height: 145px;
 }
