@@ -6,13 +6,6 @@ export default function ResultsList({ artworks }) {
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const totalNbrofPages = Math.ceil(allResults.length / artworksPerPage);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  // const [results, setResults] = useState(
-  //   allResults.slice(
-  //     currentPageIndex * artworksPerPage,
-  //     currentPageIndex * artworksPerPage + artworksPerPage
-  //   )
-  // );
-
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -25,12 +18,10 @@ export default function ResultsList({ artworks }) {
   }, [artworks]);
 
   useEffect(() => {
-    console.log("in results list", results);
     const artworksToDisplay = allResults.slice(
       currentPageIndex * artworksPerPage,
       currentPageIndex * artworksPerPage + artworksPerPage
     );
-    console.log(artworksToDisplay);
     setResults(artworksToDisplay);
   }, [currentPageIndex]);
 

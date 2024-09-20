@@ -6,9 +6,6 @@ import { useLocation } from "react-router-dom";
 export default function ArtworkCard(props) {
   const artworks = props.artworks;
   const count = props.count;
-
-  console.log("in artwork card", artworks);
-  console.log("in artwork card", count);
   const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
   const location = useLocation();
 

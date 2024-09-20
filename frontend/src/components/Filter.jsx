@@ -5,67 +5,33 @@ import {
   createSearchParams,
 } from "react-router-dom";
 
-export default function Filter({ artworks }) {
-  console.log("in filter", artworks);
-  const [results, setResults] = useState({ ...artworks });
-  const [expanded, setExpanded] = useState(false);
-  const [uniqueArtists, setUniqueArtists] = useState([]);
-  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+import FilterCategory from "./FilterCategory";
 
-  const navigate = useNavigate();
+export default function Filter({ artworks }) {
+  const [results, setResults] = useState({ ...artworks });
+  const [uniqueArtists, setUniqueArtists] = useState([]);
+  const [uniqueMuseums, setUniqueMuseums] = useState([]);
 
   useEffect(() => {
     setResults(artworks);
     if (results && results.length > 0) {
+      //artists
       const artistList = results.map((result) => result.artist);
       const uniqueArtists = [...new Set(artistList)];
-
       setUniqueArtists(uniqueArtists);
+      //museums
+      const museumList = results.map((result) => result.museum);
+      const uniqueMuseums = [...new Set(museumList)];
+      setUniqueMuseums(uniqueMuseums);
     }
   }, [artworks, results]);
-
-  const handleToggle = () => {
-    setExpanded(!expanded);
-  };
-
-  const handleFilter = (event) => {
-    event.preventDefault();
-    const artist = event.target.value;
-    setCurrentSearchParams((params) => {
-      params.set("aname", artist);
-      return params;
-    });
-    const qString = createSearchParams(currentSearchParams).toString();
-    navigate(`/results?${qString}`);
-  };
 
   return (
     <div id="filter-container">
       <h2>Refine</h2>
       <ul className="filter-list">
-        <li
-          className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
-        >
-          <button className="filter-title" onClick={handleToggle}>
-            ARTISTS
-          </button>
-          {expanded && (
-            <ul className="filter-option-list">
-              {uniqueArtists.map((artist) => (
-                <li key={artist}>
-                  <button
-                    className="filter-option"
-                    onClick={handleFilter}
-                    value={artist}
-                  >
-                    {"> "}
-                    {artist}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
+        <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
+        <FilterCategory categoryName="MUSEUMS" uniqueItems={uniqueMuseums} />
       </ul>
     </div>
   );
