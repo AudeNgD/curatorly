@@ -4,6 +4,7 @@ import {
   useSearchParams,
   createSearchParams,
 } from "react-router-dom";
+import ColourPalette from "./ColourPalette";
 
 function FilterCategory({ categoryName, uniqueItems }) {
   const [expanded, setExpanded] = useState(false);
@@ -20,6 +21,7 @@ function FilterCategory({ categoryName, uniqueItems }) {
 
     if (categoryName === "MUSEUMS") {
       const museum = event.target.value;
+
       if (museum === "met") {
         setCurrentSearchParams((params) => {
           params.set("echeck", !params.get("echeck"));
@@ -96,28 +98,42 @@ function FilterCategory({ categoryName, uniqueItems }) {
   };
 
   return (
-    <li className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}>
-      <button className="filter-title" onClick={handleToggle}>
-        {categoryName}
-      </button>
-      {expanded && (
-        <ul className="filter-option-list">
-          {uniqueItems.map((item, index) => (
-            <li key={item + index}>
-              <button
-                className="filter-option"
-                onClick={handleFilter}
-                value={item}
-              >
-                {"> "}
-                {item}
-              </button>
-            </li>
-          ))}
-        </ul>
+    <>
+      {categoryName !== "COLOUR PALETTE" ? (
+        <li
+          className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
+        >
+          <button className="filter-title" onClick={handleToggle}>
+            {categoryName}
+          </button>
+          {expanded && (
+            <ul className="filter-option-list">
+              {uniqueItems.map((item, index) => (
+                <li key={item + index}>
+                  <button
+                    className="filter-option"
+                    onClick={handleFilter}
+                    value={item}
+                  >
+                    {"> "}
+                    {item}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ) : (
+        <li
+          className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
+        >
+          <button className="filter-title" onClick={handleToggle}>
+            {categoryName}
+          </button>
+          {expanded && <ColourPalette />}
+        </li>
       )}
-    </li>
+    </>
   );
 }
-
 export default FilterCategory;

@@ -225,7 +225,7 @@ nav > ul > li > a:hover {
 
 #searchresults-container {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   margin-top: 80px;
   display: flex;
   flex-direction: column;
@@ -323,6 +323,27 @@ nav > ul > li > a:hover {
   border-bottom: 1px solid var(--dark-brown);
 }
 
+#colour-palette {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 2px;
+  row-gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0;
+  margin: 0;
+}
+
+.colour-option {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 /* RESULTS */
 
 #results-container {

@@ -77,8 +77,12 @@ export default function formatResponse(response) {
         imageUrl: `${imagebaseURL}${item.image_id}/full/843,/0/default.jpg`,
         imageWidth: item.image_width,
         imageHeight: item.image_height,
-        links: item.url,
+        // links: item.url, NO LINKS PROVIDED
         artist: item.artist_title,
+        date_created: item.date_started,
+        century: `${Math.ceil(item.date_started / 100)}th century`,
+        medium: item.medium_display,
+        color: item.color,
         museum: "chicago",
       };
     });
