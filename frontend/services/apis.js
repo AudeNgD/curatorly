@@ -11,10 +11,7 @@ const rijksAPI = axios.create({
 });
 
 const clevelandAPI = axios.create({
-  baseURL: `/cleveland-api/artworks/`,
-  headers: {
-    "Content-type": "application/json",
-  },
+  baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api/`,
 });
 
 export const fetchArtworks = (params) => {
@@ -26,7 +23,7 @@ export const fetchArtworks = (params) => {
 
   //museum picker
   const rijksmuseumChecked = params[0].get("rcheck");
-  const clevelandChecked = params[0].get("clecheck");
+  const clevelandChecked = params[0].get("ccheck");
 
   //century picker
   const century = params[0].get("century");
@@ -56,7 +53,7 @@ export const fetchArtworks = (params) => {
 
   //creating the query for the Cleveland API for all parameters
 
-  let clevelandQuery = "";
+  let clevelandQuery = "artworks";
   keyword ? (clevelandQuery += `&q=${keyword}`) : null;
   artistName ? (clevelandQuery += `&artists=${artistName}`) : null;
   let dates = {};
@@ -87,12 +84,11 @@ export const fetchArtworks = (params) => {
         //check from which api data is coming
         if (results[i].data.artObjects) {
           data.rijksData = results[i].data.artObjects;
-        } else if (results[i].data.items) {
-          data.clevelandData = results[i].data.items;
+        } else if (results[i].data.data) {
+          data.clevelandData = results[i].data.data;
         }
       }
     }
-    console.log("here in apis", data);
-    return data;
+    return data != {} ? data : [];
   });
 };
