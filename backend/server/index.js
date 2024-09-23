@@ -10,6 +10,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; img-src *;");
+  next();
+});
+
 app.get("/cleveland-api/artworks", async (req, res) => {
   try {
     const response = await axios.get(
