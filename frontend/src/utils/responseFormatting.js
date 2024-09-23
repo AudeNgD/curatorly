@@ -1,15 +1,25 @@
 export default function formatResponse(response) {
-  const artObjects = response.artObjects ? response.artObjects : [];
-  const items = response.items ? response.items : [];
-  let formattedArtObjects = [];
-  let formattedItems = [];
+  const rijksData = response.rijksData ? response.rijksData : [];
+  const europeanaData = response.europeanaData ? response.europeanaData : [];
+  const metData = response.metData ? response.metData : [];
+  const chicagoData = response.chicagoData ? response.chicagoData : [];
 
-  if (artObjects.length === 0 && items.length === 0) {
+  let formattedrijksData = [];
+  let formattedeuropeanaData = [];
+  let formattedmetData = [];
+  let formattedchicagoData = [];
+
+  if (
+    rijksData.length === 0 &&
+    europeanaData.length === 0 &&
+    metData.length === 0 &&
+    chicagoData.length === 0
+  ) {
     return [];
   }
 
-  if (artObjects.length > 0) {
-    formattedArtObjects = artObjects.map((artObject) => {
+  if (rijksData.length > 0) {
+    formattedrijksData = rijksData.map((artObject) => {
       return {
         id: artObject.objectNumber,
         title: artObject.title,
@@ -24,8 +34,8 @@ export default function formatResponse(response) {
   }
 
   //in case the artist name is not available in the response
-  if (items.length > 0) {
-    formattedItems = items
+  if (europeanaData.length > 0) {
+    formattedeuropeanaData = europeanaData
       .filter((item) => item.dcCreator !== undefined)
       .map((item) => {
         let artist = "";
@@ -48,7 +58,40 @@ export default function formatResponse(response) {
       });
   }
 
-  const artwork = formattedArtObjects.concat(formattedItems);
+  if (metData.length > 0) {
+    formattedmetData = metData.map((id) => {
+      return {
+        id: id,
+        museum: "met",
+      };
+    });
+  }
+
+  if (chicagoData.length > 0) {
+    const imagebaseURL = "https://www.artic.edu/iiif/2/";
+
+    formattedchicagoData = chicagoData.map((item) => {
+      return {
+        id: item.id,
+        title: item.title,
+        imageUrl: `${imagebaseURL}${item.image_id}/full/843,/0/default.jpg`,
+        imageWidth: item.image_width,
+        imageHeight: item.image_height,
+        // links: item.url, NO LINKS PROVIDED
+        artist: item.artist_title,
+        date_created: item.date_started,
+        century: `${Math.ceil(item.date_started / 100)}th century`,
+        medium: item.medium_display,
+        color: item.color,
+        museum: "chicago",
+      };
+    });
+  }
+
+  const artwork = formattedrijksData
+    .concat(formattedeuropeanaData)
+    .concat(formattedmetData)
+    .concat(formattedchicagoData);
   //returns an array of objects
   return artwork;
 }

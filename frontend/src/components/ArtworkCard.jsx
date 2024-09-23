@@ -3,11 +3,12 @@ import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 
-export default function ArtworkCard({ artworks }) {
+export default function ArtworkCard(props) {
+  const artworks = props.artworks;
+  const count = props.count;
   const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
   const location = useLocation();
 
-  console.log(useLocation());
   function getStoredData() {
     const storedData = localStorage.getItem("artworks");
     return storedData ? JSON.parse(storedData) : [];
@@ -30,11 +31,9 @@ export default function ArtworkCard({ artworks }) {
   return (
     <>
       {location.pathname === "/shortlist" ? (
-        <p id="card-count">
-          There are currently {artworks.length} artworks shortlisted
-        </p>
+        <p id="card-count">There are currently {count} artworks shortlisted</p>
       ) : (
-        <p id="card-count">Found {artworks.length} artworks</p>
+        <p id="card-count">Found {count} artworks</p>
       )}
 
       <div id="artwork-card">

@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 function SearchBox() {
   const [europeanaChecked, setEuropeanaChecked] = useState(true);
   const [rijksmuseumChecked, setRijksmuseumChecked] = useState(true);
+  const [metChecked, setMetChecked] = useState(true);
+  const [chicagoChecked, setChicagoChecked] = useState(true);
   const [artistName, setArtistName] = useState("");
 
   const navigate = useNavigate();
@@ -14,6 +16,14 @@ function SearchBox() {
   }
   function handleRijksmuseumCheckbox(event) {
     setRijksmuseumChecked(!rijksmuseumChecked);
+  }
+
+  function handleMetCheckbox(event) {
+    setMetChecked(!metChecked);
+  }
+
+  function handleChicagoCheckbox(event) {
+    setChicagoChecked(!chicagoChecked);
   }
 
   function getArtistName(event) {
@@ -28,7 +38,9 @@ function SearchBox() {
     const aName = artistName.split(" ").join("+");
     const eChecked = europeanaChecked;
     const rChecked = rijksmuseumChecked;
-    const qString = `?aname=${aName}&echeck=${eChecked}&rcheck=${rChecked}`;
+    const mChecked = metChecked;
+    const cChecked = chicagoChecked;
+    const qString = `?aname=${aName}&echeck=${eChecked}&rcheck=${rChecked}&mcheck=${mChecked}&ccheck=${cChecked}`;
 
     navigate(`/results${qString}`);
   }
@@ -45,6 +57,16 @@ function SearchBox() {
           label="Rijksmuseum"
           value={rijksmuseumChecked}
           onChange={handleRijksmuseumCheckbox}
+        />
+        <Checkbox
+          label="Metropolitan Museum of Art"
+          value={metChecked}
+          onChange={handleMetCheckbox}
+        />
+        <Checkbox
+          label="Art Institute of Chicago"
+          value={chicagoChecked}
+          onChange={handleChicagoCheckbox}
         />
       </div>
 
