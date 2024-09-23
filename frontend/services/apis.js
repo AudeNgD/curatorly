@@ -11,7 +11,10 @@ const rijksAPI = axios.create({
 });
 
 const clevelandAPI = axios.create({
-  baseURL: `https://openaccess-api.clevelandart.org/api/artworks/`,
+  baseURL: `/cleveland-api/artworks/`,
+  headers: {
+    "Content-type": "application/json",
+  },
 });
 
 export const fetchArtworks = (params) => {
@@ -38,7 +41,7 @@ export const fetchArtworks = (params) => {
   let clevelandPromise = null;
 
   //creating the query for the Rijksmuseum API for all parameters
-  const rijksQuery = `?key=${
+  let rijksQuery = `?key=${
     import.meta.env.VITE_APP_RIJKS_API_KEY
   }&profile=rich&imgonly=true`;
   keyword ? (rijksQuery += `&q=${keyword}`) : (rijksQuery += `&q=*`);
@@ -49,17 +52,22 @@ export const fetchArtworks = (params) => {
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
 
+  rijskPromise = rijksAPI.get(rijksQuery);
+
   //creating the query for the Cleveland API for all parameters
 
-  const clevelandQuery = "";
+  let clevelandQuery = "";
   keyword ? (clevelandQuery += `&q=${keyword}`) : null;
   artistName ? (clevelandQuery += `&artists=${artistName}`) : null;
-  const dates = centuryConverter(century);
+  let dates = {};
+  century ? (dates = centuryConverter(century)) : null;
   century
     ? (clevelandQuery += `&created_after=${dates.startDate}&created_before=${dates.endDate}`)
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
+
+  clevelandPromise = clevelandAPI.get(clevelandQuery);
 
   //handling the museums that have been checked
   //as a param it is a string

@@ -6,7 +6,6 @@ function SearchBox() {
   const [rijksmuseumChecked, setRijksmuseumChecked] = useState(true);
   const [clevelandChecked, setClevelandChecked] = useState(true);
   const [keyword, setKeyword] = useState("");
-  const [artistName, setArtistName] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,12 +25,10 @@ function SearchBox() {
 
   function submitSearch(event) {
     event.preventDefault();
-    const searchword = keyword;
-
+    const searchWord = keyword;
     const rChecked = rijksmuseumChecked;
     const cChecked = clevelandChecked;
-    const qString = `?keyword=${searchword}&rcheck=${rChecked}&ccheck=${cChecked}`;
-
+    const qString = `?keyword=${searchWord}&rcheck=${rChecked}&ccheck=${cChecked}`;
     navigate(`/results${qString}`);
   }
 
@@ -55,7 +52,7 @@ function SearchBox() {
           type="text"
           name="keyword"
           id="keyword"
-          placeholder="Search for an artwork"
+          placeholder="Search for a keyword"
           value={keyword}
           onChange={getKeyword}
         />
