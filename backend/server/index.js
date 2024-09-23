@@ -30,6 +30,9 @@ app.get("/cleveland-api/artworks", async (req, res) => {
 // Endpoint to handle query parameters for the Cleveland API
 app.get("/cleveland-api/search", async (req, res) => {
   try {
+    console.log(req);
+    console.log(req.query);
+
     const query = req.query;
     const response = await axios.get(
       `https://openaccess-api.clevelandart.org/api/artworks/${query}`

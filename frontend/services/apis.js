@@ -11,7 +11,7 @@ const rijksAPI = axios.create({
 });
 
 const clevelandAPI = axios.create({
-  baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api/`,
+  baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api`,
 });
 
 export const fetchArtworks = (params) => {
@@ -53,7 +53,7 @@ export const fetchArtworks = (params) => {
 
   //creating the query for the Cleveland API for all parameters
 
-  let clevelandQuery = "artworks";
+  let clevelandQuery = "search?has_image=1";
   keyword ? (clevelandQuery += `&q=${keyword}`) : null;
   artistName ? (clevelandQuery += `&artists=${artistName}`) : null;
   let dates = {};

@@ -41,7 +41,7 @@ function SearchBox() {
           onChange={handleRijksmuseumCheckbox}
         />
         <Checkbox
-          label="Clevand Museum of Art"
+          label="Cleveland Museum of Art"
           value={clevelandChecked}
           onChange={handleClevelandCheckbox}
         />

@@ -10,9 +10,10 @@ function TechniqueSearch() {
   const [technique, setTechnique] = useState("");
   const [techniquePicked, setTechniquePicked] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
-  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+
   const handleToggle = () => {
     setExpanded(!expanded);
   };
