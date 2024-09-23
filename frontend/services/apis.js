@@ -85,7 +85,9 @@ export const fetchArtworks = (params) => {
         if (results[i].data.artObjects) {
           data.rijksData = results[i].data.artObjects;
         } else if (results[i].data.data) {
+          console.log("here results", results);
           data.clevelandData = results[i].data.data;
+          console.log("cleveland data", data.clevelandData);
         }
       }
     }

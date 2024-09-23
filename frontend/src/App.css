@@ -323,6 +323,51 @@ nav > ul > li > a:hover {
   border-bottom: 1px solid var(--dark-brown);
 }
 
+#technique {
+  width: 84%;
+  height: 40px;
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: black;
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 2px;
+  border-radius: 8px;
+}
+
+#submit-technique-button {
+  width: 35%;
+  height: 30px;
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  background-color: var(--dark-brown);
+  margin: 0;
+  margin-top: 5px;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+#submit-technique-button:hover {
+  color: var(--light-cream);
+}
+
+#current-technique-button {
+  width: fit-content;
+  height: 40px;
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  background-color: var(--dark-brown);
+  margin: 0;
+  padding: 4px;
+  border-radius: 8px;
+  display: flex;
+  column-gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #colour-palette {
   width: 80%;
   display: flex;

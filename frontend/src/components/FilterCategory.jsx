@@ -21,63 +21,27 @@ function FilterCategory({ categoryName, uniqueItems }) {
 
     if (categoryName === "MUSEUMS") {
       const museum = event.target.value;
+      console.log("museum", museum);
 
-      if (museum === "met") {
-        setCurrentSearchParams((params) => {
-          params.set("echeck", !params.get("echeck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("rcheck", !params.get("rcheck"));
-          return params;
-        });
+      // setCurrentSearchParams((params) => {
+      //   params.set("rcheck", !params.get("rcheck"));
+      //   return params;
+      // });
+      // setCurrentSearchParams((params) => {
+      //   params.set("ccheck", !params.get("ccheck"));
+      //   return params;
+      // });
+
+      if (museum === "Rijksmuseum") {
         setCurrentSearchParams((params) => {
           params.set("ccheck", !params.get("ccheck"));
           return params;
         });
       }
 
-      if (museum === "chicago") {
-        setCurrentSearchParams((params) => {
-          params.set("echeck", !params.get("echeck"));
-          return params;
-        });
+      if (museum === "The Cleveland Museum of Art") {
         setCurrentSearchParams((params) => {
           params.set("rcheck", !params.get("rcheck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("mcheck", !params.get("mcheck"));
-          return params;
-        });
-      }
-
-      if (museum === "rijksmuseum") {
-        setCurrentSearchParams((params) => {
-          params.set("echeck", !params.get("echeck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("mcheck", !params.get("mcheck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("ccheck", !params.get("ccheck"));
-          return params;
-        });
-      }
-
-      if (museum === "europeana") {
-        setCurrentSearchParams((params) => {
-          params.set("rcheck", !params.get("rcheck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("mcheck", !params.get("mcheck"));
-          return params;
-        });
-        setCurrentSearchParams((params) => {
-          params.set("ccheck", !params.get("ccheck"));
           return params;
         });
       }
@@ -99,40 +63,29 @@ function FilterCategory({ categoryName, uniqueItems }) {
 
   return (
     <>
-      {categoryName !== "COLOUR PALETTE" ? (
-        <li
-          className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
-        >
-          <button className="filter-title" onClick={handleToggle}>
-            {categoryName}
-          </button>
-          {expanded && (
-            <ul className="filter-option-list">
-              {uniqueItems.map((item, index) => (
-                <li key={item + index}>
-                  <button
-                    className="filter-option"
-                    onClick={handleFilter}
-                    value={item}
-                  >
-                    {"> "}
-                    {item}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ) : (
-        <li
-          className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
-        >
-          <button className="filter-title" onClick={handleToggle}>
-            {categoryName}
-          </button>
-          {expanded && <ColourPalette />}
-        </li>
-      )}
+      <li
+        className={`filter-list-title ${expanded ? "expanded" : "collapsed"}`}
+      >
+        <button className="filter-title" onClick={handleToggle}>
+          {categoryName}
+        </button>
+        {expanded && (
+          <ul className="filter-option-list">
+            {uniqueItems.map((item, index) => (
+              <li key={item + index}>
+                <button
+                  className="filter-option"
+                  onClick={handleFilter}
+                  value={item}
+                >
+                  {"> "}
+                  {item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
     </>
   );
 }
