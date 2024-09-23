@@ -29,6 +29,7 @@ app.get("/cleveland-api/artworks", async (req, res) => {
 
 // Endpoint to handle query parameters for the Cleveland API
 app.get("/cleveland-api/search", async (req, res) => {
+  console.log(req);
   try {
     console.log(req);
     console.log(req.query);
