@@ -34,13 +34,16 @@ export const fetchArtworks = (params) => {
   //technique picker
   const technique = params[0].get("technique");
 
+  //page number
+  const page = params[0].get("page");
+
   let rijskPromise = null;
   let clevelandPromise = null;
 
   //creating the query for the Rijksmuseum API for all parameters
   let rijksQuery = `?key=${
     import.meta.env.VITE_APP_RIJKS_API_KEY
-  }&profile=rich&imgonly=true`;
+  }&profile=rich&imgonly=true&ps=100`;
   keyword ? (rijksQuery += `&q=${keyword}`) : (rijksQuery += `&q=*`);
   artistName
     ? (rijksQuery += `&involvedMaker=${artistName.split(" ").join("+")}`)
@@ -48,12 +51,13 @@ export const fetchArtworks = (params) => {
   century ? (rijksQuery += `&f.dating.period=${century}`) : null;
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
+  page ? (rijksQuery += `&p=${page}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 
   //creating the query for the Cleveland API for all parameters
 
-  let clevelandQuery = "search?has_image=1";
+  let clevelandQuery = "search?has_image=1&limit=100";
   keyword ? (clevelandQuery += `&q=${keyword}`) : null;
   artistName ? (clevelandQuery += `&artists=${artistName}`) : null;
   let dates = {};
@@ -63,6 +67,7 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
+  page ? (clevelandQuery += `&skip=${page * 1000}`) : null;
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
 
@@ -84,9 +89,11 @@ export const fetchArtworks = (params) => {
         //check from which api data is coming
         if (results[i].data.artObjects) {
           data.rijksData = results[i].data.artObjects;
+          data.rijksCount = results[i].data.count;
         } else if (results[i].data.data) {
           console.log("here results", results);
           data.clevelandData = results[i].data.data;
+          data.clevelandCount = results[i].data.info.total;
           console.log("cleveland data", data.clevelandData);
         }
       }

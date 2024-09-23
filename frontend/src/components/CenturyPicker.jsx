@@ -35,7 +35,7 @@ function CenturyPicker() {
     //if century in params
     if (currentSearchParams.has("century")) {
       const century = currentSearchParams.get("century");
-      setCurrentCentury(centuryNameList[century - 1]);
+      setCurrentCentury([centuryNameList[century - 1]]);
     } else {
       setCurrentCentury(centuryNameList);
     }
