@@ -32,7 +32,7 @@ app.get("/cleveland-api/search", async (req, res) => {
   try {
     const query = req.query;
     const response = await axios.get(
-      `https://openaccess-api.clevelandart.org/api/artworks/?has_image=1${query}`
+      `https://openaccess-api.clevelandart.org/api/artworks/${query}`
     );
     res.json(response.data);
   } catch (error) {
