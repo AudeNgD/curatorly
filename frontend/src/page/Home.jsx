@@ -11,10 +11,11 @@ function Home() {
             <p>Create and share your own virtual exhibitions.</p>
             <ul>
               <li>
-                Search through the Europeana and the Rijskmuseum museums for
-                artworks.
+                Search through the collections from the
+                <strong> Rijskmuseum </strong> and the{" "}
+                <strong>Cleveland Museum of Art</strong>.
               </li>
-              <li>Save your favourite artworks to your shortlist.</li>
+              <li>Save your favourite artworks to a shortlist.</li>
               <li>View your exhibition either in 2D or in 3D.</li>
             </ul>
           </div>

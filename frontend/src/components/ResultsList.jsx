@@ -42,13 +42,18 @@ export default function ResultsList({ artworks }) {
       )}
       <div id="results-pagination">
         {currentPageIndex > 0 ? (
-          <button onClick={handleClickPrevious}>Previous</button>
+          <button className="pagination-button" onClick={handleClickPrevious}>
+            Previous
+          </button>
         ) : null}
-        <p>
+
+        <p id="pagination-text">
           {currentPageIndex + 1}/{totalNbrofPages}
         </p>
         {currentPageIndex < totalNbrofPages - 1 ? (
-          <button onClick={handleClickNext}>Next</button>
+          <button className="pagination-button" onClick={handleClickNext}>
+            Next
+          </button>
         ) : null}
       </div>
     </div>

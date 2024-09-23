@@ -242,6 +242,38 @@ nav > ul > li > a:hover {
   padding: 0;
 }
 
+#results-pagination {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+}
+
+#pagination-text {
+  margin-top: 20px;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  padding-bottom: 19px;
+}
+
+.pagination-button {
+  width: 80px;
+  height: 30px;
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  background-color: var(--dark-brown);
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0px;
+  border-radius: 5px;
+}
+
 /* FILTERS */
 
 #filter-results {
