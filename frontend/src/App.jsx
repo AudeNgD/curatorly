@@ -7,6 +7,8 @@ import SearchResults from "./page/SearchResults";
 import Home from "./page/Home";
 import Exhibition2D from "./page/Exhibition2D";
 import Exhibition3D from "./page/Exhibition3D";
+import About from "./page/About";
+import Footer from "./page/Footer";
 
 function App() {
   return (
@@ -20,9 +22,19 @@ function App() {
             </>
           }
         >
-          <Route path="/shortlist" element={<Shortlist />}></Route>
-          <Route path="/results" element={<SearchResults />}></Route>
-          <Route path="/" element={<Home />}></Route>
+          <Route
+            element={
+              <>
+                <Footer />
+                <Outlet />{" "}
+              </>
+            }
+          >
+            <Route path="/shortlist" element={<Shortlist />}></Route>
+            <Route path="/results" element={<SearchResults />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/about" element={<About />}></Route>
+          </Route>
         </Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2D />}></Route>
