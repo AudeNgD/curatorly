@@ -10,10 +10,10 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; img-src *;");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Content-Security-Policy", "default-src 'self'; img-src *;");
+//   next();
+// });
 
 // Endpoint for all the Cleveland artworks that have an image
 
@@ -24,21 +24,29 @@ app.get("/cleveland-api/artworks", async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    console.error(error);
+    res.status(500).send("Internal server error: " + error.message);
   }
 });
 
 // Endpoint to handle query parameters for the Cleveland API
+
 app.get("/cleveland-api/search", async (req, res) => {
-  console.log(req);
+  const queryParams = new URLSearchParams(req.query).toString();
+  const url = `https://openaccess-api.clevelandart.org/api/artworks/?${queryParams}`;
+  console.log(url);
   try {
-    const queryParams = new URLSearchParams(req.query).toString();
     const response = await axios.get(
-      `https://openaccess-api.clevelandart.org/api/artworks/${queryParams}`
+      `https://openaccess-api.clevelandart.org/api/artworks/?${queryParams}`
     );
+    //response.data has two keys - info and data
     res.json(response.data);
   } catch (error) {
-    res.status(500).send("Internal server error");
+    res
+      .status(500)
+      .send(
+        "Internal server error: " +
+          (error.response ? error.response.data : error.message)
+      );
   }
 });
 
