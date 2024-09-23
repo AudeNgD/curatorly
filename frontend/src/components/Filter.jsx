@@ -1,35 +1,32 @@
-import React, { useState, useEffect, useMemo } from "react";
-import {
-  useNavigate,
-  useSearchParams,
-  createSearchParams,
-} from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
 import FilterCategory from "./FilterCategory";
-import ColourPalette from "./ColourPalette";
-import xElevenColours from "../assets/xElevenColours";
+import CenturyPicker from "./CenturyPicker";
+import TechniqueSearch from "./TechniqueSearch";
 
 export default function Filter({ artworks }) {
   const [results, setResults] = useState({ ...artworks });
   const [uniqueArtists, setUniqueArtists] = useState([]);
   const [uniqueMuseums, setUniqueMuseums] = useState([]);
-  const [colors, setUniqueColors] = useState([]);
-  const [century, setUniqueCentury] = useState([]);
   const [medium, setUniqueMedium] = useState([]);
-  const [technique, setUniqueTechnique] = useState([]);
-  const [colourPalette, setColourPalette] = useState([]);
 
   useEffect(() => {
     setResults(artworks);
-    setColourPalette(xElevenColours);
-
     if (results && results.length > 0) {
       //artists
-      const artistList = results.map((result) => result.artist);
+      let artistList = results.map((result, index) => {
+        if (result != undefined) {
+          return result.artist;
+        }
+      });
       const uniqueArtists = [...new Set(artistList)];
       setUniqueArtists(uniqueArtists);
+
       //museums
-      const museumList = results.map((result) => result.museum);
+      const museumList = results.map((result) => {
+        if (result != undefined) {
+          return result.museum;
+        }
+      });
       const uniqueMuseums = [...new Set(museumList)];
       setUniqueMuseums(uniqueMuseums);
     }
@@ -41,7 +38,8 @@ export default function Filter({ artworks }) {
       <ul className="filter-list">
         <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
         <FilterCategory categoryName="MUSEUMS" uniqueItems={uniqueMuseums} />
-        <FilterCategory categoryName="COLOUR PALETTE" uniqueItems={""} />
+        <CenturyPicker />
+        <TechniqueSearch />
       </ul>
     </div>
   );
