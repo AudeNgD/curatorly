@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ArtworkCard from "./ArtworkCard";
+import LoadingMessage from "./LoadingMessage";
 
 export default function ResultsList({ artworks }) {
   const allResults = artworks;
@@ -7,6 +8,7 @@ export default function ResultsList({ artworks }) {
   const totalNbrofPages = Math.ceil(allResults.length / artworksPerPage);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [results, setResults] = useState([]);
+  const [loading, isLoading] = useState(true);
 
   useEffect(() => {
     setResults(
@@ -25,6 +27,12 @@ export default function ResultsList({ artworks }) {
     setResults(artworksToDisplay);
   }, [currentPageIndex]);
 
+  useEffect(() => {
+    if (results && results.length > 0) {
+      isLoading(false);
+    }
+  });
+
   function handleClickNext() {
     setCurrentPageIndex(currentPageIndex + 1);
   }
@@ -34,28 +42,37 @@ export default function ResultsList({ artworks }) {
   }
 
   return (
-    <div id="results-container">
-      {results ? (
-        <ArtworkCard artworks={results} count={allResults.length} />
+    <>
+      {loading ? (
+        <LoadingMessage />
       ) : (
-        <p>No results found</p>
-      )}
-      <div id="results-pagination">
-        {currentPageIndex > 0 ? (
-          <button className="pagination-button" onClick={handleClickPrevious}>
-            Previous
-          </button>
-        ) : null}
+        <div id="results-container">
+          {results ? (
+            <ArtworkCard artworks={results} count={allResults.length} />
+          ) : (
+            <p>No results found</p>
+          )}
+          <div id="results-pagination">
+            {currentPageIndex > 0 ? (
+              <button
+                className="pagination-button"
+                onClick={handleClickPrevious}
+              >
+                Previous
+              </button>
+            ) : null}
 
-        <p id="pagination-text">
-          {currentPageIndex + 1}/{totalNbrofPages}
-        </p>
-        {currentPageIndex < totalNbrofPages - 1 ? (
-          <button className="pagination-button" onClick={handleClickNext}>
-            Next
-          </button>
-        ) : null}
-      </div>
-    </div>
+            <p id="pagination-text">
+              {currentPageIndex + 1}/{totalNbrofPages}
+            </p>
+            {currentPageIndex < totalNbrofPages - 1 ? (
+              <button className="pagination-button" onClick={handleClickNext}>
+                Next
+              </button>
+            ) : null}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
