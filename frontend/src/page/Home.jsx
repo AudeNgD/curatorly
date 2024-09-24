@@ -4,7 +4,7 @@ import SearchBox from "../components/SearchBox";
 function Home() {
   return (
     <>
-      <div id="homepage">
+      <div id="homepage" className="sticky">
         <section id="hero">
           <div id="hero-text">
             <h1>curatorly</h1>
