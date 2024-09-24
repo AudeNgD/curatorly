@@ -7,6 +7,8 @@ export default function Filter(props) {
   const artworks = props.artworks;
   const rijksCount = props.rCount;
   const clevelandCount = props.cCount;
+  const vamCount = props.vCount;
+
   const [results, setResults] = useState({ ...artworks });
   const [uniqueArtists, setUniqueArtists] = useState([]);
   const [uniqueMuseums, setUniqueMuseums] = useState([]);
@@ -44,6 +46,7 @@ export default function Filter(props) {
           uniqueItems={uniqueMuseums}
           rCount={rijksCount}
           cCount={clevelandCount}
+          vCount={vamCount}
         />
         <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
         <CenturyPicker />

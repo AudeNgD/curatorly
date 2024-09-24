@@ -12,6 +12,8 @@ export default function ResultsList(props) {
   const allResults = props.artworks;
   const clevelandCount = props.cCount;
   const rijksCount = props.rCount;
+  const vamCount = props.vCount;
+
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -36,7 +38,7 @@ export default function ResultsList(props) {
   useEffect(() => {
     if (allResults && allResults.length > 0) {
       const totalPages = Math.ceil(
-        (clevelandCount + rijksCount) / artworksPerPage
+        (clevelandCount + rijksCount + vamCount) / artworksPerPage
       );
       setTotalNbrofPages(totalPages);
     }
@@ -50,7 +52,7 @@ export default function ResultsList(props) {
     }
 
     setResults(cachedResults.current[currentPageNumber] || []);
-  }, [allResults, clevelandCount, rijksCount, artworksPerPage]);
+  }, [allResults, clevelandCount, rijksCount, vamCount, artworksPerPage]);
 
   function handleClickNext() {
     if (currentPageNumber < totalNbrofPages) {
@@ -99,7 +101,7 @@ export default function ResultsList(props) {
           {results ? (
             <ArtworkCard
               artworks={results}
-              count={rijksCount + clevelandCount}
+              count={rijksCount + clevelandCount + vamCount}
             />
           ) : (
             <p>No results found</p>

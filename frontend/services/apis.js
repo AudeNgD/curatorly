@@ -14,6 +14,15 @@ const clevelandAPI = axios.create({
   baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api`,
 });
 
+const vamAPI = axios.create({
+  baseURL: `https://vam-api.onrender.com/search`,
+  headers: {
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET",
+  },
+});
+
 export const fetchArtworks = (params) => {
   // keyword parameter
   const keyword = params[0].get("keyword");
@@ -24,6 +33,7 @@ export const fetchArtworks = (params) => {
   //museum picker
   const rijksmuseumChecked = params[0].get("rcheck");
   const clevelandChecked = params[0].get("ccheck");
+  const vamAPIChecked = params[0].get("vcheck");
 
   //century picker
   const century = params[0].get("century");
@@ -39,6 +49,7 @@ export const fetchArtworks = (params) => {
 
   let rijskPromise = null;
   let clevelandPromise = null;
+  let vamPromise = null;
 
   //creating the query for the Rijksmuseum API for all parameters
   let rijksQuery = `?key=${
@@ -75,12 +86,27 @@ export const fetchArtworks = (params) => {
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
 
+  //creating the query for the V&A API for all parameters
+  let vamQuery = `?page_size=100&images_exist=1&data_restrict=descriptive_only`;
+  keyword ? (vamQuery += `&q=${keyword}`) : (vamQuery += `&q=*`);
+  artistName ? (vamQuery += `&q_actor=${artistName}`) : null;
+  century
+    ? (vamQuery += `&year_made_from=${dates.startDate}&year_made_to=${dates.endDate}`)
+    : null;
+  medium ? (vamQuery += `&q_material_technique=${medium}`) : null;
+  technique ? (vamQuery += `&q_material_technique=${technique}`) : null;
+  page && page % 21 === 0 ? (vamQuery += `&page=${page / 21 + 1}`) : null;
+
+  vamPromise = vamAPI.get(vamQuery);
+
   //handling the museums that have been checked
   //as a param it is a string
   let promises = [];
 
   rijksmuseumChecked === "true" ? promises.push(rijskPromise) : null;
   clevelandChecked === "true" ? promises.push(clevelandPromise) : null;
+  vamAPIChecked === "true" ? promises.push(vamAPI.get(vamQuery)) : null;
+  console.log(promises);
 
   if (promises.length === 0) {
     return Promise.resolve(null);
@@ -88,6 +114,7 @@ export const fetchArtworks = (params) => {
 
   return Promise.all(promises).then((results) => {
     let data = {};
+    console.log(results);
     if (results && results.length >= 1) {
       for (let i = 0; i < results.length; i++) {
         //check from which api data is coming
@@ -97,6 +124,9 @@ export const fetchArtworks = (params) => {
         } else if (results[i].data.data) {
           data.clevelandData = results[i].data.data;
           data.clevelandCount = results[i].data.info.total;
+        } else if (results[i].data.records) {
+          data.vamData = results[i].data.records;
+          data.vamCount = results[i].data.info.record_count;
         }
       }
     }

@@ -1,4 +1,5 @@
 export default function formatResponse(response) {
+  console.log(response);
   if (response != []) {
     const rijksData = response.rijksData ? response.rijksData : [];
     const clevelandData = response.clevelandData ? response.clevelandData : [];
@@ -6,11 +7,18 @@ export default function formatResponse(response) {
     const clevelandCount = response.clevelandCount
       ? response.clevelandCount
       : 0;
+    const vamData = response.vamData ? response.vamData : [];
+    const vamCount = response.vamCount ? response.vamCount : 0;
 
     let formattedrijksData = [];
     let formattedclevelandData = [];
+    let formattedvamData = [];
 
-    if (rijksData.length === 0 && clevelandData.length === 0) {
+    if (
+      rijksData.length === 0 &&
+      clevelandData.length === 0 &&
+      vamData.length === 0
+    ) {
       return [];
     }
 
@@ -61,9 +69,33 @@ export default function formatResponse(response) {
       });
     }
 
-    const artworks = formattedrijksData.concat(formattedclevelandData);
+    if (vamData.length > 0) {
+      formattedvamData = vamData.map((artwork) => {
+        let artistName = "";
+        if (artwork._primaryMaker.name !== undefined) {
+          artistName = artwork._primaryMaker.name;
+        } else {
+          artistName = "Unknown";
+        }
+
+        return {
+          id: artwork.systemNumber,
+          title: artwork._primaryTitle,
+          artist: artistName,
+          imageUrl: `${artwork._images._iiif_image_base_url}full/full/0/default.jpg`,
+          imageWidth: 250,
+          imageHeight: 250,
+          links: "artwork.fields.object_url",
+          museum: "Victoria and Albert Museum",
+        };
+      });
+    }
+
+    const artworks = formattedrijksData
+      .concat(formattedclevelandData)
+      .concat(formattedvamData);
     //returns an array of objects
-    return { artworks, rijksCount, clevelandCount };
+    return { artworks, rijksCount, clevelandCount, vamCount };
   } else {
     return [];
   }

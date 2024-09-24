@@ -13,6 +13,7 @@ function SearchResults() {
   const [queryParamsString, setQueryParamsString] = useState("");
   const [rijksCount, setRijksCount] = useState(0);
   const [clevelandCount, setClevelandCount] = useState(0);
+  const [vamCount, setVamCount] = useState(0);
   const [paginationChange, setPaginationChange] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function SearchResults() {
           console.log(formattedRes.artworks);
           setRijksCount(formattedRes.rijksCount);
           setClevelandCount(formattedRes.clevelandCount);
+          setVamCount(formattedRes.vamCount);
           setResults((...currentResults) => formattedRes.artworks);
         });
       }
@@ -45,11 +47,13 @@ function SearchResults() {
           artworks={results}
           rCount={rijksCount}
           cCount={clevelandCount}
+          vCount={vamCount}
         />
         <ResultsList
           artworks={results}
           rCount={rijksCount}
           cCount={clevelandCount}
+          vCount={vamCount}
           detectPaginationChange={setPaginationChange}
         />
       </section>
