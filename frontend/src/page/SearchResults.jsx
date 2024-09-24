@@ -12,6 +12,7 @@ function SearchResults() {
   const [queryParamsString, setQueryParamsString] = useState("");
   const [rijksCount, setRijksCount] = useState(0);
   const [clevelandCount, setClevelandCount] = useState(0);
+  const [paginationChange, setPaginationChange] = useState(false);
 
   useEffect(() => {
     const paramsString = searchParams.toString();
@@ -22,12 +23,7 @@ function SearchResults() {
 
   useEffect(() => {
     if (queryParamsString) {
-      //only fetch if page number is 21 or multiple of 21
-      if (
-        (searchParams[0].get("page") &&
-          searchParams[0].get("page") % 21 === 0) ||
-        !searchParams[0].get("page")
-      ) {
+      if (!paginationChange) {
         fetchArtworks(searchParams).then((res) => {
           const formattedRes = formatResponse(res);
           console.log(formattedRes.artworks);
@@ -52,6 +48,7 @@ function SearchResults() {
           artworks={results}
           rCount={rijksCount}
           cCount={clevelandCount}
+          detectPaginationChange={setPaginationChange}
         />
       </section>
     </div>

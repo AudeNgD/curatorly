@@ -12,7 +12,6 @@ export default function ResultsList(props) {
   const allResults = props.artworks;
   const clevelandCount = props.cCount;
   const rijksCount = props.rCount;
-
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -21,10 +20,12 @@ export default function ResultsList(props) {
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [fetchMore, setFetchMore] = useState(false);
 
+  const detectPaginationChange = props.detectPaginationChange;
+
   const cachedResults = useRef({});
   const navigate = useNavigate();
 
-  //loading message until results are set
+  // loading message until results are set
   useEffect(() => {
     if (results && results.length > 0) {
       isLoading(false);
@@ -40,17 +41,15 @@ export default function ResultsList(props) {
       setTotalNbrofPages(totalPages);
     }
 
-    //cache results for each page within 200
-    for (let page = 1; page <= totalNbrofPages; page++) {
-      const startIndex = (page - 1) * artworksPerPage;
+    //cache results for each page within available results
+    for (let i = 0; i < allResults.length / artworksPerPage; i++) {
+      const startIndex = i * artworksPerPage;
       const endIndex = startIndex + artworksPerPage;
       const perPageResults = allResults.slice(startIndex, endIndex);
-      cachedResults.current[page] = perPageResults;
+      cachedResults.current[currentPageNumber + i] = perPageResults;
     }
 
-    //set the first page
-    setResults(cachedResults.current[1] || []);
-    isLoading(false);
+    setResults(cachedResults.current[currentPageNumber] || []);
   }, [allResults, clevelandCount, rijksCount, artworksPerPage]);
 
   function handleClickNext() {
@@ -59,17 +58,11 @@ export default function ResultsList(props) {
 
       //check if next page data is already cached
       if (!cachedResults.current[currentPageNumber + 1]) {
-        //if not, set fetchMore to true to disable the user from clicking next again
-        setFetchMore(true);
-        //navigate to the next page to force the fetch
-        setCurrentSearchParams((params) => {
-          params.set("page", pageNumber);
-          return params;
-        });
-        const qString = createSearchParams(currentSearchParams).toString();
-        navigate(`/results?${qString}`);
+        //tell the parent component it isn't pagination change - cache data has run out
+        detectPaginationChange(false);
       } else {
         //if yes, set results to the next page
+        detectPaginationChange(true);
         setResults(cachedResults.current[currentPageNumber + 1]);
       }
 
@@ -115,7 +108,6 @@ export default function ResultsList(props) {
             {currentPageNumber > 1 ? (
               <button
                 className="pagination-button"
-                disabled={fetchMore}
                 onClick={handleClickPrevious}
               >
                 Previous
@@ -126,11 +118,7 @@ export default function ResultsList(props) {
               {currentPageNumber}/{totalNbrofPages}
             </p>
             {currentPageNumber < totalNbrofPages ? (
-              <button
-                className="pagination-button"
-                disabled={fetchMore}
-                onClick={handleClickNext}
-              >
+              <button className="pagination-button" onClick={handleClickNext}>
                 Next
               </button>
             ) : null}
