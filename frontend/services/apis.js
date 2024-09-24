@@ -51,7 +51,9 @@ export const fetchArtworks = (params) => {
   century ? (rijksQuery += `&f.dating.period=${century}`) : null;
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
-  page ? (rijksQuery += `&p=${page}`) : null;
+  //the page number passed is the search results pagination number
+  //only need to fetch artwork for next page if hit page number is multiple of 20
+  page ? (rijksQuery += `&p=${page / 21 + 1}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 
@@ -67,7 +69,7 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
-  page ? (clevelandQuery += `&skip=${page * 1000}`) : null;
+  page ? (clevelandQuery += `&skip=${(page / 21) * 100}`) : null;
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
 

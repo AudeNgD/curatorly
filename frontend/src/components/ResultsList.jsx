@@ -1,64 +1,100 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+  replace,
+} from "react-router-dom";
 import ArtworkCard from "./ArtworkCard";
 import LoadingMessage from "./LoadingMessage";
 
 export default function ResultsList(props) {
-  console.log(props);
   const allResults = props.artworks;
   const clevelandCount = props.cCount;
   const rijksCount = props.rCount;
 
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+  const [fetchMore, setFetchMore] = useState(false);
+
+  const cachedResults = useRef({});
+  const navigate = useNavigate();
 
   //loading message until results are set
   useEffect(() => {
     if (results && results.length > 0) {
       isLoading(false);
     }
-  });
+  }, [results]);
 
+  //cache the initial results when allResults is set
   useEffect(() => {
-    const totalNbrofPages = Math.ceil(
-      clevelandCount + rijksCount / artworksPerPage
-    );
-    setTotalNbrofPages(totalNbrofPages);
+    if (allResults && allResults.length > 0) {
+      const totalPages = Math.ceil(
+        (clevelandCount + rijksCount) / artworksPerPage
+      );
+      setTotalNbrofPages(totalPages);
+    }
 
-    setResults(
-      allResults.slice(
-        currentPageIndex * artworksPerPage,
-        currentPageIndex * artworksPerPage + artworksPerPage
-      )
-    );
-  }, [props.artworks]);
+    //cache results for each page within 200
+    for (let page = 1; page <= totalNbrofPages; page++) {
+      const startIndex = (page - 1) * artworksPerPage;
+      const endIndex = startIndex + artworksPerPage;
+      const perPageResults = allResults.slice(startIndex, endIndex);
+      cachedResults.current[page] = perPageResults;
+    }
 
-  // useEffect(() => {
-  //   setResults(
-  //     allResults.slice(
-  //       currentPageIndex * artworksPerPage,
-  //       currentPageIndex * artworksPerPage + artworksPerPage
-  //     )
-  //   );
-  // }, [artworks]);
-
-  useEffect(() => {
-    let allResults = props.artworks;
-    const artworksToDisplay = allResults.slice(
-      currentPageIndex * artworksPerPage,
-      currentPageIndex * artworksPerPage + artworksPerPage
-    );
-    setResults(artworksToDisplay);
-  }, [currentPageIndex]);
+    //set the first page
+    setResults(cachedResults.current[1] || []);
+    isLoading(false);
+  }, [allResults, clevelandCount, rijksCount, artworksPerPage]);
 
   function handleClickNext() {
-    setCurrentPageIndex(currentPageIndex + 1);
+    if (currentPageNumber < totalNbrofPages) {
+      const nextPage = currentPageNumber + 1;
+
+      //check if next page data is already cached
+      if (!cachedResults.current[currentPageNumber + 1]) {
+        //if not, set fetchMore to true to disable the user from clicking next again
+        setFetchMore(true);
+        //navigate to the next page to force the fetch
+        setCurrentSearchParams((params) => {
+          params.set("page", pageNumber);
+          return params;
+        });
+        const qString = createSearchParams(currentSearchParams).toString();
+        navigate(`/results?${qString}`);
+      } else {
+        //if yes, set results to the next page
+        setResults(cachedResults.current[currentPageNumber + 1]);
+      }
+
+      setCurrentPageNumber(nextPage);
+      updateUrlParams(nextPage);
+    }
   }
 
   function handleClickPrevious() {
-    setCurrentPageIndex(currentPageIndex - 1);
+    if (currentPageNumber > 1) {
+      const previousPage = currentPageNumber - 1;
+      setResults(cachedResults.current[previousPage]);
+      setCurrentPageNumber(previousPage);
+      updateUrlParams(previousPage);
+    }
+  }
+
+  //Update the URL params without reloading the page
+  function updateUrlParams(pageNumber) {
+    setCurrentSearchParams((params) => {
+      params.set("page", pageNumber);
+      return params;
+    });
+    const qString = createSearchParams(currentSearchParams).toString();
+    navigate(`/results?${qString}`, { replace: true });
   }
 
   return (
@@ -76,9 +112,10 @@ export default function ResultsList(props) {
             <p>No results found</p>
           )}
           <div id="results-pagination">
-            {currentPageIndex > 0 ? (
+            {currentPageNumber > 1 ? (
               <button
                 className="pagination-button"
+                disabled={fetchMore}
                 onClick={handleClickPrevious}
               >
                 Previous
@@ -86,10 +123,14 @@ export default function ResultsList(props) {
             ) : null}
 
             <p id="pagination-text">
-              {currentPageIndex + 1}/{totalNbrofPages}
+              {currentPageNumber}/{totalNbrofPages}
             </p>
-            {currentPageIndex < totalNbrofPages - 1 ? (
-              <button className="pagination-button" onClick={handleClickNext}>
+            {currentPageNumber < totalNbrofPages ? (
+              <button
+                className="pagination-button"
+                disabled={fetchMore}
+                onClick={handleClickNext}
+              >
                 Next
               </button>
             ) : null}

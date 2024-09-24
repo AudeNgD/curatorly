@@ -22,13 +22,20 @@ function SearchResults() {
 
   useEffect(() => {
     if (queryParamsString) {
-      fetchArtworks(searchParams).then((res) => {
-        const formattedRes = formatResponse(res);
-        console.log(formattedRes.artworks);
-        setRijksCount(formattedRes.rijksCount);
-        setClevelandCount(formattedRes.clevelandCount);
-        setResults((...currentResults) => formattedRes.artworks);
-      });
+      //only fetch if page number is 21 or multiple of 21
+      if (
+        (searchParams[0].get("page") &&
+          searchParams[0].get("page") % 21 === 0) ||
+        !searchParams[0].get("page")
+      ) {
+        fetchArtworks(searchParams).then((res) => {
+          const formattedRes = formatResponse(res);
+          console.log(formattedRes.artworks);
+          setRijksCount(formattedRes.rijksCount);
+          setClevelandCount(formattedRes.clevelandCount);
+          setResults((...currentResults) => formattedRes.artworks);
+        });
+      }
     }
   }, [queryParamsString]);
 

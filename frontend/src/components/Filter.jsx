@@ -39,13 +39,13 @@ export default function Filter(props) {
     <div id="filter-container">
       <h2>Refine</h2>
       <ul className="filter-list">
-        <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
         <FilterCategory
           categoryName="MUSEUMS"
           uniqueItems={uniqueMuseums}
           rCount={rijksCount}
           cCount={clevelandCount}
         />
+        <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
         <CenturyPicker />
         <TechniqueSearch />
       </ul>
