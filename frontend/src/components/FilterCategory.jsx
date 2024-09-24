@@ -6,7 +6,13 @@ import {
 } from "react-router-dom";
 import { IoMdCloseCircle } from "react-icons/io";
 
-function FilterCategory({ categoryName, uniqueItems }) {
+function FilterCategory(props) {
+  const categoryName = props.categoryName;
+  const uniqueItems = props.uniqueItems;
+  let rikjsCount = 0;
+  let clevelandCount = 0;
+  props.rCount ? (rikjsCount = props.rCount) : (rikjsCount = 0);
+  props.cCount ? (clevelandCount = props.cCount) : (clevelandCount = 0);
   const [expanded, setExpanded] = useState(false);
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [artistPicked, setArtistPicked] = useState(false);
@@ -128,6 +134,13 @@ function FilterCategory({ categoryName, uniqueItems }) {
                   >
                     {"> "}
                     {item}
+                    {categoryName === "MUSEUMS" && item === "Rijksmuseum" ? (
+                      <span className="count"> ({rikjsCount})</span>
+                    ) : null}
+                    {categoryName === "MUSEUMS" &&
+                    item === "The Cleveland Museum of Art" ? (
+                      <span className="count"> ({clevelandCount})</span>
+                    ) : null}
                   </button>
                 </li>
               ))}

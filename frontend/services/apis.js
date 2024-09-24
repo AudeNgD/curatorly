@@ -91,10 +91,8 @@ export const fetchArtworks = (params) => {
           data.rijksData = results[i].data.artObjects;
           data.rijksCount = results[i].data.count;
         } else if (results[i].data.data) {
-          console.log("here results", results);
           data.clevelandData = results[i].data.data;
           data.clevelandCount = results[i].data.info.total;
-          console.log("cleveland data", data.clevelandData);
         }
       }
     }

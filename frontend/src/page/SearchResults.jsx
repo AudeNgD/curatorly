@@ -10,6 +10,8 @@ function SearchResults() {
   const searchParams = useSearchParams();
   const [results, setResults] = useState([]);
   const [queryParamsString, setQueryParamsString] = useState("");
+  const [rijksCount, setRijksCount] = useState(0);
+  const [clevelandCount, setClevelandCount] = useState(0);
 
   useEffect(() => {
     const paramsString = searchParams.toString();
@@ -22,7 +24,10 @@ function SearchResults() {
     if (queryParamsString) {
       fetchArtworks(searchParams).then((res) => {
         const formattedRes = formatResponse(res);
-        setResults((...currentResults) => formattedRes);
+        console.log(formattedRes.artworks);
+        setRijksCount(formattedRes.rijksCount);
+        setClevelandCount(formattedRes.clevelandCount);
+        setResults((...currentResults) => formattedRes.artworks);
       });
     }
   }, [queryParamsString]);
@@ -31,8 +36,16 @@ function SearchResults() {
     <div id="searchresults-container">
       <h1>Search Results</h1>
       <section id="filter-results">
-        <Filter artworks={results} />
-        <ResultsList artworks={results} />
+        <Filter
+          artworks={results}
+          rCount={rijksCount}
+          cCount={clevelandCount}
+        />
+        <ResultsList
+          artworks={results}
+          rCount={rijksCount}
+          cCount={clevelandCount}
+        />
       </section>
     </div>
   );

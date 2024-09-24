@@ -3,7 +3,10 @@ import FilterCategory from "./FilterCategory";
 import CenturyPicker from "./CenturyPicker";
 import TechniqueSearch from "./TechniqueSearch";
 
-export default function Filter({ artworks }) {
+export default function Filter(props) {
+  const artworks = props.artworks;
+  const rijksCount = props.rCount;
+  const clevelandCount = props.cCount;
   const [results, setResults] = useState({ ...artworks });
   const [uniqueArtists, setUniqueArtists] = useState([]);
   const [uniqueMuseums, setUniqueMuseums] = useState([]);
@@ -37,7 +40,12 @@ export default function Filter({ artworks }) {
       <h2>Refine</h2>
       <ul className="filter-list">
         <FilterCategory categoryName="ARTISTS" uniqueItems={uniqueArtists} />
-        <FilterCategory categoryName="MUSEUMS" uniqueItems={uniqueMuseums} />
+        <FilterCategory
+          categoryName="MUSEUMS"
+          uniqueItems={uniqueMuseums}
+          rCount={rijksCount}
+          cCount={clevelandCount}
+        />
         <CenturyPicker />
         <TechniqueSearch />
       </ul>
