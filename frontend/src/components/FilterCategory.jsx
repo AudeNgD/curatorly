@@ -11,8 +11,10 @@ function FilterCategory(props) {
   const uniqueItems = props.uniqueItems;
   let rikjsCount = 0;
   let clevelandCount = 0;
+  let vamCount = 0;
   props.rCount ? (rikjsCount = props.rCount) : (rikjsCount = 0);
   props.cCount ? (clevelandCount = props.cCount) : (clevelandCount = 0);
+  props.vCount ? (vamCount = props.vCount) : (vamCount = 0);
   const [expanded, setExpanded] = useState(false);
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [artistPicked, setArtistPicked] = useState(false);
@@ -41,6 +43,13 @@ function FilterCategory(props) {
       if (museum === "The Cleveland Museum of Art") {
         setCurrentSearchParams((params) => {
           params.set("rcheck", !params.get("rcheck"));
+          return params;
+        });
+      }
+
+      if (museum === "Victoria and Albert Museum") {
+        setCurrentSearchParams((params) => {
+          params.set("vcheck", !params.get("vcheck"));
           return params;
         });
       }
@@ -81,6 +90,17 @@ function FilterCategory(props) {
       if (museum === "The Cleveland Museum of Art") {
         setCurrentSearchParams((params) => {
           params.set("rcheck", true);
+          return params;
+        });
+        const qString = createSearchParams(currentSearchParams).toString();
+        navigate(`/results?${qString}`);
+        setMuseumPicked(false);
+        setMuseum("");
+      }
+
+      if (museum === "Victoria and Albert Museum") {
+        setCurrentSearchParams((params) => {
+          params.set("vcheck", true);
           return params;
         });
         const qString = createSearchParams(currentSearchParams).toString();
@@ -140,6 +160,10 @@ function FilterCategory(props) {
                     {categoryName === "MUSEUMS" &&
                     item === "The Cleveland Museum of Art" ? (
                       <span className="count"> ({clevelandCount})</span>
+                    ) : null}
+                    {categoryName === "MUSEUMS" &&
+                    item === "Victoria and Albert Museum" ? (
+                      <span className="count"> ({vamCount})</span>
                     ) : null}
                   </button>
                 </li>

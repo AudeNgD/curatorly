@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function SearchBox() {
   const [rijksmuseumChecked, setRijksmuseumChecked] = useState(true);
   const [clevelandChecked, setClevelandChecked] = useState(true);
+  const [vamChecked, setVamChecked] = useState(true);
   const [keyword, setKeyword] = useState("");
 
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ function SearchBox() {
 
   function handleClevelandCheckbox(event) {
     setClevelandChecked(!clevelandChecked);
+  }
+
+  function handleVamCheckbox(event) {
+    setVamChecked(!vamChecked);
   }
 
   function getKeyword(event) {
@@ -28,7 +33,8 @@ function SearchBox() {
     const searchWord = keyword;
     const rChecked = rijksmuseumChecked;
     const cChecked = clevelandChecked;
-    const qString = `?keyword=${searchWord}&rcheck=${rChecked}&ccheck=${cChecked}`;
+    const vChecked = vamChecked;
+    const qString = `?keyword=${searchWord}&rcheck=${rChecked}&ccheck=${cChecked}&vcheck=${vChecked}`;
     navigate(`/results${qString}`);
   }
 
@@ -44,6 +50,11 @@ function SearchBox() {
           label="Cleveland Museum of Art"
           value={clevelandChecked}
           onChange={handleClevelandCheckbox}
+        />
+        <Checkbox
+          label="Victoria and Albert Museum"
+          value={vamChecked}
+          onChange={handleVamCheckbox}
         />
       </div>
 
