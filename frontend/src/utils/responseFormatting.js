@@ -1,9 +1,11 @@
-import { fetchRijksObjectDetails } from "../../services/rijksObjectAPI";
-
 export default function formatResponse(response) {
   if (response != []) {
     const rijksData = response.rijksData ? response.rijksData : [];
     const clevelandData = response.clevelandData ? response.clevelandData : [];
+    const rijksCount = response.rijksCount ? response.rijksCount : 0;
+    const clevelandCount = response.clevelandCount
+      ? response.clevelandCount
+      : 0;
 
     let formattedrijksData = [];
     let formattedclevelandData = [];
@@ -59,9 +61,9 @@ export default function formatResponse(response) {
       });
     }
 
-    const artwork = formattedrijksData.concat(formattedclevelandData);
+    const artworks = formattedrijksData.concat(formattedclevelandData);
     //returns an array of objects
-    return artwork;
+    return { artworks, rijksCount, clevelandCount };
   } else {
     return [];
   }

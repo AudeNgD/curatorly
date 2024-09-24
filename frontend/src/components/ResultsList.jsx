@@ -1,44 +1,93 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+  replace,
+} from "react-router-dom";
 import ArtworkCard from "./ArtworkCard";
 import LoadingMessage from "./LoadingMessage";
 
-export default function ResultsList({ artworks }) {
-  const allResults = artworks;
+export default function ResultsList(props) {
+  const allResults = props.artworks;
+  const clevelandCount = props.cCount;
+  const rijksCount = props.rCount;
   const [artworksPerPage, setArtworksPerPage] = useState(10);
-  const totalNbrofPages = Math.ceil(allResults.length / artworksPerPage);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [totalNbrofPages, setTotalNbrofPages] = useState(0);
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+  const [fetchMore, setFetchMore] = useState(false);
 
-  useEffect(() => {
-    setResults(
-      allResults.slice(
-        currentPageIndex * artworksPerPage,
-        currentPageIndex * artworksPerPage + artworksPerPage
-      )
-    );
-  }, [artworks]);
+  const detectPaginationChange = props.detectPaginationChange;
 
-  useEffect(() => {
-    const artworksToDisplay = allResults.slice(
-      currentPageIndex * artworksPerPage,
-      currentPageIndex * artworksPerPage + artworksPerPage
-    );
-    setResults(artworksToDisplay);
-  }, [currentPageIndex]);
+  const cachedResults = useRef({});
+  const navigate = useNavigate();
 
+  // loading message until results are set
   useEffect(() => {
     if (results && results.length > 0) {
       isLoading(false);
     }
-  });
+  }, [results]);
+
+  //cache the initial results when allResults is set
+  useEffect(() => {
+    if (allResults && allResults.length > 0) {
+      const totalPages = Math.ceil(
+        (clevelandCount + rijksCount) / artworksPerPage
+      );
+      setTotalNbrofPages(totalPages);
+    }
+
+    //cache results for each page within available results
+    for (let i = 0; i < allResults.length / artworksPerPage; i++) {
+      const startIndex = i * artworksPerPage;
+      const endIndex = startIndex + artworksPerPage;
+      const perPageResults = allResults.slice(startIndex, endIndex);
+      cachedResults.current[currentPageNumber + i] = perPageResults;
+    }
+
+    setResults(cachedResults.current[currentPageNumber] || []);
+  }, [allResults, clevelandCount, rijksCount, artworksPerPage]);
 
   function handleClickNext() {
-    setCurrentPageIndex(currentPageIndex + 1);
+    if (currentPageNumber < totalNbrofPages) {
+      const nextPage = currentPageNumber + 1;
+
+      //check if next page data is already cached
+      if (!cachedResults.current[currentPageNumber + 1]) {
+        //tell the parent component it isn't pagination change - cache data has run out
+        detectPaginationChange(false);
+      } else {
+        //if yes, set results to the next page
+        detectPaginationChange(true);
+        setResults(cachedResults.current[currentPageNumber + 1]);
+      }
+
+      setCurrentPageNumber(nextPage);
+      updateUrlParams(nextPage);
+    }
   }
 
   function handleClickPrevious() {
-    setCurrentPageIndex(currentPageIndex - 1);
+    if (currentPageNumber > 1) {
+      const previousPage = currentPageNumber - 1;
+      setResults(cachedResults.current[previousPage]);
+      setCurrentPageNumber(previousPage);
+      updateUrlParams(previousPage);
+    }
+  }
+
+  //Update the URL params without reloading the page
+  function updateUrlParams(pageNumber) {
+    setCurrentSearchParams((params) => {
+      params.set("page", pageNumber);
+      return params;
+    });
+    const qString = createSearchParams(currentSearchParams).toString();
+    navigate(`/results?${qString}`, { replace: true });
   }
 
   return (
@@ -48,12 +97,15 @@ export default function ResultsList({ artworks }) {
       ) : (
         <div id="results-container">
           {results ? (
-            <ArtworkCard artworks={results} count={allResults.length} />
+            <ArtworkCard
+              artworks={results}
+              count={rijksCount + clevelandCount}
+            />
           ) : (
             <p>No results found</p>
           )}
           <div id="results-pagination">
-            {currentPageIndex > 0 ? (
+            {currentPageNumber > 1 ? (
               <button
                 className="pagination-button"
                 onClick={handleClickPrevious}
@@ -63,9 +115,9 @@ export default function ResultsList({ artworks }) {
             ) : null}
 
             <p id="pagination-text">
-              {currentPageIndex + 1}/{totalNbrofPages}
+              {currentPageNumber}/{totalNbrofPages}
             </p>
-            {currentPageIndex < totalNbrofPages - 1 ? (
+            {currentPageNumber < totalNbrofPages ? (
               <button className="pagination-button" onClick={handleClickNext}>
                 Next
               </button>

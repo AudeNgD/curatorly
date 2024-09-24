@@ -51,7 +51,9 @@ export const fetchArtworks = (params) => {
   century ? (rijksQuery += `&f.dating.period=${century}`) : null;
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
-  page ? (rijksQuery += `&p=${page}`) : null;
+  //the page number passed is the search results pagination number
+  //only need to fetch artwork for next page if hit page number is multiple of 20
+  page && page % 21 === 0 ? (rijksQuery += `&p=${page / 21 + 1}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 
@@ -67,7 +69,9 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
-  page ? (clevelandQuery += `&skip=${page * 1000}`) : null;
+  page && page % 21 === 0
+    ? (clevelandQuery += `&skip=${(page / 21) * 100}`)
+    : null;
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
 
@@ -91,10 +95,8 @@ export const fetchArtworks = (params) => {
           data.rijksData = results[i].data.artObjects;
           data.rijksCount = results[i].data.count;
         } else if (results[i].data.data) {
-          console.log("here results", results);
           data.clevelandData = results[i].data.data;
           data.clevelandCount = results[i].data.info.total;
-          console.log("cleveland data", data.clevelandData);
         }
       }
     }
