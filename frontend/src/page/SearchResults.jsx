@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchArtworks } from "../../services/apis";
 import formatResponse from "../utils/responseFormatting";
+import SortBy from "../components/SortBy";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -38,6 +39,7 @@ function SearchResults() {
   return (
     <div id="searchresults-container">
       <h1>Search Results</h1>
+      <SortBy />
       <section id="filter-results">
         <Filter
           artworks={results}
