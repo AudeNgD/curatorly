@@ -12,6 +12,11 @@ const rijksAPI = axios.create({
 
 const clevelandAPI = axios.create({
   baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api`,
+  headers: {
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET",
+  },
 });
 
 const vamAPI = axios.create({

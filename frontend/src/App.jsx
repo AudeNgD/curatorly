@@ -19,22 +19,14 @@ function App() {
             <>
               <NavBar />
               <Outlet />
+              <Footer />
             </>
           }
         >
-          <Route
-            element={
-              <>
-                <Footer />
-                <Outlet />{" "}
-              </>
-            }
-          >
-            <Route path="/shortlist" element={<Shortlist />}></Route>
-            <Route path="/results" element={<SearchResults />}></Route>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-          </Route>
+          <Route path="/shortlist" element={<Shortlist />}></Route>
+          <Route path="/results" element={<SearchResults />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
         </Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2D />}></Route>
