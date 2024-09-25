@@ -33,12 +33,17 @@ function Footer() {
               url="http://localhost:5173/"
               subject="Create a virtual exhibition with curatorly!"
             >
-              <MdOutlineMail className="footer-sm-icon" />
+              <MdOutlineMail
+                className="footer-sm-icon"
+                value="share via email"
+              />
+              <p style={{ display: "none" }}> Share by email</p>
             </EmailShareButton>
           </li>
           <li>
             <FacebookShareButton hashtag="#artexhibition">
               <FaSquareFacebook className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Facebook</p>
             </FacebookShareButton>
           </li>
           <li>
@@ -48,6 +53,7 @@ function Footer() {
               summary="Create and share your own virtual exhibitions."
             >
               <FaLinkedin className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Facebook</p>
             </LinkedinShareButton>
           </li>
           <li>
@@ -56,11 +62,13 @@ function Footer() {
               description="Create and share your own virtual exhibitions."
             >
               <FaPinterestSquare className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Pinterest</p>
             </PinterestShareButton>
           </li>
           <li>
             <RedditShareButton title="curatorly">
               <FaRedditSquare className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Reddit</p>
             </RedditShareButton>
           </li>
           <li>
@@ -70,6 +78,7 @@ function Footer() {
               tags={["art", "exhibition"]}
             >
               <FaSquareTumblr className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Tumblr</p>
             </TumblrShareButton>
           </li>
           <li>
@@ -79,11 +88,13 @@ function Footer() {
               url="http://localhost:5173/"
             >
               <FaTwitterSquare className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Twitter</p>
             </TwitterShareButton>
           </li>
           <li>
             <WhatsappShareButton title="curatorly" separator=":: ">
               <FaSquareWhatsapp className="footer-sm-icon" />
+              <p style={{ display: "none" }}> Share on Whatsapp</p>
             </WhatsappShareButton>
           </li>
         </ul>

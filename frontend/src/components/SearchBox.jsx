@@ -67,6 +67,7 @@ function SearchBox() {
           value={keyword}
           onChange={getKeyword}
         />
+        <span style={{ display: "none" }}>Search for a keyword</span>
       </label>
       <button type="submit">Search</button>
     </form>
