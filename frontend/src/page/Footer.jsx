@@ -22,13 +22,10 @@ import { FaSquareWhatsapp } from "react-icons/fa6";
 function Footer() {
   return (
     <div id="footer-container">
-      <p>Created by: Aude Nguyen Duc</p>
-      <p>
-        {" "}
-        Find me on <a href="https://www.linkedin.com/in/audengduc/">
-          LinkedIn
-        </a>{" "}
-      </p>
+      <section id="footer-about">
+        <p>Created by: Aude Nguyen Duc</p>
+        <a href="https://www.linkedin.com/in/audengduc/">Find me on LinkedIn</a>
+      </section>
       <section id="footer-social-media">
         <ul>
           <li>

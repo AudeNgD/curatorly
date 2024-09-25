@@ -50,8 +50,10 @@ body {
 /* NAV BAR */
 nav {
   background-color: var(--dark-brown);
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  
+  top: 0; */
+  position: sticky;
   color: #242424;
   height: 90px;
   width: 100%;
@@ -98,16 +100,16 @@ nav > ul > li > a:hover {
 
 /*Class to stick the pages in the right position*/
 .sticky {
-  position: fixed;
+  /* position: fixed;
   top: 90px;
-  width: 100%;
+  width: 100%; */
 }
 
 /* HOMEPAGE */
 
 #homepage {
   width: 100%;
-  height: fit-content;
+  height: 100%;
   display: block;
   background-color: var(--light-grey);
   /* position: fixed; */
@@ -115,7 +117,7 @@ nav > ul > li > a:hover {
 
 #hero {
   width: 100%;
-  height: fit-content;
+  height: 50%;
   background-image: url("./assets/curatorly_main_image.png");
   background-size: cover;
   background-position: center;
@@ -851,8 +853,8 @@ nav > ul > li > a:hover {
 #footer-container {
   width: 100%;
   height: 90px;
-  top: 90px;
-  position: relative;
+  /* top: 590px;
+  position: relative; */
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -861,12 +863,34 @@ nav > ul > li > a:hover {
   color: var(--light-cream);
 }
 
-#footer-container > p {
+#footer-about > p {
   font-size: 1em;
   font-family: "Karla", sans-serif;
   margin-left: 10px;
   margin: 0;
   padding: 0;
+}
+
+#footer-about > a {
+  font-size: 1em;
+  font-family: "Karla", sans-serif;
+  color: var(--light-cream);
+  text-decoration: underline;
+}
+
+#footer-about > a:hover {
+  color: var(--light-cream);
+}
+
+#footer-about {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 10px;
+  margin-left: 10px;
 }
 
 #footer-social-media {
