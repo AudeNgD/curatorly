@@ -5,13 +5,29 @@ import { useNavigate } from "react-router-dom";
 
 function Shortlist() {
   const [shortlist, setShortlist] = useState([]);
+  const [clevelandCount, setClevelandCount] = useState(0);
+  const [rijksCount, setRijksCount] = useState(0);
+  const [vamCount, setVamCount] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
     setShortlist(JSON.parse(storedData));
-  }, []);
+    //count how many artworks for each museum
+    const clevelandCount = JSON.parse(storedData).filter(
+      (artwork) => artwork.museum === "Cleveland Museum of Art"
+    ).length;
+    const rijksCount = JSON.parse(storedData).filter(
+      (artwork) => artwork.museum === "Rijksmuseum"
+    ).length;
+    const vamCount = JSON.parse(storedData).filter(
+      (artwork) => artwork.museum === "Victoria and Albert Museum"
+    ).length;
+    setClevelandCount(clevelandCount);
+    setRijksCount(rijksCount);
+    setVamCount(vamCount);
+  }, [clevelandCount, rijksCount, vamCount]);
 
   function twoDClick() {
     navigate("/2d-exhibition");
@@ -35,12 +51,28 @@ function Shortlist() {
             </button>
           </section>
           <section id="filter-results">
-            <Filter artworks={shortlist} />
-            <ResultsList artworks={shortlist} />
+            <Filter
+              artworks={shortlist}
+              rCount={rijksCount}
+              cCount={clevelandCount}
+              vCount={vamCount}
+            />
+            <ResultsList
+              artworks={shortlist}
+              rCount={rijksCount}
+              cCount={clevelandCount}
+              vCount={vamCount}
+            />
           </section>
         </div>
       ) : (
-        <h2>No items in shortlist</h2>
+        <div id="shortlist-container" className="empty-shortlist">
+          <h2>No items in shortlist</h2>
+          <p>
+            Go back to the <a href="/">home page</a> to add items to your
+            shortlist.
+          </p>
+        </div>
       )}
     </>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -25,6 +26,9 @@ function Footer() {
       <section id="footer-about">
         <p>Created by: Aude Nguyen Duc</p>
         <a href="https://www.linkedin.com/in/audengduc/">Find me on LinkedIn</a>
+      </section>
+      <section id="footer-credits">
+        <Link to="/credits">Credits</Link>
       </section>
       <section id="footer-social-media">
         <ul>

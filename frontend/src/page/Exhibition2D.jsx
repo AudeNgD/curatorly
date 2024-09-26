@@ -16,6 +16,7 @@ function Exhibition2D() {
   const [zoomActive, setZoomActive] = useState(false);
   const [infoActive, setInfoActive] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [clicked, isClicked] = useState(false);
 
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
@@ -63,6 +64,7 @@ function Exhibition2D() {
 
   function handleInfoClick() {
     setInfoActive(!infoActive);
+    isClicked(!clicked);
   }
 
   return (
@@ -93,18 +95,8 @@ function Exhibition2D() {
                   <p>{currentArtwork?.museum}</p>
                 </div>
               ) : null}
-              {currentArtworkIndex > 0 ? (
-                <button
-                  className="twod-nav-artwork"
-                  onClick={() =>
-                    setCurrentArtworkIndex(currentArtworkIndex - 1)
-                  }
-                >
-                  <IoMdArrowRoundBack />
-                </button>
-              ) : null}
             </div>
-            <div id="twod-artwork-middle">
+            <div id="twod-artwork-right">
               {zoomActive ? (
                 <ZoomIn
                   src={currentArtwork?.imageUrl}
@@ -118,28 +110,39 @@ function Exhibition2D() {
                   alt={currentArtwork?.title}
                 />
               )}
-
-              <div id="twod-artwork-buttons">
-                <button id="twod-artwork-zoom" onClick={handleZoomClick}>
-                  {zoomActive ? <TbZoomCancelFilled /> : <TbZoomCheckFilled />}
-                </button>
-                <button id="two-artwork-info" onClick={handleInfoClick}>
-                  <FaInfo />
-                </button>
-              </div>
             </div>
-            <div id="twod-artwork-right">
-              {currentArtworkIndex < shortlist.length - 1 ? (
-                <button
-                  className="twod-nav-artwork"
-                  onClick={() =>
-                    setCurrentArtworkIndex(currentArtworkIndex + 1)
-                  }
-                >
-                  <IoMdArrowRoundForward />
-                </button>
-              ) : null}
-            </div>
+          </section>
+          <section id="twod-artwork-buttons">
+            {currentArtworkIndex > 0 ? (
+              <button
+                className="twod-nav-artwork"
+                onClick={() => setCurrentArtworkIndex(currentArtworkIndex - 1)}
+              >
+                <IoMdArrowRoundBack />
+              </button>
+            ) : null}
+            <button
+              id="twod-artwork-zoom"
+              onClick={handleZoomClick}
+              className={zoomActive ? "clicked" : "not-clicked"}
+            >
+              {zoomActive ? <TbZoomCancelFilled /> : <TbZoomCheckFilled />}
+            </button>
+            <button
+              id="two-artwork-info-button"
+              onClick={handleInfoClick}
+              className={clicked ? "clicked" : "not-clicked"}
+            >
+              <FaInfo />
+            </button>
+            {currentArtworkIndex < shortlist.length - 1 ? (
+              <button
+                className="twod-nav-artwork"
+                onClick={() => setCurrentArtworkIndex(currentArtworkIndex + 1)}
+              >
+                <IoMdArrowRoundForward />
+              </button>
+            ) : null}
           </section>
           <section id="twod-artworks-banner">
             {shortlist &&

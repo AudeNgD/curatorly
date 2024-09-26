@@ -1,26 +1,76 @@
 import React from "react";
 import SearchBox from "../components/SearchBox";
+import rijkspicture from "../assets/rijksmuseum-lead-pic.jpg";
+import clevelandpicture from "../assets/cleveland-museum-lead-pic.jpg";
+import vampicture from "../assets/vam-lead-pic.jpg";
 
 function Home() {
   return (
     <>
       <div id="homepage" className="sticky">
-        <section id="hero">
-          <div id="hero-text">
-            <h1>curatorly</h1>
-            <p>Create and share your own virtual exhibitions.</p>
-            <ul>
-              <li>
-                Search through the collections from the
-                <strong> Rijskmuseum </strong> and the{" "}
-                <strong>Cleveland Museum of Art</strong>.
-              </li>
-              <li>Save your favourite artworks to a shortlist.</li>
-              <li>View your exhibition either in 2D or in 3D.</li>
-            </ul>
-          </div>
-          <div id="search-box">
-            <SearchBox />
+        <div id="homepage-top">
+          <section id="hero">
+            <div id="hero-text">
+              <h1>curatorly</h1>
+              <h3>Create and share your own virtual exhibitions.</h3>
+              <ul>
+                <li>
+                  Search through the collections from the
+                  <strong> Rijskmuseum </strong>,{" "}
+                  <strong>the Victoria & Albert Museum</strong>, and the{" "}
+                  <strong>Cleveland Museum of Art</strong>.
+                </li>
+                <li>Save your favourite artworks to a shortlist.</li>
+                <li>View your exhibition either in 2D or in 3D.</li>
+              </ul>
+            </div>
+            <div id="search-box">
+              <SearchBox />
+            </div>
+          </section>
+        </div>
+        <section id="about-museums">
+          <h2>About the museums</h2>
+          <div id="museum-info">
+            <div className="museum-card">
+              <img
+                src={rijkspicture}
+                alt="landscape picture of a group of people in front of a painting"
+              />
+              <h3>Rijksmuseum</h3>
+              <p>
+                The Rijksmuseum is a Dutch national museum dedicated to arts and
+                history in Amsterdam. The museum is located at the Museum Square
+                in the borough Amsterdam South, close to the Van Gogh Museum,
+                the Stedelijk Museum Amsterdam, and the Concertgebouw.
+              </p>
+            </div>
+            <div className="museum-card">
+              <img
+                src={vampicture}
+                alt="a seated  woman with a yellow jumper looking at a marble statue"
+              />
+              <h3>V&A Museum</h3>
+              <p>
+                The Victoria and Albert Museum in London is the world's largest
+                museum of applied and decorative arts and design, as well as
+                sculpture, housing a permanent collection of over 2.27 million
+                objects.
+              </p>
+            </div>
+            <div className="museum-card">
+              <img
+                src={clevelandpicture}
+                alt="landscape picture of the outside of the Cleveland Museum of Art"
+              />
+              <h3>Cleveland Museum of Art</h3>
+              <p>
+                The Cleveland Museum of Art is an art museum in Cleveland, Ohio,
+                located in the Wade Park District, in the University Circle
+                neighborhood on the city's east side. Internationally renowned
+                for its substantial holdings of Asian and Egyptian art.
+              </p>
+            </div>
           </div>
         </section>
       </div>
