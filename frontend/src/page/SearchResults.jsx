@@ -2,7 +2,11 @@ import React from "react";
 import Filter from "../components/Filter";
 import ResultsList from "../components/ResultsList";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+} from "react-router-dom";
 import { fetchArtworks } from "../../services/apis";
 import formatResponse from "../utils/responseFormatting";
 import SortBy from "../components/SortBy";
@@ -16,6 +20,9 @@ function SearchResults() {
   const [vamCount, setVamCount] = useState(0);
   const [paginationChange, setPaginationChange] = useState(false);
   const [sortby, setSortby] = useState("relevance");
+  const [newSearch, setNewSearch] = useState("");
+  const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const paramsString = searchParams.toString();
@@ -54,8 +61,50 @@ function SearchResults() {
     }
   }, [queryParamsString]);
 
+  function getNewSearchWord(event) {
+    if (event.target.name !== undefined) {
+      setNewSearch(event.target.value);
+    }
+  }
+
+  function submitSearch(event) {
+    event.preventDefault();
+    const searchWord = newSearch;
+    setCurrentSearchParams((params) => {
+      params.set("keyword", searchWord);
+      params.set("vcheck", true);
+      params.set("rcheck", true);
+      params.set("ccheck", true);
+      params?.delete("page");
+      params?.delete("sortby");
+      params?.delete("aname");
+      params?.delete("century");
+      params?.delete("technique");
+      return params;
+    });
+    const qString = createSearchParams(currentSearchParams).toString();
+    navigate(`/results?${qString}`);
+    setNewSearch("");
+  }
+
   return (
     <div id="searchresults-container">
+      <div id="searchresults-new-search">
+        <form id="search-form" onSubmit={submitSearch}>
+          <label htmlFor="newSearch">
+            <input
+              type="text"
+              name="newSearch"
+              placeholder="Search for a keyword"
+              id="keyword"
+              value={newSearch}
+              onChange={getNewSearchWord}
+            />
+            <span style={{ display: "none" }}>Search for a keyword</span>
+          </label>
+          <button type="submit">Search</button>
+        </form>
+      </div>
       <h1>Search Results</h1>
       <SortBy detectSortBy={setSortby} />
       <section id="filter-results">
