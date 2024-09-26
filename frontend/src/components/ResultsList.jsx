@@ -13,6 +13,7 @@ export default function ResultsList(props) {
   const clevelandCount = props.cCount;
   const rijksCount = props.rCount;
   const vamCount = props.vCount;
+  const message = props.message;
 
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
@@ -21,6 +22,7 @@ export default function ResultsList(props) {
   const [loading, isLoading] = useState(true);
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [fetchMore, setFetchMore] = useState(false);
+  const [displayMessage, setDisplayMessage] = useState(message);
 
   const detectPaginationChange = props.detectPaginationChange;
 
@@ -96,7 +98,7 @@ export default function ResultsList(props) {
     <>
       {loading ? (
         <LoadingMessage />
-      ) : (
+      ) : displayMessage == "" ? (
         <div id="results-container">
           {results ? (
             <ArtworkCard
@@ -126,6 +128,8 @@ export default function ResultsList(props) {
             ) : null}
           </div>
         </div>
+      ) : (
+        <>{displayMessage}</>
       )}
     </>
   );

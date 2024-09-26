@@ -22,6 +22,7 @@ function SearchResults() {
   const [sortby, setSortby] = useState("relevance");
   const [newSearch, setNewSearch] = useState("");
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,25 +38,30 @@ function SearchResults() {
         fetchArtworks(searchParams).then((res) => {
           const formattedRes = formatResponse(res);
 
-          //if sortby is not relevance, sort the results
-          if (sortby !== "relevance") {
-            formattedRes.artworks.sort((a, b) => {
-              if (sortby === "artistAZ") {
-                return a.artist.localeCompare(b.artist);
-              } else if (sortby === "artistZA") {
-                return b.artist.localeCompare(a.artist);
-              } else if (sortby === "titleAZ") {
-                return a.title.localeCompare(b.title);
-              } else if (sortby === "titleZA") {
-                return b.title.localeCompare(a.title);
-              }
-            });
+          if (formattedRes.message) {
+            setMessage(formattedRes.message);
+          } else {
+            if (sortby !== "relevance") {
+              formattedRes.artworks.sort((a, b) => {
+                if (sortby === "artistAZ") {
+                  return a.artist.localeCompare(b.artist);
+                } else if (sortby === "artistZA") {
+                  return b.artist.localeCompare(a.artist);
+                } else if (sortby === "titleAZ") {
+                  return a.title.localeCompare(b.title);
+                } else if (sortby === "titleZA") {
+                  return b.title.localeCompare(a.title);
+                }
+              });
+            }
+            if (formattedRes.artworks) {
+              console.log(formattedRes.artworks);
+              setRijksCount(formattedRes.rijksCount);
+              setClevelandCount(formattedRes.clevelandCount);
+              setVamCount(formattedRes.vamCount);
+              setResults((...currentResults) => formattedRes.artworks);
+            }
           }
-          console.log(formattedRes.artworks);
-          setRijksCount(formattedRes.rijksCount);
-          setClevelandCount(formattedRes.clevelandCount);
-          setVamCount(formattedRes.vamCount);
-          setResults((...currentResults) => formattedRes.artworks);
         });
       }
     }
@@ -120,6 +126,8 @@ function SearchResults() {
           cCount={clevelandCount}
           vCount={vamCount}
           detectPaginationChange={setPaginationChange}
+          message={message}
+          setMessage={setMessage}
         />
       </section>
     </div>
