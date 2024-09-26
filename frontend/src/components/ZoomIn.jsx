@@ -6,9 +6,10 @@ function ZoomIn({
   height,
   alt,
   id,
-  magnifierHeight = 100,
-  magnifierWidth = 100,
+  magnifierHeight = 150,
+  magnifierWidth = 150,
   zoomLevel = 2,
+  setZoomActive,
 }) {
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -37,7 +38,7 @@ function ZoomIn({
   };
 
   return (
-    <div id="twod-zoom-container">
+    <section id="twod-zoom-container">
       <div id="twod-zoom-img-container">
         <img
           src={src}
@@ -63,8 +64,8 @@ function ZoomIn({
           borderRadius: "5px",
           backgroundImage: `url('${src}')`,
           backgroundRepeat: "no-repeat",
-          top: `${y - magnifierHeight / 2}px`,
-          left: `${x - magnifierWidth / 2}px`,
+          top: `${y}px`,
+          left: `${x + imgWidth / 2 + magnifierWidth / 2}px`,
           backgroundSize: `${imgWidth * zoomLevel}px ${
             imgHeight * zoomLevel
           }px`,
@@ -72,7 +73,7 @@ function ZoomIn({
           backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
         }}
       />
-    </div>
+    </section>
   );
 }
 

@@ -6,6 +6,7 @@ import Shortlist from "./page/Shortlist";
 import SearchResults from "./page/SearchResults";
 import Home from "./page/Home";
 import Exhibition2D from "./page/Exhibition2D";
+import Exhibition2Dv2 from "./page/Exhibition2Dv2";
 import Exhibition3D from "./page/Exhibition3D";
 import About from "./page/About";
 import Footer from "./page/Footer";
@@ -33,7 +34,7 @@ function App() {
         </Route>
         <Route path="/exhibition" element={<Exhibition />}></Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
-        <Route path="/2d-exhibition" element={<Exhibition2D />}></Route>
+        <Route path="/2d-exhibition" element={<Exhibition2Dv2 />}></Route>
       </Routes>
     </>
   );

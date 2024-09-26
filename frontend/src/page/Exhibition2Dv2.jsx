@@ -5,11 +5,14 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import { TbZoomCheckFilled } from "react-icons/tb";
 import { TbZoomCancelFilled } from "react-icons/tb";
 import { FaInfo } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa6";
 import Tooltip from "@mui/material/Tooltip";
 import ZoomIn from "../components/ZoomIn";
 import LoadingMessage from "../components/LoadingMessage";
+import Carousel from "react-bootstrap/Carousel";
 
-function Exhibition2D() {
+function Exhibition2Dv2() {
   const [shortlist, setShortlist] = useState([]);
   const [currentArtwork, setCurrentArtwork] = useState(null);
   const [currentArtworkIndex, setCurrentArtworkIndex] = useState(0);
@@ -17,6 +20,7 @@ function Exhibition2D() {
   const [infoActive, setInfoActive] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clicked, isClicked] = useState(false);
+  const [autoplaying, isAutoPlaying] = useState(false);
 
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
@@ -34,6 +38,21 @@ function Exhibition2D() {
       setLoading(false);
     }
   });
+
+  //detect autoplay and hide the header and bring it back on mouse move
+  // useEffect(() => {
+  //   if (autoplaying) {
+  //     document.getElementById("twod-exhibition-header")
+  //       ? (document.getElementById("twod-exhibition-header").style.display =
+  //           "none")
+  //       : null;
+  //   } else {
+  //     document.getElementById("twod-exhibition-header")
+  //       ? (document.getElementById("twod-exhibition-header").style.display =
+  //           "block")
+  //       : null;
+  //   }
+  // });
 
   //detect keyboard events arrow left and right to move between artworks
 
@@ -67,6 +86,23 @@ function Exhibition2D() {
     isClicked(!clicked);
   }
 
+  //circle through all artworks until press pause
+  function autoPlay() {
+    const interval = setInterval(() => {
+      if (currentArtworkIndex < shortlist.length - 1) {
+        setCurrentArtworkIndex((artworkIdx) => artworkIdx + 1);
+      } else {
+        setCurrentArtworkIndex(0);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }
+
+  function pauseAutoplay() {
+    clearInterval(autoPlay());
+  }
+
   return (
     <>
       {loading ? (
@@ -74,7 +110,7 @@ function Exhibition2D() {
       ) : (
         <div id="twod-exhibition-container">
           <section id="twod-exhibition-header">
-            <Tooltip title="Back to shortlist" placement="top">
+            <Tooltip title="Back to shortlist" placement="left">
               <button
                 id="two2d-back-button"
                 onClick={() => window.history.back()}
@@ -82,37 +118,6 @@ function Exhibition2D() {
                 <IoMdReturnLeft />
               </button>
             </Tooltip>
-          </section>
-          <section id="twod-current-artwork">
-            <div id="twod-artwork-left">
-              {infoActive ? (
-                <div id="twod-artwork-info">
-                  <h2>{currentArtwork?.title}</h2>
-                  <p>{currentArtwork?.description}</p>
-                  <p>{currentArtwork?.artist}</p>
-                  <p>{currentArtwork?.year}</p>
-                  <p>{currentArtwork?.medium}</p>
-                  <p>{currentArtwork?.museum}</p>
-                </div>
-              ) : null}
-            </div>
-            <div id="twod-artwork-right">
-              {zoomActive ? (
-                <ZoomIn
-                  src={currentArtwork?.imageUrl}
-                  alt={currentArtwork?.title}
-                  id="twod-zoom-image"
-                />
-              ) : (
-                <img
-                  id="twod-artwork-image"
-                  src={currentArtwork?.imageUrl}
-                  alt={currentArtwork?.title}
-                />
-              )}
-            </div>
-          </section>
-          <section id="twod-artwork-buttons">
             {currentArtworkIndex > 0 ? (
               <button
                 className="twod-nav-artwork"
@@ -135,6 +140,20 @@ function Exhibition2D() {
             >
               <FaInfo />
             </button>
+            <button
+              id="twod-autoplay-button"
+              className="not-clicked"
+              onClick={autoPlay}
+            >
+              <FaPlay />
+            </button>
+            <button
+              id="twod-pause-button"
+              className="not-clicked"
+              onClick={pauseAutoplay}
+            >
+              <FaPause />
+            </button>
             {currentArtworkIndex < shortlist.length - 1 ? (
               <button
                 className="twod-nav-artwork"
@@ -144,26 +163,27 @@ function Exhibition2D() {
               </button>
             ) : null}
           </section>
-          <section id="twod-artworks-banner">
-            {shortlist &&
-              shortlist.map((artwork, index) => {
-                return (
-                  <img
-                    key={artwork.id + index}
-                    className={`twod-banner-image ${
-                      index === currentArtworkIndex ? "active" : ""
-                    }`}
-                    onClick={() => setCurrentArtworkIndex(index)}
-                    src={artwork.imageUrl}
-                    alt={artwork.title}
-                  />
-                );
-              })}
-          </section>
+          <ZoomIn
+            src={currentArtwork?.imageUrl}
+            alt={currentArtwork?.title}
+            id="twod-zoom-image"
+            detectZoom={setZoomActive}
+          />
+
+          {infoActive ? (
+            <div id="twod-artwork-info">
+              <h2>{currentArtwork?.title}</h2>
+              <p>{currentArtwork?.description}</p>
+              <p>{currentArtwork?.artist}</p>
+              <p>{currentArtwork?.year}</p>
+              <p>{currentArtwork?.medium}</p>
+              <p>{currentArtwork?.museum}</p>
+            </div>
+          ) : null}
         </div>
       )}
     </>
   );
 }
 
-export default Exhibition2D;
+export default Exhibition2Dv2;
