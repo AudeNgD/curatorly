@@ -415,7 +415,6 @@ nav > ul > li > a:hover {
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
-  margin-top: 20px;
 }
 
 #filter-container {
@@ -469,9 +468,13 @@ nav > ul > li > a:hover {
 }
 
 .filter-option-list {
+  width: 90%;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
 
 .filter-option {
@@ -483,6 +486,9 @@ nav > ul > li > a:hover {
   list-style: ">";
   background-color: var(--light-grey);
   border: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis"...";
 }
 
 .filter-option:hover {
@@ -571,9 +577,10 @@ nav > ul > li > a:hover {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  gap: 10px;
+  justify-content: space-evenly;
+  gap: 5px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 #card-count {
@@ -583,13 +590,12 @@ nav > ul > li > a:hover {
   font-family: "Karla", sans-serif;
   color: var(--dark-brown);
   margin: 0;
-  padding-left: 130px;
 }
 
 .card {
   width: 300px;
   height: 450px;
-  margin: 10px;
+
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -677,8 +683,8 @@ nav > ul > li > a:hover {
   height: fit-content;
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
+  align-items: center;
+  justify-content: center;
   background-color: var(--light-grey);
 }
 
@@ -696,9 +702,7 @@ nav > ul > li > a:hover {
   flex-direction: row;
   justify-content: right;
   column-gap: 10px;
-  margin-top: 20px;
-  margin-right: 20px;
-  padding-right: 250px;
+  margin-top: 10px;
 }
 
 .exhibition-button {
