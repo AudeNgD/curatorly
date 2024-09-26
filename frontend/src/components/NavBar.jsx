@@ -34,9 +34,11 @@ function NavBar() {
             <a href="/shortlist">SHORLIST</a>
           </li>
         ) : null}
-        <li>
-          <a href="/exhibition">EXHIBITION</a>
-        </li>
+        {shortlist ? (
+          <li>
+            <a href="/2D-exhibition">EXHIBITION</a>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );

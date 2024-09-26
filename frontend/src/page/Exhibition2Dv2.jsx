@@ -82,6 +82,7 @@ function Exhibition2Dv2() {
   }
 
   function handleInfoClick() {
+    console.log("clicked");
     setInfoActive(!infoActive);
     isClicked(!clicked);
   }
@@ -163,23 +164,36 @@ function Exhibition2Dv2() {
               </button>
             ) : null}
           </section>
-          <ZoomIn
-            src={currentArtwork?.imageUrl}
-            alt={currentArtwork?.title}
-            id="twod-zoom-image"
-            detectZoom={setZoomActive}
-          />
+          <section
+            id="twod-current-artwork"
+            className={infoActive ? "info-displayed" : "info-not-displayed"}
+          >
+            <ZoomIn
+              src={currentArtwork?.imageUrl}
+              alt={currentArtwork?.title}
+              id="twod-zoom-image"
+              className={
+                infoActive ? "zoom-info-displayed" : "zoom-info-not-displayed"
+              }
+              zoomState={zoomActive}
+              detectZoom={setZoomActive}
+            />
 
-          {infoActive ? (
-            <div id="twod-artwork-info">
-              <h2>{currentArtwork?.title}</h2>
-              <p>{currentArtwork?.description}</p>
-              <p>{currentArtwork?.artist}</p>
-              <p>{currentArtwork?.year}</p>
-              <p>{currentArtwork?.medium}</p>
-              <p>{currentArtwork?.museum}</p>
-            </div>
-          ) : null}
+            {infoActive ? (
+              <div
+                id="twod-artwork-info"
+                className={infoActive ? "info-box-displayed" : ""}
+              >
+                <h2>{currentArtwork?.title}</h2>
+                <p>{currentArtwork?.description}</p>
+                <p>Artist: {currentArtwork?.artist}</p>
+                <p>{currentArtwork?.year}</p>
+                <p>{currentArtwork?.medium}</p>
+                <p>{currentArtwork?.technique}</p>
+                <p>Location: {currentArtwork?.museum}</p>
+              </div>
+            ) : null}
+          </section>
         </div>
       )}
     </>

@@ -10,7 +10,6 @@ import Exhibition2Dv2 from "./page/Exhibition2Dv2";
 import Exhibition3D from "./page/Exhibition3D";
 import About from "./page/About";
 import Footer from "./page/Footer";
-import Exhibition from "./page/Exhibition";
 import Credits from "./page/Credits";
 
 function App() {
@@ -32,7 +31,6 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route path="/credits" element={<Credits />}></Route>
         </Route>
-        <Route path="/exhibition" element={<Exhibition />}></Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2Dv2 />}></Route>
       </Routes>
