@@ -122,7 +122,6 @@ export const fetchArtworks = (params) => {
   return Promise.all(promises)
     .then((results) => {
       let data = {};
-      console.log(results);
       if (results && results.length >= 1) {
         for (let i = 0; i < results.length; i++) {
           //check from which api data is coming
@@ -144,6 +143,7 @@ export const fetchArtworks = (params) => {
         }
       }
       // return data != {} ? data : { message: "No results found" };
+      console.log(data);
       return data;
     })
     .catch((error) => {

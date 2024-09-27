@@ -8,6 +8,8 @@ function Shortlist() {
   const [clevelandCount, setClevelandCount] = useState(0);
   const [rijksCount, setRijksCount] = useState(0);
   const [vamCount, setVamCount] = useState(0);
+  const [message, setMessage] = useState("");
+  const [paginationChange, setPaginationChange] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ function Shortlist() {
     setShortlist(JSON.parse(storedData));
     //count how many artworks for each museum
     const clevelandCount = JSON.parse(storedData).filter(
-      (artwork) => artwork.museum === "Cleveland Museum of Art"
+      (artwork) => artwork.museum === "The Cleveland Museum of Art"
     ).length;
     const rijksCount = JSON.parse(storedData).filter(
       (artwork) => artwork.museum === "Rijksmuseum"
@@ -62,6 +64,9 @@ function Shortlist() {
               rCount={rijksCount}
               cCount={clevelandCount}
               vCount={vamCount}
+              message={message}
+              setMessage={setMessage}
+              detectPaginationChange={setPaginationChange}
             />
           </section>
         </div>

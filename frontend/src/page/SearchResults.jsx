@@ -39,6 +39,7 @@ function SearchResults() {
           const formattedRes = formatResponse(res);
 
           if (formattedRes.message) {
+            console.log(formattedRes.message);
             setMessage(formattedRes.message);
           } else {
             if (sortby !== "relevance") {

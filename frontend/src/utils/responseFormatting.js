@@ -95,8 +95,10 @@ export default function formatResponse(response) {
       .concat(formattedclevelandData)
       .concat(formattedvamData);
     //returns an array of objects
+    console.log("here in responseFormatting");
     return { artworks, rijksCount, clevelandCount, vamCount };
   } else {
+    console.log("here in responseFormatting but message");
     return { message: response.message };
   }
 }

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa6";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ArtworkCard(props) {
   const artworks = props.artworks;
   const count = props.count;
   const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
   const location = useLocation();
+  const navigate = useNavigate();
 
   function getStoredData() {
     const storedData = localStorage.getItem("artworks");
@@ -26,6 +27,23 @@ export default function ArtworkCard(props) {
     }
     isToggledFavourites(currentFavourites);
     localStorage.setItem("artworks", JSON.stringify(currentFavourites));
+  }
+
+  function requestObjectInfo(event) {
+    event.preventDefault();
+    const artworkId = event.target.id;
+    const museum = event.target.getAttribute("museum");
+    let formattedMuseum = "";
+    if (museum === "Rijksmuseum") {
+      formattedMuseum = "rijksmuseum";
+    }
+    if (museum === "The Cleveland Museum of Art") {
+      formattedMuseum = "cleveland";
+    }
+    if (museum === "Victoria and Albert Museum") {
+      formattedMuseum = "vam";
+    }
+    navigate(`/${formattedMuseum}/object/${artworkId}`);
   }
 
   return (
@@ -54,7 +72,15 @@ export default function ArtworkCard(props) {
                 <p className="card-title">{artwork.title}</p>
                 <p className="card-artist">{artwork.artist}</p>
                 <p className="card-museum">From: {artwork.museum}</p>
-                <a href={artwork.links}>More info</a>
+                <button
+                  className="card-info-button"
+                  onClick={requestObjectInfo}
+                  id={artwork.id}
+                  museum={artwork.museum}
+                >
+                  More info
+                </button>
+                {/* <a href={artwork.links}>More info</a> */}
               </div>
             );
           })

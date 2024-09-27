@@ -11,6 +11,7 @@ import Exhibition3D from "./page/Exhibition3D";
 import About from "./page/About";
 import Footer from "./page/Footer";
 import Credits from "./page/Credits";
+import Object from "./page/Object";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/credits" element={<Credits />}></Route>
+          <Route path="/:museum/object/:id" element={<Object />}></Route>
         </Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2Dv2 />}></Route>
