@@ -4,7 +4,6 @@ function MovieItem({ imageUrl, title, id }) {
   const [displayInfo, setDisplayInfo] = useState(false);
 
   const mouseEnter = (e) => {
-    console.log(e);
     setDisplayInfo(true);
   };
 

@@ -3,14 +3,21 @@ import MovieItem from "../components/MovieItem";
 
 function Movie() {
   const [shortlist, setShortlist] = useState([]);
+
+  const animationWidth = {
+    "--w": `${shortlist.length * 100}%`,
+  };
+
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
     setShortlist(JSON.parse(storedData));
+    console.log("shortlist", shortlist);
   }, []);
 
   return (
     <div className="movie-container">
-      <div className="movie-reel">
+      {/* <div className="movie-reel"> */}
+      <div className="movie-reel" style={animationWidth}>
         {shortlist.map((artwork, index) => {
           return (
             <MovieItem
@@ -20,15 +27,15 @@ function Movie() {
             ></MovieItem>
           );
         })}
-        {/* {shortlist.map((artwork, index) => {
+        {shortlist.map((artwork, index) => {
           return (
             <MovieItem
               imageUrl={artwork.imageUrl}
               title={artwork.title}
-              id={index + artwork.id + 2}
+              id={artwork.id}
             ></MovieItem>
           );
-        })} */}
+        })}
       </div>
     </div>
   );
