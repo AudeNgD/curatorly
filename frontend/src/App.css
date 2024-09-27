@@ -765,22 +765,6 @@ nav > ul > li > a:hover {
   border-radius: 50%;
 }
 
-#object-details > h1 {
-  font-size: 3.5em;
-  color: var(--dark-brown);
-  font-family: "Playfair Display", serif;
-  margin: 0;
-  padding: 0;
-}
-
-#object-container > h2 {
-  font-size: 2.5em;
-  color: var(--dark-brown);
-  font-family: "Playfair Display", serif;
-  margin: 0;
-  padding: 0;
-}
-
 #object-info-container {
   width: 100%;
   height: 100%;
@@ -796,9 +780,20 @@ nav > ul > li > a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* align-content: center;
+  justify-content: center; */
   background-color: var(--light-grey);
-  padding: 20px;
+  padding-right: 20px;
+}
+
+#object-details > h1 {
+  width: 100%;
+  font-size: 3.5em;
+  color: var(--dark-brown);
+  font-family: "Playfair Display", serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 #object-details > h2 {
@@ -815,7 +810,6 @@ nav > ul > li > a:hover {
   flex-direction: column;
   align-items: flex-start;
   list-style-type: none;
-  font-size: 1.2em;
   font-family: "Karla", sans-serif;
   color: var(--dark-brown);
   margin: 0;
@@ -827,21 +821,50 @@ nav > ul > li > a:hover {
   text-align: left;
 }
 
+.object-big-listitem {
+  font-size: 1.2em;
+}
+
+.object-small-listitem {
+  font-size: 1em;
+}
+
 #object-image {
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* align-content: center;
+  justify-content: center; */
+  row-gap: 20px;
   background-color: var(--light-grey);
 }
 
 #object-image > img {
   width: 80%;
-  height: 80%;
+  height: 60%;
   object-fit: contain;
   border-radius: 10px;
+}
+
+.object-fav-button {
+  width: 50%;
+  height: 40px;
+  padding: 1px;
+  padding-top: 3px;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  font-size: 1.2em;
+  background-color: var(--dark-brown);
+  border-color: var(--dark-brown);
+  border-radius: 8px;
+  text-align: center;
+  margin: 0;
+}
+
+.object-fav-button:hover {
+  color: var(--light-cream);
 }
 
 /*SHORTLIST*/

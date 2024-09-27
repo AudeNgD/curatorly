@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchRijksObjectDetails } from "../../services/rijksObjectAPI";
 import { fetchClevelandObjectDetails } from "../../services/clevelandObjectAPI";
 import { fetchVamObjectDetails } from "../../services/vamObjectAPI";
@@ -12,11 +12,11 @@ function Object() {
   const { museum } = useParams();
   const [object, setObject] = useState({});
   const [loading, setLoading] = useState(true);
+  const [toggledFavourites, isToggledFavourites] = useState(getStoredData);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    console.log("museum", museum);
-    console.log("id", id);
     if (museum === "rijksmuseum") {
       fetchRijksObjectDetails(id).then((res) => {
         console.log("res", res);
@@ -42,7 +42,27 @@ function Object() {
   }, [id, museum]);
 
   function closeInfo() {
-    navigate("/shortlist");
+    window.history.back();
+  }
+
+  function getStoredData() {
+    const storedData = localStorage.getItem("artworks");
+    return storedData ? JSON.parse(storedData) : [];
+  }
+
+  function handleShortlistClick() {
+    let currentFavourites = [...toggledFavourites];
+    const found = currentFavourites.some((item) => item.id === object.id);
+    if (!found) {
+      currentFavourites = [...currentFavourites, object];
+    } else {
+      currentFavourites = currentFavourites.filter(
+        (item) => item.id !== object.id
+      );
+    }
+    isToggledFavourites(currentFavourites);
+    localStorage.setItem("artworks", JSON.stringify(currentFavourites));
+    window.history.back();
   }
 
   return (
@@ -59,35 +79,43 @@ function Object() {
           <div id="object-info-container">
             <section id="object-image">
               <img src={object.imageUrl} alt={object.title} />
+              <button
+                className="object-fav-button"
+                onClick={handleShortlistClick}
+              >
+                {toggledFavourites.some((item) => item.id === object.id)
+                  ? "Remove from shortlist"
+                  : "Add to shortlist"}
+              </button>
             </section>
             <section id="object-details">
               <h1>{object.title}</h1>
               <ul>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Museum:</strong> {object.museum}
                 </li>
-                <li>
-                  <strong>Object Number:</strong> {object.id}
-                </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Artist:</strong> {object.artist}
                 </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Dating:</strong> {object.dating}
                 </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Description:</strong> {object.description}
                 </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Materials:</strong> {object.materials}
                 </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Technique:</strong> {object.technique}
                 </li>
-                <li>
+                <li className="object-small-listitem">
+                  <strong>Object Number:</strong> {object.id}
+                </li>
+                <li className="object-small-listitem">
                   <strong>Location:</strong> {object.location}
                 </li>
-                <li>
+                <li className="object-small-listitem">
                   <strong>Credit:</strong> {object.credit}
                 </li>
               </ul>
