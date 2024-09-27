@@ -11,9 +11,9 @@ const rijksAPI = axios.create({
   },
 });
 
-export const fetchRijksObjectDetails = (objectNumber) => {
+export const fetchRijksObjectDetails = (id) => {
   const rijksObjectPromise = rijksAPI.get(
-    `${objectNumber}?key=${import.meta.env.VITE_APP_RIJKS_API_KEY}&format=json`
+    `${id}?key=${import.meta.env.VITE_APP_RIJKS_API_KEY}&format=json`
   );
 
   return rijksObjectPromise

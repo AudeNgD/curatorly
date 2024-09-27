@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import {
   useNavigate,
   useSearchParams,
@@ -14,6 +15,7 @@ export default function ResultsList(props) {
   const rijksCount = props.rCount;
   const vamCount = props.vCount;
   const message = props.message;
+  const detectPaginationChange = props.detectPaginationChange;
 
   const [artworksPerPage, setArtworksPerPage] = useState(10);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
@@ -24,10 +26,9 @@ export default function ResultsList(props) {
   const [fetchMore, setFetchMore] = useState(false);
   const [displayMessage, setDisplayMessage] = useState("");
 
-  const detectPaginationChange = props.detectPaginationChange;
-
   const cachedResults = useRef({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   // loading message until results are set
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function ResultsList(props) {
 
   //display message if there is one
   useEffect(() => {
-    if (message !== undefined) {
+    if (message !== "") {
       isLoading(false);
       setDisplayMessage(message);
     }
@@ -70,11 +71,15 @@ export default function ResultsList(props) {
 
       //check if next page data is already cached
       if (!cachedResults.current[currentPageNumber + 1]) {
-        //tell the parent component it isn't pagination change - cache data has run out
+        //tell the parent component it isn't pagination change - cache data has run
+        //not applicable if on the shorltist page
+
         detectPaginationChange(false);
       } else {
         //if yes, set results to the next page
+
         detectPaginationChange(true);
+
         setResults(cachedResults.current[currentPageNumber + 1]);
       }
 
@@ -99,7 +104,8 @@ export default function ResultsList(props) {
       return params;
     });
     const qString = createSearchParams(currentSearchParams).toString();
-    navigate(`/results?${qString}`, { replace: true });
+    const path = location.pathname;
+    navigate(`/${path}?${qString}`, { replace: true });
   }
 
   return (

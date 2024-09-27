@@ -37,7 +37,7 @@ export default function ArtworkCard(props) {
     if (museum === "Rijksmuseum") {
       formattedMuseum = "rijksmuseum";
     }
-    if (museum === "Cleveland Museum of Art") {
+    if (museum === "The Cleveland Museum of Art") {
       formattedMuseum = "cleveland";
     }
     if (museum === "Victoria and Albert Museum") {
