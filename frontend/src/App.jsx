@@ -12,6 +12,7 @@ import About from "./page/About";
 import Footer from "./page/Footer";
 import Credits from "./page/Credits";
 import Object from "./page/Object";
+import Movie from "./page/Movie";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         </Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2Dv2 />}></Route>
+        <Route path="movie" element={<Movie />}></Route>
       </Routes>
     </>
   );

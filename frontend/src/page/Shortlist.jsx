@@ -36,7 +36,8 @@ function Shortlist() {
   }
 
   function threeDClick() {
-    navigate("/3d-exhibition");
+    // navigate("/3d-exhibition");
+    navigate("/movie");
   }
 
   return (
