@@ -22,7 +22,7 @@ export default function ResultsList(props) {
   const [loading, isLoading] = useState(true);
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [fetchMore, setFetchMore] = useState(false);
-  const [displayMessage, setDisplayMessage] = useState(message);
+  const [displayMessage, setDisplayMessage] = useState("");
 
   const detectPaginationChange = props.detectPaginationChange;
 
@@ -35,6 +35,14 @@ export default function ResultsList(props) {
       isLoading(false);
     }
   }, [results]);
+
+  //display message if there is one
+  useEffect(() => {
+    if (message !== undefined) {
+      isLoading(false);
+      setDisplayMessage(message);
+    }
+  });
 
   //cache the initial results when allResults is set
   useEffect(() => {
@@ -55,13 +63,6 @@ export default function ResultsList(props) {
 
     setResults(cachedResults.current[currentPageNumber] || []);
   }, [allResults, clevelandCount, rijksCount, vamCount, artworksPerPage]);
-
-  useEffect(() => {
-    if (message !== "") {
-      isLoading(false);
-      setDisplayMessage(message);
-    }
-  });
 
   function handleClickNext() {
     if (currentPageNumber < totalNbrofPages) {
