@@ -1336,11 +1336,12 @@ nav > ul > li > a:hover {
 
 /*MOVIE PAGE*/
 
+/*do not specify width here or it will break the movie*/
+
 .movie-container {
   overflow: hidden;
   position: relative;
   height: 100%;
-  /* width: 100%; */
 }
 
 .movie-reel {
@@ -1352,9 +1353,8 @@ nav > ul > li > a:hover {
   justify-content: center;
   align-items: center;
   gap: 16px;
-  /* width: 100%;
-  height: 100%; */
-  animation: slide 20s linear infinite;
+  height: 100%;
+  animation: slide 30s linear infinite;
   &:hover {
     animation-play-state: paused;
   }
@@ -1377,7 +1377,6 @@ nav > ul > li > a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 90vw; */
   height: 80vh;
   border-radius: 8px;
 }
@@ -1391,4 +1390,13 @@ nav > ul > li > a:hover {
       10px 10px 8px rgba(152, 133, 133, 0.392),
       15px 15px 8px rgba(139, 154, 139, 0.303);
   }
+}
+
+.movie-info > h2 {
+  padding-top: 50px;
+  font-size: 2em;
+  color: var(--light-grey);
+  font-family: "Playfair Display", serif;
+  margin: 0;
+  padding: 0;
 }
