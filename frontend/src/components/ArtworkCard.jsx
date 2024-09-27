@@ -33,7 +33,7 @@ export default function ArtworkCard(props) {
       {location.pathname === "/shortlist" ? (
         <p id="card-count">There are currently {count} artworks shortlisted</p>
       ) : (
-        <p id="card-count">Found {count} artworks</p>
+        <p id="card-count">Found {count} artwork(s) matching the criteria</p>
       )}
       <div id="artwork-card">
         {artworks ? (

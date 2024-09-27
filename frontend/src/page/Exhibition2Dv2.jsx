@@ -10,7 +10,6 @@ import { FaPause } from "react-icons/fa6";
 import Tooltip from "@mui/material/Tooltip";
 import ZoomIn from "../components/ZoomIn";
 import LoadingMessage from "../components/LoadingMessage";
-import Carousel from "react-bootstrap/Carousel";
 
 function Exhibition2Dv2() {
   const [shortlist, setShortlist] = useState([]);

@@ -1,6 +1,6 @@
 export default function formatResponse(response) {
   console.log(response);
-  if (response != []) {
+  if (response.message === undefined) {
     const rijksData = response.rijksData ? response.rijksData : [];
     const clevelandData = response.clevelandData ? response.clevelandData : [];
     const rijksCount = response.rijksCount ? response.rijksCount : 0;
@@ -97,6 +97,6 @@ export default function formatResponse(response) {
     //returns an array of objects
     return { artworks, rijksCount, clevelandCount, vamCount };
   } else {
-    return [];
+    return { message: response.message };
   }
 }

@@ -11,7 +11,7 @@ const rijksAPI = axios.create({
 });
 
 const clevelandAPI = axios.create({
-  baseURL: `https://exhibition-curator-5t1t.onrender.com/cleveland-api`,
+  baseURL: `https://cleveland-api.onrender.com/search`,
   headers: {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -75,7 +75,7 @@ export const fetchArtworks = (params) => {
 
   //creating the query for the Cleveland API for all parameters
 
-  let clevelandQuery = "search?has_image=1&limit=100";
+  let clevelandQuery = "?has_image=1&limit=100";
   keyword ? (clevelandQuery += `&q=${keyword}`) : null;
   artistName ? (clevelandQuery += `&artists=${artistName}`) : null;
   let dates = {};
@@ -113,27 +113,43 @@ export const fetchArtworks = (params) => {
   vamAPIChecked === "true" ? promises.push(vamAPI.get(vamQuery)) : null;
 
   if (promises.length === 0) {
-    return Promise.resolve(null);
+    return Promise.resolve({
+      message:
+        "This service is currently unavailable. We apologise for the inconvenience.",
+    });
   }
 
-  return Promise.all(promises).then((results) => {
-    let data = {};
-    console.log(results);
-    if (results && results.length >= 1) {
-      for (let i = 0; i < results.length; i++) {
-        //check from which api data is coming
-        if (results[i].data.artObjects) {
-          data.rijksData = results[i].data.artObjects;
-          data.rijksCount = results[i].data.count;
-        } else if (results[i].data.data) {
-          data.clevelandData = results[i].data.data;
-          data.clevelandCount = results[i].data.info.total;
-        } else if (results[i].data.records) {
-          data.vamData = results[i].data.records;
-          data.vamCount = results[i].data.info.record_count;
+  return Promise.all(promises)
+    .then((results) => {
+      let data = {};
+      console.log(results);
+      if (results && results.length >= 1) {
+        for (let i = 0; i < results.length; i++) {
+          //check from which api data is coming
+          if (results[i].data.artObjects && results[i].data.count > 0) {
+            data.rijksData = results[i].data.artObjects;
+            data.rijksCount = results[i].data.count;
+          } else if (results[i].data.data && results[i].data.info.total > 0) {
+            data.clevelandData = results[i].data.data;
+            data.clevelandCount = results[i].data.info.total;
+          } else if (
+            results[i].data.records &&
+            results[i].data.info.record_count > 0
+          ) {
+            data.vamData = results[i].data.records;
+            data.vamCount = results[i].data.info.record_count;
+          } else {
+            data.message = "No results found";
+          }
         }
       }
-    }
-    return data != {} ? data : [];
-  });
+      // return data != {} ? data : { message: "No results found" };
+      return data;
+    })
+    .catch((error) => {
+      return {
+        message:
+          "This service is currently unavailable. We apologise for the inconvenience.",
+      };
+    });
 };
