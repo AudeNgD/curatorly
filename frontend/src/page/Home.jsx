@@ -3,8 +3,26 @@ import SearchBox from "../components/SearchBox";
 import rijkspicture from "../assets/rijksmuseum-lead-pic.jpg";
 import clevelandpicture from "../assets/cleveland-museum-lead-pic.jpg";
 import vampicture from "../assets/vam-lead-pic.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
+  function handleMuseumSearch(event) {
+    event.preventDefault();
+    const museum = event.target.value;
+    console.log(museum);
+    let rChecked = false;
+    let cChecked = false;
+    let vChecked = false;
+    museum === "rijksmuseum"
+      ? (rChecked = true)
+      : museum === "cleveland"
+      ? (cChecked = true)
+      : (vChecked = true);
+    const qString = `?keyword=&rcheck=${rChecked}&ccheck=${cChecked}&vcheck=${vChecked}`;
+    navigate(`/results${qString}`);
+  }
   return (
     <>
       <div id="homepage" className="sticky">
@@ -44,6 +62,9 @@ function Home() {
                 in the borough Amsterdam South, close to the Van Gogh Museum,
                 the Stedelijk Museum Amsterdam, and the Concertgebouw.
               </p>
+              <button onClick={handleMuseumSearch} value={"rijksmuseum"}>
+                Search the Rijksmuseum collections
+              </button>
             </div>
             <div className="museum-card">
               <img
@@ -57,6 +78,9 @@ function Home() {
                 sculpture, housing a permanent collection of over 2.27 million
                 objects.
               </p>
+              <button onClick={handleMuseumSearch} value={"vam"}>
+                Search the V&A Museum collections
+              </button>
             </div>
             <div className="museum-card">
               <img
@@ -70,6 +94,9 @@ function Home() {
                 neighborhood on the city's east side. Internationally renowned
                 for its substantial holdings of Asian and Egyptian art.
               </p>
+              <button onClick={handleMuseumSearch} value={"cleveland"}>
+                Search the Cleveland Museum of Art collections
+              </button>
             </div>
           </div>
         </section>

@@ -56,6 +56,13 @@ export default function ResultsList(props) {
     setResults(cachedResults.current[currentPageNumber] || []);
   }, [allResults, clevelandCount, rijksCount, vamCount, artworksPerPage]);
 
+  useEffect(() => {
+    if (message !== "") {
+      isLoading(false);
+      setDisplayMessage(message);
+    }
+  });
+
   function handleClickNext() {
     if (currentPageNumber < totalNbrofPages) {
       const nextPage = currentPageNumber + 1;
@@ -129,7 +136,7 @@ export default function ResultsList(props) {
           </div>
         </div>
       ) : (
-        <>{displayMessage}</>
+        <p id="no-result-message">{displayMessage}</p>
       )}
     </>
   );

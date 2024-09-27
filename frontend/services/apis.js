@@ -113,7 +113,10 @@ export const fetchArtworks = (params) => {
   vamAPIChecked === "true" ? promises.push(vamAPI.get(vamQuery)) : null;
 
   if (promises.length === 0) {
-    return Promise.resolve(null);
+    return Promise.resolve({
+      message:
+        "This service is currently unavailable. We apologise for the inconvenience.",
+    });
   }
 
   return Promise.all(promises)
@@ -144,6 +147,9 @@ export const fetchArtworks = (params) => {
       return data;
     })
     .catch((error) => {
-      return { message: "This service is currently unavailable" };
+      return {
+        message:
+          "This service is currently unavailable. We apologise for the inconvenience.",
+      };
     });
 };
