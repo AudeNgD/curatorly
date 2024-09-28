@@ -8,7 +8,6 @@ import Home from "./page/Home";
 import Exhibition2D from "./page/Exhibition2D";
 import Exhibition2Dv2 from "./page/Exhibition2Dv2";
 import Exhibition3D from "./page/Exhibition3D";
-import About from "./page/About";
 import Footer from "./page/Footer";
 import Credits from "./page/Credits";
 import Object from "./page/Object";
@@ -30,7 +29,6 @@ function App() {
           <Route path="/shortlist" element={<Shortlist />}></Route>
           <Route path="/results" element={<SearchResults />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/about" element={<About />}></Route>
           <Route path="/credits" element={<Credits />}></Route>
           <Route path="/:museum/object/:id" element={<Object />}></Route>
         </Route>
