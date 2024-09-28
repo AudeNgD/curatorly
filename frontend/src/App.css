@@ -879,7 +879,7 @@ nav > ul > li > a:hover {
   background-color: var(--light-grey);
 }
 
-#shortlist-container > h1 {
+#exhibition-buttons > h1 {
   font-size: 3.5em;
   color: var(--dark-brown);
   font-family: "Playfair Display", serif;
@@ -892,6 +892,7 @@ nav > ul > li > a:hover {
   display: flex;
   flex-direction: row;
   justify-content: right;
+  align-items: center;
   column-gap: 10px;
   margin-top: 10px;
 }

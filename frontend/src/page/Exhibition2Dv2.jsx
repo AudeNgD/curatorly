@@ -19,7 +19,6 @@ function Exhibition2Dv2() {
   const [infoActive, setInfoActive] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clicked, isClicked] = useState(false);
-  const [autoplaying, isAutoPlaying] = useState(false);
 
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
@@ -37,23 +36,6 @@ function Exhibition2Dv2() {
       setLoading(false);
     }
   });
-
-  //detect autoplay and hide the header and bring it back on mouse move
-  // useEffect(() => {
-  //   if (autoplaying) {
-  //     document.getElementById("twod-exhibition-header")
-  //       ? (document.getElementById("twod-exhibition-header").style.display =
-  //           "none")
-  //       : null;
-  //   } else {
-  //     document.getElementById("twod-exhibition-header")
-  //       ? (document.getElementById("twod-exhibition-header").style.display =
-  //           "block")
-  //       : null;
-  //   }
-  // });
-
-  //detect keyboard events arrow left and right to move between artworks
 
   useEffect(() => {
     function handleKeyPress(e) {
@@ -84,23 +66,6 @@ function Exhibition2Dv2() {
     console.log("clicked");
     setInfoActive(!infoActive);
     isClicked(!clicked);
-  }
-
-  //circle through all artworks until press pause
-  function autoPlay() {
-    const interval = setInterval(() => {
-      if (currentArtworkIndex < shortlist.length - 1) {
-        setCurrentArtworkIndex((artworkIdx) => artworkIdx + 1);
-      } else {
-        setCurrentArtworkIndex(0);
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }
-
-  function pauseAutoplay() {
-    clearInterval(autoPlay());
   }
 
   return (
@@ -140,20 +105,7 @@ function Exhibition2Dv2() {
             >
               <FaInfo />
             </button>
-            <button
-              id="twod-autoplay-button"
-              className="not-clicked"
-              onClick={autoPlay}
-            >
-              <FaPlay />
-            </button>
-            <button
-              id="twod-pause-button"
-              className="not-clicked"
-              onClick={pauseAutoplay}
-            >
-              <FaPause />
-            </button>
+
             {currentArtworkIndex < shortlist.length - 1 ? (
               <button
                 className="twod-nav-artwork"
