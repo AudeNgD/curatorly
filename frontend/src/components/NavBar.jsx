@@ -33,7 +33,7 @@ function NavBar() {
             </a>
           </li>
         )}
-        {location.pathname !== "/shorlist" ? (
+        {location.pathname !== "/shortlist" ? (
           <li>
             <a href="/shortlist">SHORLIST</a>
           </li>

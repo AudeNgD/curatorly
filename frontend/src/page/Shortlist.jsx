@@ -45,7 +45,7 @@ function Shortlist() {
       {shortlist && shortlist.length > 0 ? (
         <div id="shortlist-container">
           <section id="exhibition-buttons">
-            <h1>Your shortlisted artworks: </h1>
+            <h1>Shortlist </h1>
             <button className="exhibition-button" onClick={twoDClick}>
               View static exhibition
             </button>
