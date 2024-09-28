@@ -48,14 +48,213 @@ body {
   font-style: normal;
 }
 
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 640px) {
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 768px) {
+  #museum-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-grey);
+  }
+
+  .museum-card {
+    width: 80%;
+    height: 400px;
+  }
+
+  #keyword {
+    font-size: 0.6em;
+  }
+
+  #searchresults-container > h1 {
+    font-size: 2.5em;
+  }
+
+  #card-count {
+    font-size: 1em;
+  }
+
+  #artwork-card {
+    column-gap: 15px;
+    row-gap: 15px;
+    padding-left: 20px;
+  }
+
+  .card {
+    width: 260px;
+    height: 350px;
+  }
+
+  .card > img {
+    width: 250px;
+    height: 200px;
+  }
+
+  .fav-button {
+    margin-top: -30px;
+    margin-left: 210px;
+  }
+  .card-title {
+    font-size: 1em;
+    margin-bottom: 2px;
+  }
+  .card-artist {
+    font-size: 0.8em;
+  }
+
+  .card-museum {
+    font-size: 0.8em;
+  }
+
+  .card-info-button {
+    font-size: 0.8em;
+  }
+
+  .pagination-button {
+    font-size: 0.8em;
+  }
+
+  #pagination-text {
+    font-size: 0.8em;
+  }
+
+  #sortby-container > label {
+    font-size: 1em;
+  }
+
+  #sortby-container > select {
+    font-size: 1em;
+  }
+
+  #filter-container > h2 {
+    font-size: 1.2em;
+  }
+  .filter-title {
+    font-size: 1em;
+  }
+  .filter-option {
+    font-size: 0.8em;
+  }
+  #technique {
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+  #submit-technique-button {
+    width: 70px;
+    font-size: 0.8em;
+  }
+  #current-technique-button {
+    font-size: 0.8em;
+  }
+}
+
+/* Large devices such as laptops (1024px and up) */
+
+@media only screen and (min-width: 1024px) {
+  #museum-info {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-grey);
+  }
+
+  .museum-card {
+    width: 400px;
+    height: 500px;
+  }
+
+  #keyword {
+    font-size: 0.8em;
+  }
+
+  #searchresults-container > h1 {
+    font-size: 3.5em;
+  }
+
+  /*ARTOWRD*/
+  #artwork-card {
+    justify-content: space-evenly;
+    gap: 5px;
+  }
+
+  #card-count {
+    font-size: 1.5em;
+  }
+
+  .card {
+    width: 300px;
+    height: 450px;
+  }
+
+  .card > img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .fav-button {
+    margin-top: -30px;
+    margin-left: 245px;
+  }
+
+  .card-title {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  .card-artist {
+    font-size: 1.2em;
+  }
+  .card-museum {
+    font-size: 1em;
+  }
+
+  .card-info-button {
+    font-size: 1em;
+  }
+
+  .pagination-button {
+    font-size: 1em;
+  }
+
+  #pagination-text {
+    font-size: 1em;
+  }
+  #sortby-container > label {
+    font-size: 1.2em;
+  }
+
+  #sortby-container > select {
+    font-size: 1.2em;
+  }
+  #filter-container > h2 {
+    font-size: 1.5em;
+  }
+  .filter-title {
+    font-size: 1.2em;
+  }
+  .filter-option {
+    font-size: 1em;
+  }
+  #technique {
+    font-size: 1em;
+  }
+  #submit-technique-button {
+    width: 35%;
+    font-size: 1em;
+  }
+  #current-technique-button {
+    font-size: 1em;
+  }
+}
+
 /* NAV BAR */
 nav {
   background-color: var(--dark-brown);
-  /* position: fixed;
-  
-  top: 0; */
   position: sticky;
-  color: #242424;
+  color: black;
   height: 90px;
   width: 100%;
   font-size: 1rem;
@@ -63,7 +262,6 @@ nav {
   top: 0px;
   padding-right: 50px;
   padding-left: 5px;
-  /* box-shadow: -10px 5px 5px var(--dark-brown); */
 }
 
 nav > ul {
@@ -99,23 +297,14 @@ nav > ul > li > a:hover {
   margin-top: 12px;
 }
 
-/*Class to stick the pages in the right position*/
-.sticky {
-  /* position: fixed;
-  top: 90px;
-  width: 100%; */
-}
-
 /* HOMEPAGE */
 
 #homepage {
   width: 100%;
   height: fit-content;
-  /* display: block; */
   display: flex;
   flex-direction: column;
   background-color: var(--light-grey);
-  /* position: fixed; */
 }
 
 #hero {
@@ -202,15 +391,9 @@ nav > ul > li > a:hover {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--light-grey);
 }
 
 .museum-card {
-  width: 400px;
-  height: 450px;
   margin: 10px;
   padding: 10px;
   display: flex;
@@ -218,7 +401,6 @@ nav > ul > li > a:hover {
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  /* justify-content: center; */
   background-color: var(--light-grey);
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -272,8 +454,6 @@ nav > ul > li > a:hover {
 #search-box {
   width: 50%;
   height: 50%;
-  /* display: flex;
-  flex-direction: column; */
   display: block;
   text-align: center;
   font-size: 1.5em;
@@ -284,12 +464,6 @@ nav > ul > li > a:hover {
 
 #search-form {
   width: 100%;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: flex-start;
-  row-gap: 10px;
-  align-items: center; */
   display: block;
   text-align: left;
   margin: 0;
@@ -313,7 +487,6 @@ nav > ul > li > a:hover {
 #keyword {
   width: 40%;
   height: 40px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: black;
   background-color: var(--light-grey);
@@ -347,7 +520,7 @@ nav > ul > li > a:hover {
   display: flex;
   flex-direction: column;
   /* align-items: center;
-  justify-content: center; */
+justify-content: center; */
   background-color: var(--light-grey);
 }
 
@@ -364,7 +537,6 @@ nav > ul > li > a:hover {
 }
 
 #searchresults-container > h1 {
-  font-size: 3.5em;
   color: var(--dark-brown);
   font-family: "Playfair Display", serif;
   margin: 0;
@@ -393,7 +565,6 @@ nav > ul > li > a:hover {
 .pagination-button {
   width: 80px;
   height: 30px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: var(--light-grey);
   background-color: var(--dark-brown);
@@ -401,6 +572,86 @@ nav > ul > li > a:hover {
   margin-bottom: 15px;
   padding: 0px;
   border-radius: 5px;
+}
+
+#card-count {
+  width: 100%;
+  text-align: left;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+}
+
+#artwork-card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.card {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-grey);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card > img {
+  object-fit: cover;
+}
+
+.fav-button {
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+  padding-top: 3px;
+  background-color: var(--dark-purple);
+  border-color: var(--dark-purple);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.card-title {
+  font-family: "Karla", sans-serif;
+  font-weight: 600;
+  color: var(--dark-brown);
+  margin-top: 5px;
+  padding: 0;
+  text-overflow: ellipsis"...";
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
+}
+
+.card-artist {
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+}
+
+.card-museum {
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+}
+
+.card-info-button {
+  width: 100%;
+  height: 40px;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
+  font-weight: 600;
+  background-color: var(--dark-brown);
+  margin-top: 10px;
+  padding: 0px;
+  border-radius: 8px;
 }
 
 /* SORT BY */
@@ -417,7 +668,6 @@ nav > ul > li > a:hover {
 }
 
 #sortby-container > label {
-  font-size: 1.2em;
   font-weight: 600;
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
@@ -428,7 +678,6 @@ nav > ul > li > a:hover {
 #sortby-container > select {
   width: 150px;
   height: 30px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: black;
   background-color: var(--light-grey);
@@ -444,7 +693,6 @@ nav > ul > li > a:hover {
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
 }
 
 #filter-container {
@@ -457,7 +705,6 @@ nav > ul > li > a:hover {
 }
 
 #filter-container > h2 {
-  font-size: 1.5em;
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
   margin: 0;
@@ -488,7 +735,6 @@ nav > ul > li > a:hover {
 }
 
 .filter-title {
-  font-size: 1.2em;
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
   margin: 0;
@@ -508,7 +754,6 @@ nav > ul > li > a:hover {
 }
 
 .filter-option {
-  font-size: 1em;
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
   margin: 0;
@@ -528,7 +773,6 @@ nav > ul > li > a:hover {
 #technique {
   width: 84%;
   height: 40px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: black;
   background-color: var(--light-grey);
@@ -538,9 +782,7 @@ nav > ul > li > a:hover {
 }
 
 #submit-technique-button {
-  width: 35%;
   height: 30px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: var(--light-grey);
   background-color: var(--dark-brown);
@@ -557,7 +799,6 @@ nav > ul > li > a:hover {
 #current-technique-button {
   width: fit-content;
   height: 40px;
-  font-size: 1em;
   font-family: "Karla", sans-serif;
   color: var(--light-grey);
   background-color: var(--dark-brown);
@@ -570,27 +811,6 @@ nav > ul > li > a:hover {
   align-items: center;
 }
 
-#colour-palette {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  column-gap: 2px;
-  row-gap: 2px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  padding: 0;
-  margin: 0;
-}
-
-.colour-option {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
 /* RESULTS */
 
 #results-container {
@@ -612,123 +832,6 @@ nav > ul > li > a:hover {
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
   font-size: 2em;
-}
-
-#artwork-card {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 5px;
-  padding-right: 10px;
-  padding-top: 10px;
-}
-
-#card-count {
-  width: 100%;
-  text-align: left;
-  font-size: 1.5em;
-  font-family: "Karla", sans-serif;
-  color: var(--dark-brown);
-  margin: 0;
-}
-
-.card {
-  width: 300px;
-  height: 450px;
-
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--light-grey);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.card > img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-
-.fav-button {
-  margin-top: -30px;
-  margin-left: 245px;
-  width: 25px;
-  height: 25px;
-  padding: 1px;
-  padding-top: 3px;
-  background-color: var(--dark-purple);
-  border-color: var(--dark-purple);
-  border-radius: 50%;
-  text-align: center;
-}
-
-.card-title {
-  font-size: 1.5em;
-  font-family: "Karla", sans-serif;
-  font-weight: 600;
-  color: var(--dark-brown);
-  /* height: 40px; */
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 0;
-  text-overflow: ellipsis"...";
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 100%;
-  display: inline-block;
-}
-
-.card-artist {
-  font-size: 1.2em;
-  font-family: "Karla", sans-serif;
-  color: var(--dark-brown);
-  margin: 0;
-}
-
-.card-museum {
-  font-size: 1em;
-  font-family: "Karla", sans-serif;
-  color: var(--dark-brown);
-  margin: 0;
-}
-
-.card > a {
-  width: 100%;
-  height: 40px;
-  font-size: 1em;
-  font-family: "Karla", sans-serif;
-  color: var(--light-grey);
-  font-weight: 600;
-  background-color: var(--dark-brown);
-  margin-top: 10px;
-  padding: 0px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-.card > a:hover {
-  color: var(--light-cream);
-}
-
-.card-info-button {
-  width: 100%;
-  height: 40px;
-  font-size: 1em;
-  font-family: "Karla", sans-serif;
-  color: var(--light-grey);
-  font-weight: 600;
-  background-color: var(--dark-brown);
-  margin-top: 10px;
-  padding: 0px;
-  border-radius: 8px;
 }
 
 /*OBJECT PAGE*/
@@ -781,7 +884,7 @@ nav > ul > li > a:hover {
   flex-direction: column;
   align-items: center;
   /* align-content: center;
-  justify-content: center; */
+justify-content: center; */
   background-color: var(--light-grey);
   padding-right: 20px;
 }
@@ -836,7 +939,7 @@ nav > ul > li > a:hover {
   flex-direction: column;
   align-items: center;
   /* align-content: center;
-  justify-content: center; */
+justify-content: center; */
   row-gap: 20px;
   background-color: var(--light-grey);
 }
@@ -1025,7 +1128,7 @@ nav > ul > li > a:hover {
   display: inline-block;
   position: relative;
   /* max-width: 90%;
-  max-height: 90%; */
+max-height: 90%; */
 }
 
 #twod-zoom-img-container {
@@ -1120,7 +1223,7 @@ nav > ul > li > a:hover {
   max-width: 89%;
   max-height: 400px;
   /* width: auto;
-  height: auto; */
+height: auto; */
   border-radius: 10px;
 }
 
@@ -1235,7 +1338,7 @@ nav > ul > li > a:hover {
   width: 100%;
   height: 90px;
   /* top: 590px;
-  position: relative; */
+position: relative; */
   display: flex;
   flex-direction: row;
   justify-content: left;
