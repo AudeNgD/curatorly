@@ -30,8 +30,8 @@ function App() {
           <Route path="/results" element={<SearchResults />}></Route>
           <Route path="/" element={<Home />}></Route>
           <Route path="/credits" element={<Credits />}></Route>
-          <Route path="/:museum/object/:id" element={<Object />}></Route>
         </Route>
+        <Route path="/:museum/object/:id" element={<Object />}></Route>
         <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
         <Route path="/2d-exhibition" element={<Exhibition2Dv2 />}></Route>
         <Route path="movie" element={<Movie />}></Route>
