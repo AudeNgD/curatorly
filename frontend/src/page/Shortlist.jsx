@@ -36,20 +36,21 @@ function Shortlist() {
   }
 
   function threeDClick() {
-    navigate("/3d-exhibition");
+    // navigate("/3d-exhibition");
+    navigate("/movie");
   }
 
   return (
     <>
       {shortlist && shortlist.length > 0 ? (
         <div id="shortlist-container">
-          <h1>Your shortlisted artworks</h1>
           <section id="exhibition-buttons">
+            <h1>Your shortlisted artworks: </h1>
             <button className="exhibition-button" onClick={twoDClick}>
-              View as 2D exhibition
+              View static exhibition
             </button>
             <button className="exhibition-button" onClick={threeDClick}>
-              View as 3D exhibition
+              View as animation
             </button>
           </section>
           <section id="filter-results">
