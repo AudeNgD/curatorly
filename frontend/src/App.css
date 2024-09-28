@@ -1342,23 +1342,53 @@ nav > ul > li > a:hover {
   overflow: hidden;
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#movie-navigation {
+  width: 100%;
+  height: 50px;
+  display: block;
+  background-color: var(--dark-brown);
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 10px;
+  z-index: 20;
+  top: 0;
+}
+
+#movie-navigation > button {
+  width: 40px;
+  height: 40px;
+  font-size: 1em;
+  color: var(--dark-brown);
+  font-weight: 600;
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 0px;
+  border-radius: 50%;
+  z-index: 20;
 }
 
 .movie-reel {
   display: flex;
   position: absolute;
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   left: 0;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  height: 100%;
-  animation: slide 30s linear infinite;
-  &:hover {
-    animation-play-state: paused;
-  }
+  height: 70%;
+  animation: slide 60s linear infinite;
   animation-delay: 2s;
+}
+
+.paused {
+  animation-play-state: paused;
 }
 
 @keyframes slide {
@@ -1384,6 +1414,7 @@ nav > ul > li > a:hover {
 .movie-frame > img {
   height: 80%;
   border-radius: 8px;
+
   &:hover {
     transform: scale(0.9);
     box-shadow: 5px 5px 8px rgba(222, 222, 222, 0.362),
@@ -1397,6 +1428,18 @@ nav > ul > li > a:hover {
   font-size: 2em;
   color: var(--light-grey);
   font-family: "Playfair Display", serif;
+  margin: 0;
+  padding: 0;
+}
+
+.movie-info > ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  font-family: "Karla", sans-serif;
+  color: var(--light-grey);
   margin: 0;
   padding: 0;
 }
