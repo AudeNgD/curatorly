@@ -26,14 +26,19 @@ function NavBar() {
             <a href="/">HOME</a>
           </li>
         )}
-        <li>
-          <a href="/about">ABOUT</a>
-        </li>
-        {shortlist ? (
+        {location.pathname === "/results" ? null : (
+          <li>
+            <a href="/results?keyword=&rcheck=true&ccheck=true&vcheck=true">
+              SEARCH
+            </a>
+          </li>
+        )}
+        {location.pathname !== "/shortlist" ? (
           <li>
             <a href="/shortlist">SHORLIST</a>
           </li>
         ) : null}
+
         {shortlist ? (
           <li>
             <a href="/2D-exhibition">EXHIBITION</a>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function ZoomIn({
   src,
@@ -17,11 +17,16 @@ function ZoomIn({
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
   const [[x, y], setXY] = useState([0, 0]);
 
+  useEffect(() => {
+    setShowMagnifier(zoomState);
+  }, [zoomState]);
+
   const mouseEnter = (e) => {
     const el = e.currentTarget;
     const { width, height } = el.getBoundingClientRect();
     setSize([width, height]);
-    setShowMagnifier(true);
+    zoomState ? setShowMagnifier(true) : setShowMagnifier(false);
+    // setShowMagnifier(true);
   };
 
   const mouseLeave = (e) => {
@@ -66,8 +71,8 @@ function ZoomIn({
           borderRadius: "5px",
           backgroundImage: `url('${src}')`,
           backgroundRepeat: "no-repeat",
-          top: `${y - imgHeight / 2 + magnifierHeight}px`,
-          left: `${x + imgWidth / 2 + magnifierWidth - 5}px`,
+          top: `${y - zoomLevel * 2 - magnifierHeight / 2}px`,
+          left: `${x + imgWidth + magnifierWidth / 2}px`,
           backgroundSize: `${imgWidth * zoomLevel}px ${
             imgHeight * zoomLevel
           }px`,

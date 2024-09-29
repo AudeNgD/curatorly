@@ -59,7 +59,7 @@ export const fetchArtworks = (params) => {
   //creating the query for the Rijksmuseum API for all parameters
   let rijksQuery = `?key=${
     import.meta.env.VITE_APP_RIJKS_API_KEY
-  }&profile=rich&imgonly=true&ps=100`;
+  }&profile=rich&imgonly=true&ps=100&s=relevance`;
   keyword ? (rijksQuery += `&q=${keyword}`) : (rijksQuery += `&q=*`);
   artistName
     ? (rijksQuery += `&involvedMaker=${artistName.split(" ").join("+")}`)
@@ -69,7 +69,7 @@ export const fetchArtworks = (params) => {
   technique ? (rijksQuery += `&technique=${technique}`) : null;
   //the page number passed is the search results pagination number
   //only need to fetch artwork for next page if hit page number is multiple of 20
-  page && page % 21 === 0 ? (rijksQuery += `&p=${page / 31 + 1}`) : null;
+  page && page % 31 === 0 ? (rijksQuery += `&p=${page / 31 + 1}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 

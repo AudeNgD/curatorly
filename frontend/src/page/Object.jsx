@@ -66,7 +66,7 @@ function Object() {
   }
 
   return (
-    <div>
+    <>
       {loading ? (
         <LoadingMessage />
       ) : (
@@ -123,7 +123,7 @@ function Object() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

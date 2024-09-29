@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 function MovieItem({ artworkForFrame, paused, setPaused }) {
   const [displayInfo, setDisplayInfo] = useState(false);
 
-  console.log("artworkForFrame", artworkForFrame);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   const mouseEnter = (e) => {
     setDisplayInfo(true);
@@ -20,9 +21,13 @@ function MovieItem({ artworkForFrame, paused, setPaused }) {
       <img
         src={artworkForFrame.imageUrl}
         alt={artworkForFrame.title}
-        className=""
         onMouseEnter={(e) => mouseEnter(e)}
         onMouseLeave={(e) => mouseLeave(e)}
+        onTouchStart={(e) => mouseEnter(e)}
+        onTouchEnd={(e) => mouseLeave(e)}
+        className={`${
+          isTabletOrMobile ? "movie-image-vertical" : "movie-image-horizontal"
+        }`}
       />
       {displayInfo && (
         <div className="movie-info">

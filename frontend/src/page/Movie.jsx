@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import MovieItem from "../components/MovieItem";
 import { ImCross } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 function Movie() {
   const [shortlist, setShortlist] = useState([]);
   const [navigation, isShowNavigation] = useState(true);
   const [paused, setPaused] = useState(false);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   const navigate = useNavigate();
 
@@ -43,6 +45,8 @@ function Movie() {
         id="movie-navigation"
         onMouseEnter={showNavigation}
         onMouseLeave={hideNavigation}
+        onTouchStart={showNavigation}
+        onTouchEnd={hideNavigation}
       >
         <button
           id="movie-back"
@@ -54,7 +58,11 @@ function Movie() {
       </div>
 
       <div className="movie-container">
-        <div className={`movie-reel ${paused ? "paused" : ""}`}>
+        <div
+          className={`${
+            isTabletOrMobile ? "movie-reel-vertical" : "movie-reel-horizontal"
+          } ${paused ? "paused" : ""}`}
+        >
           {shortlist.map((artwork, index) => {
             return (
               <MovieItem

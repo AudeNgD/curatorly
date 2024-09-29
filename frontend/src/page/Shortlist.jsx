@@ -44,14 +44,16 @@ function Shortlist() {
     <>
       {shortlist && shortlist.length > 0 ? (
         <div id="shortlist-container">
-          <section id="exhibition-buttons">
-            <h1>Your shortlisted artworks: </h1>
-            <button className="exhibition-button" onClick={twoDClick}>
-              View static exhibition
-            </button>
-            <button className="exhibition-button" onClick={threeDClick}>
-              View as animation
-            </button>
+          <section id="exhibition-header">
+            <h1>Shortlist {"->"} </h1>
+            <div id="exhibition-buttons">
+              <button className="exhibition-button" onClick={twoDClick}>
+                View static exhibition
+              </button>
+              <button className="exhibition-button" onClick={threeDClick}>
+                View as animation
+              </button>
+            </div>
           </section>
           <section id="filter-results">
             <Filter
