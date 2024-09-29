@@ -55,13 +55,13 @@ function Shortlist() {
               </button>
             </div>
           </section>
-          <section id="filter-results">
-            <Filter
+          <section id="shortlist-results">
+            {/* <Filter
               artworks={shortlist}
               rCount={rijksCount}
               cCount={clevelandCount}
               vCount={vamCount}
-            />
+            /> */}
             <ResultsList
               artworks={shortlist}
               rCount={rijksCount}

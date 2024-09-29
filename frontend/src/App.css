@@ -195,6 +195,10 @@ body {
     font-size: 1em;
   }
 
+  #filter-container {
+    width: 25%;
+  }
+
   #filter-container > h2 {
     font-size: 1.2em;
   }
@@ -203,6 +207,7 @@ body {
   }
   .filter-option {
     font-size: 0.8em;
+    font-family: "Karla", sans-serif;
   }
   #technique {
     font-size: 0.7em;
@@ -434,27 +439,31 @@ body {
   }
 
   #sortby-container > select {
-    font-size: 1.2em;
+    font-size: 1em;
   }
   #searchresults-container {
     align-items: center;
+  }
+
+  #filter-container {
+    width: 25%;
   }
 
   #filter-container > h2 {
     font-size: 2.5em;
   }
   .filter-title {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
   .filter-option {
-    font-size: 1.5em;
+    font-size: 1em;
   }
   #technique {
-    font-size: 1.5em;
+    font-size: 1em;
   }
   #submit-technique-button {
-    width: 45%;
-    font-size: 1.5em;
+    width: 40%;
+    font-size: 1em;
     height: 40px;
   }
   #current-technique-button {
@@ -1050,7 +1059,6 @@ justify-content: center; */
 }
 
 #filter-container {
-  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: baseline;
@@ -1118,6 +1126,8 @@ justify-content: center; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis"...";
+  max-width: 100%;
+  display: inline-block;
 }
 
 .filter-option:hover {
@@ -1374,6 +1384,16 @@ justify-content: center; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#shortlist-results {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 }
 
 #shortlist-container > h2 {
