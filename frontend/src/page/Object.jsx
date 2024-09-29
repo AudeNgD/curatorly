@@ -5,7 +5,7 @@ import { fetchClevelandObjectDetails } from "../../services/clevelandObjectAPI";
 import { fetchVamObjectDetails } from "../../services/vamObjectAPI";
 import LoadingMessage from "../components/LoadingMessage";
 import formatObjectResponse from "../utils/objectResponseFormatting";
-import { ImCross } from "react-icons/im";
+import { ImCross } from "react-icons/all-files/im";
 
 function Object() {
   const { id } = useParams();
