@@ -29,6 +29,41 @@ const vamAPI = axios.create({
 });
 
 export const fetchArtworks = (params) => {
+  //check for invalid params
+  //case no params passed
+  if (!params || params.length === 0) {
+    return Promise.resolve({
+      message:
+        "Invalid search parameters. Please try again with valid parameters.",
+    });
+  }
+
+  //case params passed but no search keyword or vcheck, rcheck, ccheck all set to false
+  if (
+    (!params[0].get("keyword") &&
+      params[0].get("rcheck") === "false" &&
+      params[0].get("ccheck") === "false" &&
+      params[0].get("vcheck") === "false") ||
+    (params[0].get("rcheck") === "false" &&
+      params[0].get("ccheck") === "false" &&
+      params[0].get("vcheck") === "false")
+  ) {
+    return Promise.resolve({
+      message: "Invalid search parameters. Please check at least one museums.",
+    });
+  }
+
+  //case missing the vcheck, rcheck, ccheck aparameters altogether
+  if (
+    !params[0].get("rcheck") &&
+    !params[0].get("ccheck") &&
+    !params[0].get("vcheck")
+  ) {
+    return Promise.resolve({
+      message:
+        "Invalid search parameters. Please check try again with valid parameters.",
+    });
+  }
   // keyword parameter
   const keyword = params[0].get("keyword");
 
