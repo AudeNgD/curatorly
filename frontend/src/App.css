@@ -1867,3 +1867,9 @@ justify-content: center; */
   font-family: "Karla", sans-serif;
   font-size: 2em;
 }
+
+input[type="checkbox"] {
+  accent-color: var(--dark-brown);
+  width: 20px;
+  height: 20px;
+}
