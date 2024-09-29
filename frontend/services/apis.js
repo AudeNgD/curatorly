@@ -68,8 +68,8 @@ export const fetchArtworks = (params) => {
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
   //the page number passed is the search results pagination number
-  //only need to fetch artwork for next page if hit page number is multiple of 20
-  page && page % 31 === 0 ? (rijksQuery += `&p=${page / 31 + 1}`) : null;
+  //only need to fetch artwork for next page if hit page number is multiple of 25
+  page && page % 25 === 0 ? (rijksQuery += `&p=${page / 25 + 1}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 
@@ -85,8 +85,8 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
-  page && page % 31 === 0
-    ? (clevelandQuery += `&skip=${(page / 31) * 100}`)
+  page && page % 25 === 0
+    ? (clevelandQuery += `&skip=${(page / 25) * 100}`)
     : null;
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
@@ -100,7 +100,7 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (vamQuery += `&q_material_technique=${medium}`) : null;
   technique ? (vamQuery += `&q_material_technique=${technique}`) : null;
-  page && page % 31 === 0 ? (vamQuery += `&page=${page / 31 + 1}`) : null;
+  page && page % 25 === 0 ? (vamQuery += `&page=${page / 25 + 1}`) : null;
 
   vamPromise = vamAPI.get(vamQuery);
 
