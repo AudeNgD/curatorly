@@ -12,6 +12,7 @@ import Exhibition3D from "./page/Exhibition3D";
 import Credits from "./page/Credits";
 import Object from "./page/Object";
 import Movie from "./page/Movie";
+import PageNotFound from "./page/PageNotFound";
 import { useMediaQuery } from "react-responsive";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
       {isMobile ? (
         <p id="media-warning">
           To provide you with a great experience, curatorly is currently
-          available only tablet or laptop.
+          available only on tablets or laptops.
         </p>
       ) : (
         <Routes>
@@ -39,6 +40,7 @@ function App() {
             <Route path="/results" element={<SearchResults />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/credits" element={<Credits />}></Route>
+            <Route path="*" element={<PageNotFound />}></Route>
           </Route>
           <Route path="/:museum/object/:id" element={<Object />}></Route>
           <Route path="/3d-exhibition" element={<Exhibition3D />}></Route>
