@@ -17,7 +17,7 @@ export default function ResultsList(props) {
   const message = props.message;
   const detectPaginationChange = props.detectPaginationChange;
 
-  const [artworksPerPage, setArtworksPerPage] = useState(10);
+  const [artworksPerPage, setArtworksPerPage] = useState(12);
   const [totalNbrofPages, setTotalNbrofPages] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [results, setResults] = useState([]);
@@ -72,14 +72,12 @@ export default function ResultsList(props) {
       //check if next page data is already cached
       if (!cachedResults.current[currentPageNumber + 1]) {
         //tell the parent component it isn't pagination change - cache data has run
-        //not applicable if on the shorltist page
+        //not applicable if on the shortlist page
 
         detectPaginationChange(false);
       } else {
         //if yes, set results to the next page
-
         detectPaginationChange(true);
-
         setResults(cachedResults.current[currentPageNumber + 1]);
       }
 

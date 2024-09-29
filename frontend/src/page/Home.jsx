@@ -30,18 +30,14 @@ function Home() {
           <section id="hero">
             <div id="hero-text">
               <h1>curatorly</h1>
-              <h3>Create and share your own virtual exhibitions.</h3>
+              <h3>Create your own virtual exhibition</h3>
               <ul>
                 <li>
-                  Search through the collections from the
-                  <strong> Rijskmuseum </strong>,{" "}
+                  Search through <strong>750,000+ items</strong> from the
+                  collections of the <strong> Rijskmuseum</strong>,{" "}
                   <strong>the Victoria & Albert Museum</strong>, and the{" "}
-                  <strong>Cleveland Museum of Art</strong>.
-                </li>
-                <li>Save your favourite artworks to a shortlist.</li>
-                <li>
-                  View your exhibition either as a static or an animated
-                  exhibition.
+                  <strong>Cleveland Museum of Art</strong>. Like to shortlist
+                  artworks that you want to display in your exhibition.
                 </li>
               </ul>
             </div>

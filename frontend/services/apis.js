@@ -29,6 +29,41 @@ const vamAPI = axios.create({
 });
 
 export const fetchArtworks = (params) => {
+  //check for invalid params
+  //case no params passed
+  if (!params || params.length === 0) {
+    return Promise.resolve({
+      message:
+        "Invalid search parameters. Please try again with valid parameters.",
+    });
+  }
+
+  //case params passed but no search keyword or vcheck, rcheck, ccheck all set to false
+  if (
+    (!params[0].get("keyword") &&
+      params[0].get("rcheck") === "false" &&
+      params[0].get("ccheck") === "false" &&
+      params[0].get("vcheck") === "false") ||
+    (params[0].get("rcheck") === "false" &&
+      params[0].get("ccheck") === "false" &&
+      params[0].get("vcheck") === "false")
+  ) {
+    return Promise.resolve({
+      message: "Invalid search parameters. Please check at least one museums.",
+    });
+  }
+
+  //case missing the vcheck, rcheck, ccheck aparameters altogether
+  if (
+    !params[0].get("rcheck") &&
+    !params[0].get("ccheck") &&
+    !params[0].get("vcheck")
+  ) {
+    return Promise.resolve({
+      message:
+        "Invalid search parameters. Please check try again with valid parameters.",
+    });
+  }
   // keyword parameter
   const keyword = params[0].get("keyword");
 
@@ -68,8 +103,8 @@ export const fetchArtworks = (params) => {
   medium ? (rijksQuery += `&material=${medium}`) : null;
   technique ? (rijksQuery += `&technique=${technique}`) : null;
   //the page number passed is the search results pagination number
-  //only need to fetch artwork for next page if hit page number is multiple of 20
-  page && page % 31 === 0 ? (rijksQuery += `&p=${page / 31 + 1}`) : null;
+  //only need to fetch artwork for next page if hit page number is multiple of 25
+  page && page % 25 === 0 ? (rijksQuery += `&p=${page / 25 + 1}`) : null;
 
   rijskPromise = rijksAPI.get(rijksQuery);
 
@@ -85,8 +120,8 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (clevelandQuery += `&medium=${medium}`) : null;
   technique ? (clevelandQuery += `&technique=${technique}`) : null;
-  page && page % 31 === 0
-    ? (clevelandQuery += `&skip=${(page / 31) * 100}`)
+  page && page % 25 === 0
+    ? (clevelandQuery += `&skip=${(page / 25) * 100}`)
     : null;
 
   clevelandPromise = clevelandAPI.get(clevelandQuery);
@@ -100,7 +135,7 @@ export const fetchArtworks = (params) => {
     : null;
   medium ? (vamQuery += `&q_material_technique=${medium}`) : null;
   technique ? (vamQuery += `&q_material_technique=${technique}`) : null;
-  page && page % 31 === 0 ? (vamQuery += `&page=${page / 31 + 1}`) : null;
+  page && page % 25 === 0 ? (vamQuery += `&page=${page / 25 + 1}`) : null;
 
   vamPromise = vamAPI.get(vamQuery);
 
@@ -143,7 +178,6 @@ export const fetchArtworks = (params) => {
         }
       }
       // return data != {} ? data : { message: "No results found" };
-      console.log(data);
       return data;
     })
     .catch((error) => {

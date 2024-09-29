@@ -55,13 +55,7 @@ export default function formatObjectResponse(museum, response) {
       artistName = response.record.artistMakerPerson[0].name;
 
     if (response.record.artistMakerPerson.length > 1)
-      artistName = response.record.artistMakerPerson
-        .map((artist) => {
-          return artist.name;
-        })
-        .join(" and ");
-
-    artistName = artistName.join(" and ");
+      artistName = response.record.artistMakerPerson.join(" and ");
 
     return {
       id: response.record.systemNumber,

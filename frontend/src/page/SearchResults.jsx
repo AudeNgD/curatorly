@@ -25,7 +25,6 @@ function SearchResults() {
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
@@ -42,7 +41,6 @@ function SearchResults() {
           const formattedRes = formatResponse(res);
 
           if (formattedRes.message) {
-            console.log(formattedRes.message);
             setMessage(formattedRes.message);
           } else {
             if (sortby !== "relevance") {
@@ -59,7 +57,6 @@ function SearchResults() {
               });
             }
             if (formattedRes.artworks) {
-              console.log(formattedRes.artworks);
               setRijksCount(formattedRes.rijksCount);
               setClevelandCount(formattedRes.clevelandCount);
               setVamCount(formattedRes.vamCount);
@@ -106,7 +103,7 @@ function SearchResults() {
               type="text"
               name="newSearch"
               placeholder="Search for a keyword"
-              id="keyword"
+              id="newSearch"
               value={newSearch}
               onChange={getNewSearchWord}
             />

@@ -116,6 +116,10 @@ body {
     font-size: 0.6em;
   }
 
+  #newSearch {
+    font-size: 1em;
+  }
+
   #searchresults-container {
     align-items: center;
   }
@@ -195,6 +199,10 @@ body {
     font-size: 1em;
   }
 
+  #filter-container {
+    width: 25%;
+  }
+
   #filter-container > h2 {
     font-size: 1.2em;
   }
@@ -203,6 +211,7 @@ body {
   }
   .filter-option {
     font-size: 0.8em;
+    font-family: "Karla", sans-serif;
   }
   #technique {
     font-size: 0.7em;
@@ -310,11 +319,18 @@ body {
     display: flex;
     flex-direction: row;
   }
+
+  #page-not-found-container {
+    flex-direction: column;
+  }
 }
 
 /* Large devices such as laptops (1024px and up) */
 
 @media only screen and (min-width: 1024px) {
+  #page-not-found-container {
+    flex-direction: row;
+  }
   #hero {
     width: 100%;
     height: fit-content;
@@ -361,6 +377,10 @@ body {
   }
 
   #keyword {
+    font-size: 1em;
+  }
+
+  #newSearch {
     font-size: 1em;
   }
 
@@ -434,27 +454,31 @@ body {
   }
 
   #sortby-container > select {
-    font-size: 1.2em;
+    font-size: 1em;
   }
   #searchresults-container {
     align-items: center;
+  }
+
+  #filter-container {
+    width: 25%;
   }
 
   #filter-container > h2 {
     font-size: 2.5em;
   }
   .filter-title {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
   .filter-option {
-    font-size: 1.5em;
+    font-size: 1em;
   }
   #technique {
-    font-size: 1.5em;
+    font-size: 1em;
   }
   #submit-technique-button {
-    width: 45%;
-    font-size: 1.5em;
+    width: 40%;
+    font-size: 1em;
     height: 40px;
   }
   #current-technique-button {
@@ -485,6 +509,7 @@ body {
   }
   #object-container {
     height: 100%;
+    padding-top: 50px;
   }
 
   #object-info-container {
@@ -852,6 +877,17 @@ nav > ul > li > a:hover {
   border-radius: 8px;
 }
 
+#newSearch {
+  width: 40%;
+  height: 40px;
+  font-family: "Karla", sans-serif;
+  color: black;
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 2px;
+  border-radius: 8px;
+}
+
 #search-form > button {
   width: fit-content;
   height: 40px;
@@ -1050,7 +1086,6 @@ justify-content: center; */
 }
 
 #filter-container {
-  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: baseline;
@@ -1118,6 +1153,8 @@ justify-content: center; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis"...";
+  max-width: 100%;
+  display: inline-block;
 }
 
 .filter-option:hover {
@@ -1374,6 +1411,16 @@ justify-content: center; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#shortlist-results {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 }
 
 #shortlist-container > h2 {
@@ -1841,6 +1888,7 @@ justify-content: center; */
   font-family: "Playfair Display", serif;
   margin: 0;
   padding: 0;
+  padding-bottom: 10px;
 }
 
 .movie-info > ul {
@@ -1866,4 +1914,92 @@ justify-content: center; */
   color: var(--dark-brown);
   font-family: "Karla", sans-serif;
   font-size: 2em;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--dark-brown);
+  width: 20px;
+  height: 20px;
+}
+
+input[type="text"] {
+  border: 2px solid var(--dark-brown);
+  outline: none;
+}
+
+/* PAGE NOT FOUND */
+
+#page-not-found-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-grey);
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  font-size: 2em;
+}
+
+#page-not-found-image {
+  width: 40%;
+}
+
+#page-not-found-image > img {
+  width: 90%;
+}
+
+#page-not-found-text {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+#page-not-found-text > h1 {
+  font-size: 1.5em;
+  color: var(--dark-brown);
+  font-family: "Playfair Display", serif;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+#page-not-found-text > p {
+  font-size: 0.8em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+#page-not-found-text > p > a {
+  font-size: 1em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#page-not-found-text ul > li > a {
+  font-size: 0.8em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#page-not-found-text > ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  list-style-type: none;
+  font-family: "Karla", sans-serif;
+  color: var(--dark-brown);
+  margin: 0;
+  padding: 0;
 }
