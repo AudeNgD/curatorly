@@ -143,7 +143,6 @@ export const fetchArtworks = (params) => {
         }
       }
       // return data != {} ? data : { message: "No results found" };
-      console.log(data);
       return data;
     })
     .catch((error) => {

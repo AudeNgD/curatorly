@@ -116,6 +116,10 @@ body {
     font-size: 0.6em;
   }
 
+  #newSearch {
+    font-size: 1em;
+  }
+
   #searchresults-container {
     align-items: center;
   }
@@ -373,6 +377,10 @@ body {
   }
 
   #keyword {
+    font-size: 1em;
+  }
+
+  #newSearch {
     font-size: 1em;
   }
 
@@ -859,6 +867,17 @@ nav > ul > li > a:hover {
 }
 
 #keyword {
+  width: 40%;
+  height: 40px;
+  font-family: "Karla", sans-serif;
+  color: black;
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 2px;
+  border-radius: 8px;
+}
+
+#newSearch {
   width: 40%;
   height: 40px;
   font-family: "Karla", sans-serif;
@@ -1901,6 +1920,11 @@ input[type="checkbox"] {
   accent-color: var(--dark-brown);
   width: 20px;
   height: 20px;
+}
+
+input[type="text"] {
+  border: 2px solid var(--dark-brown);
+  outline: none;
 }
 
 /* PAGE NOT FOUND */

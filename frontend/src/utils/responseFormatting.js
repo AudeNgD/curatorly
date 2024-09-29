@@ -1,5 +1,4 @@
 export default function formatResponse(response) {
-  console.log(response);
   if (response.message === undefined) {
     const rijksData = response.rijksData ? response.rijksData : [];
     const clevelandData = response.clevelandData ? response.clevelandData : [];
@@ -95,10 +94,8 @@ export default function formatResponse(response) {
       .concat(formattedclevelandData)
       .concat(formattedvamData);
     //returns an array of objects
-    console.log("here in responseFormatting");
     return { artworks, rijksCount, clevelandCount, vamCount };
   } else {
-    console.log("here in responseFormatting but message");
     return { message: response.message };
   }
 }
