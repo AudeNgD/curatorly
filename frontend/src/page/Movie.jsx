@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MovieItem from "../components/MovieItem";
-import { ImCross } from "react-icons/all-files/im";
+import { ImCross } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 

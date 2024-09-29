@@ -4,7 +4,7 @@ import {
   useSearchParams,
   createSearchParams,
 } from "react-router-dom";
-import { IoMdCloseCircle } from "react-icons/all-files/io";
+import { IoMdCloseCircle } from "react-icons/io";
 
 function TechniqueSearch() {
   const [technique, setTechnique] = useState("");

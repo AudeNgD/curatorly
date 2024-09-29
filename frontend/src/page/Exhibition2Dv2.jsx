@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IoMdReturnLeft } from "react-icons/all-files/io";
-import { IoMdArrowRoundBack } from "react-icons/all-files/io";
-import { IoMdArrowRoundForward } from "react-icons/all-files/io";
-import { TbZoomCheckFilled } from "react-icons/all-files/tb";
-import { TbZoomCancelFilled } from "react-icons/all-files/tb";
-import { FaInfo } from "react-icons/all-files/fa";
+import { IoMdReturnLeft } from "react-icons/io";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundForward } from "react-icons/io";
+import { TbZoomCheckFilled } from "react-icons/tb";
+import { TbZoomCancelFilled } from "react-icons/tb";
+import { FaInfo } from "react-icons/fa";
 import Tooltip from "@mui/material/Tooltip";
 import ZoomIn from "../components/ZoomIn";
 import LoadingMessage from "../components/LoadingMessage";
