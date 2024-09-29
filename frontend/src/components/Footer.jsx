@@ -25,7 +25,7 @@ function Footer() {
     <div id="footer-container">
       <section id="footer-about">
         <p>Created by: Aude Nguyen Duc</p>
-        <a href="https://www.linkedin.com/in/audengduc/">
+        <a href="https://github.com/AudeNgD/curatorly">
           Find this app on Github
         </a>
       </section>
@@ -36,7 +36,7 @@ function Footer() {
         <ul>
           <li>
             <EmailShareButton
-              url="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
               subject="Create a virtual exhibition with curatorly!"
             >
               <MdOutlineMail
@@ -48,7 +48,7 @@ function Footer() {
           </li>
           <li>
             <FacebookShareButton
-              url="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
               hashtag="#artexhibition"
             >
               <FaSquareFacebook className="footer-sm-icon" />
@@ -57,8 +57,8 @@ function Footer() {
           </li>
           <li>
             <LinkedinShareButton
-              url="http://localhost:5173/"
-              source="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
+              source="https://curatorly.onrender.com/"
               title="curatorly"
               summary="Create and share your own virtual exhibitions."
             >
@@ -68,8 +68,8 @@ function Footer() {
           </li>
           <li>
             <PinterestShareButton
-              url="http://localhost:5173/"
-              media="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
+              media="https://curatorly.onrender.com/"
               description="Create and share your own virtual exhibitions."
             >
               <FaPinterestSquare className="footer-sm-icon" />
@@ -77,14 +77,17 @@ function Footer() {
             </PinterestShareButton>
           </li>
           <li>
-            <RedditShareButton title="curatorly" url="http://localhost:5173/">
+            <RedditShareButton
+              title="curatorly"
+              url="https://curatorly.onrender.com/"
+            >
               <FaRedditSquare className="footer-sm-icon" />
               <p style={{ display: "none" }}> Share on Reddit</p>
             </RedditShareButton>
           </li>
           <li>
             <TumblrShareButton
-              url="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
               title="curatorly"
               caption="Create and share your own virtual exhibitions."
               tags={["art", "exhibition"]}
@@ -97,7 +100,7 @@ function Footer() {
             <TwitterShareButton
               title="curatorly"
               hashtags={["art", "exhibition"]}
-              url="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
             >
               <FaTwitterSquare className="footer-sm-icon" />
               <p style={{ display: "none" }}> Share on Twitter</p>
@@ -105,7 +108,7 @@ function Footer() {
           </li>
           <li>
             <WhatsappShareButton
-              url="http://localhost:5173/"
+              url="https://curatorly.onrender.com/"
               title="curatorly"
               separator=":: "
             >
