@@ -17,9 +17,10 @@ function SortBy(props) {
     detectSortBy(event.target.value);
     setSelectedSortby(event.target.value);
 
-    //update the url with the new sortby value
+    //update the url with the new sortby value and remove pagination
     setCurrentSearchParams((params) => {
       params.set("sortby", event.target.value);
+      params.delete("page");
       return params;
     });
     const qString = createSearchParams(currentSearchParams).toString();
