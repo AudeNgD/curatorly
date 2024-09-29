@@ -30,7 +30,7 @@ The key can be obtained by registering for a [Rijksstudio account](https://www.r
 
 ## Link to the hosted version
 
-https://nc-news-uld9.onrender.com/
+https://curatorly.onrender.com/
 
 ## Proxy servers (optional)
 
