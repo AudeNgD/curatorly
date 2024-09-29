@@ -39,7 +39,10 @@ function Home() {
                   <strong>Cleveland Museum of Art</strong>.
                 </li>
                 <li>Save your favourite artworks to a shortlist.</li>
-                <li>View your exhibition either in 2D or in 3D.</li>
+                <li>
+                  View your exhibition either as a static or an animated
+                  exhibition.
+                </li>
               </ul>
             </div>
             <div id="search-box">

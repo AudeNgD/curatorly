@@ -10,6 +10,7 @@ import {
 import { fetchArtworks } from "../../services/apis";
 import formatResponse from "../utils/responseFormatting";
 import SortBy from "../components/SortBy";
+import { useMediaQuery } from "react-responsive";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -24,6 +25,8 @@ function SearchResults() {
   const [currentSearchParams, setCurrentSearchParams] = useSearchParams();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     const paramsString = searchParams.toString();
@@ -115,12 +118,14 @@ function SearchResults() {
       <h1>Search Results</h1>
       <SortBy detectSortBy={setSortby} />
       <section id="filter-results">
-        <Filter
-          artworks={results}
-          rCount={rijksCount}
-          cCount={clevelandCount}
-          vCount={vamCount}
-        />
+        {isMobile ? null : (
+          <Filter
+            artworks={results}
+            rCount={rijksCount}
+            cCount={clevelandCount}
+            vCount={vamCount}
+          />
+        )}
         <ResultsList
           artworks={results}
           rCount={rijksCount}
