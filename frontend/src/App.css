@@ -189,12 +189,14 @@ body {
 
   #card-count {
     font-size: 1em;
+    text-align: center;
   }
 
   #artwork-card {
     column-gap: 15px;
     row-gap: 15px;
     padding-left: 20px;
+    justify-content: center;
   }
 
   .card {
@@ -464,6 +466,7 @@ body {
 
   #card-count {
     font-size: 1.5em;
+    text-align: center;
   }
 
   .card {
@@ -973,7 +976,6 @@ justify-content: center; */
 
 #card-count {
   width: 100%;
-  text-align: left;
   font-family: "Karla", sans-serif;
   color: var(--dark-brown);
   margin: 0;
@@ -984,7 +986,6 @@ justify-content: center; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
   padding-right: 10px;
   padding-top: 10px;
 }
@@ -1835,8 +1836,14 @@ justify-content: center; */
 }
 
 .movie-reel-vertical {
-  display: block;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
+  padding-top: 350px;
   animation: slide-up 60s linear infinite;
   width: 90%;
   animation-delay: 2s;

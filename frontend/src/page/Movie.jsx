@@ -15,7 +15,6 @@ function Movie() {
   useEffect(() => {
     const storedData = localStorage.getItem("artworks");
     setShortlist(JSON.parse(storedData));
-    console.log("shortlist", shortlist);
   }, []);
 
   useEffect(() => {
@@ -25,13 +24,12 @@ function Movie() {
     }, 3000);
   });
 
-  function closeMovie() {
+  function closeMovie(event) {
     event.preventDefault();
     navigate("/shortlist");
   }
 
   function showNavigation(event) {
-    console.log(event);
     isShowNavigation(true);
   }
 
@@ -45,8 +43,8 @@ function Movie() {
         id="movie-navigation"
         onMouseEnter={showNavigation}
         onMouseLeave={hideNavigation}
-        onTouchStart={showNavigation}
-        onTouchEnd={hideNavigation}
+        // onTouchStart={showNavigation}
+        // onTouchEnd={hideNavigation}
       >
         <button
           id="movie-back"
@@ -66,6 +64,7 @@ function Movie() {
           {shortlist.map((artwork, index) => {
             return (
               <MovieItem
+                key={artwork.id + index}
                 artworkForFrame={artwork}
                 id={artwork.id + index}
                 paused={paused}
@@ -76,6 +75,7 @@ function Movie() {
           {shortlist.map((artwork, index) => {
             return (
               <MovieItem
+                key={artwork.id + index}
                 artworkForFrame={artwork}
                 id={artwork.id + index}
                 paused={paused}
