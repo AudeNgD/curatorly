@@ -1958,6 +1958,16 @@ input[type="text"] {
 
 #page-not-found-image > img {
   width: 90%;
+  border-radius: 8px;
+  border: 5px solid var(--dark-brown);
+}
+
+#page-not-found-image > p {
+  font-size: 0.3em;
+  color: var(--dark-brown);
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #page-not-found-text {

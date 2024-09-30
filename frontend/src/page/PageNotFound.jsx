@@ -8,6 +8,10 @@ function PageNotFound() {
           src="https://framemark.vam.ac.uk/collections/2023NH6733/full/full/0/default.jpg"
           alt="Funny Fran sculpture"
         />
+        <p>
+          Image credits: Funny Fran from the Victoria & Albert Museum
+          collections
+        </p>
       </div>
       <div id="page-not-found-text">
         <h1>Nothing much to see here...</h1>
