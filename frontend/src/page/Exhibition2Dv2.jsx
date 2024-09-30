@@ -56,7 +56,6 @@ function Exhibition2Dv2() {
       e.key === "ArrowRight" &&
       currentArtworkIndex < shortlist.length - 1
     ) {
-      console.log("right");
       setCurrentArtworkIndex((artworkIdx) => artworkIdx + 1);
     }
   }
@@ -76,7 +75,6 @@ function Exhibition2Dv2() {
   }
 
   function handleInfoClick() {
-    console.log("clicked");
     setInfoActive(!infoActive);
     isClicked(!clicked);
   }

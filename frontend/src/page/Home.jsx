@@ -11,7 +11,6 @@ function Home() {
   function handleMuseumSearch(event) {
     event.preventDefault();
     const museum = event.target.value;
-    console.log(museum);
     let rChecked = false;
     let cChecked = false;
     let vChecked = false;
