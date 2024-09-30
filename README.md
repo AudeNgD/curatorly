@@ -18,11 +18,12 @@ The key can be obtained by registering for a [Rijksstudio account](https://www.r
 
 1. Fork and clone this repo `https://github.com/AudeNgD/curatorly`
 2. Change to the frontend repo `cd frontend`
-3. Install the dependencies by running `npm i`
-4. Create a .env file in the root folder of the frontend repo.
+3. If Vite is not already installed on your machine run `npm install --save-dev`
+4. Install the dependencies by running `npm i`
+5. Create a .env file in the root folder of the frontend repo.
    In the .env file, add `VITE_APP_RIJKS_API_KEY=your Riskjsmuseum API key`
-5. Check that the .env file is .gitignored
-6. Run `npm run dev` in your terminal to run the app on your local server.
+6. Check that the .env file is .gitignored
+7. Still in the frontend repo, run `npm run dev` in your terminal to run the app on your local server.
 
 ## Minimum version requirements
 
