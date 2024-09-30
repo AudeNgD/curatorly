@@ -25,6 +25,9 @@ The key can be obtained by registering for a [Rijksstudio account](https://www.r
 6. Check that the .env file is .gitignored
 7. Still in the frontend repo, run `npm run dev` in your terminal to run the app on your local server.
 
+NB - During the first search, the app may show a 'service unavailable' message, especially if it has been some time since the app has last been accessed.
+This is due to render where the proxy servers are hosted. It powers down the proxy servers on account of inactivity. Wait a little bit before refreshing the page.
+
 ## Minimum version requirements
 
 - Node.js > 21.3.0
