@@ -181,6 +181,7 @@ export const fetchArtworks = (params) => {
       return data;
     })
     .catch((error) => {
+      console.log(error);
       return {
         message:
           "This service is currently unavailable. We apologise for the inconvenience.",

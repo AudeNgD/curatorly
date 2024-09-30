@@ -1354,7 +1354,7 @@ justify-content: center; */
 
 #shortlist-container {
   width: 100%;
-  height: fit-content;
+  /* height: fit-content; */
   display: flex;
   flex-direction: column;
   align-items: center;
