@@ -50,8 +50,58 @@ body {
 
 /* Medium devices such as tablets (768px and up) */
 @media only screen and (min-width: 768px) {
+  nav {
+    height: 70px;
+  }
+
+  /*HAMBURGER MENU*/
+
+  .hamburger-container {
+    position: sticky;
+    color: black;
+    height: 70px;
+    width: 100%;
+    top: 0px;
+    padding-left: 10px;
+    padding-bottom: 8px;
+    text-align: left;
+    display: block;
+  }
+
+  #hamburger-logo {
+    width: 50px;
+    border-radius: 8px;
+    border-color: var(--light-grey);
+    border-width: 2px;
+    border-style: solid;
+    margin-top: 10px;
+  }
+
   .hamburger-container-list {
     width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 10px;
+    list-style-type: none;
+    text-align: left;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
+    margin-left: -10px;
+  }
+
+  .hamburger-container-list > li {
+    text-align: left;
+    border: 2px solid var(--light-grey);
+    background-color: var(--dark-brown);
+    padding-left: 5px;
+  }
+
+  .hamburger-container-list > li > a {
+    color: var(--light-grey);
+    text-decoration: none;
+    font-family: "Karla", sans-serif;
+    font-size: 1.8em;
   }
 
   #hero {
@@ -330,6 +380,10 @@ body {
 @media only screen and (min-width: 1024px) {
   #page-not-found-container {
     flex-direction: row;
+  }
+
+  nav {
+    height: 90px;
   }
   #hero {
     width: 100%;
@@ -646,56 +700,6 @@ nav > ul > li > a:hover {
   border-width: 2px;
   border-style: solid;
   margin-top: 12px;
-}
-
-/*HAMBURGER MENU*/
-
-.hamburger-container {
-  position: sticky;
-  color: black;
-  height: 90px;
-  width: 100%;
-  top: 0px;
-  padding-left: 10px;
-  padding-bottom: 10px;
-  text-align: left;
-}
-
-#hamburger-logo {
-  width: 70px;
-  border-radius: 50%;
-  border-color: var(--light-grey);
-  border-width: 2px;
-  border-style: solid;
-  margin-top: 10px;
-}
-
-.hamburger-container-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  row-gap: 10px;
-  /* align-items: center; */
-  /* background-color: var(--dark-brown); */
-  list-style-type: none;
-  text-align: left;
-  padding-left: 10px;
-  padding-bottom: 10px;
-  margin-left: -10px;
-}
-
-.hamburger-container-list > li {
-  text-align: left;
-  border: 2px solid var(--light-grey);
-  background-color: var(--dark-brown);
-  padding-left: 5px;
-}
-
-.hamburger-container-list > li > a {
-  color: var(--light-grey);
-  text-decoration: none;
-  font-family: "Karla", sans-serif;
-  font-size: 1.8em;
 }
 
 /* HOMEPAGE */
