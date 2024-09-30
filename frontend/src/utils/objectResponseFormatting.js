@@ -41,7 +41,6 @@ export default function formatObjectResponse(museum, response) {
   }
 
   if (museum === "vam") {
-    console.log(response);
     let materials = response.record.materials.map((material) => {
       return material.text;
     });
@@ -49,9 +48,10 @@ export default function formatObjectResponse(museum, response) {
 
     let artistName = "";
 
-    if (response.record.artistMakerPerson == []) artistName = "Unknown";
+    if (response.record.artistMakerPerson[0] === undefined)
+      artistName = "Unknown";
 
-    if (response.record.artistMakerPerson.length == 1)
+    if (response.record.artistMakerPerson.length === 1)
       artistName = response.record.artistMakerPerson[0].name;
 
     if (response.record.artistMakerPerson.length > 1)
@@ -63,19 +63,30 @@ export default function formatObjectResponse(museum, response) {
       imageUrl: response.meta.images._iiif_image + "full/full/0/default.jpg",
       description: response.record.summaryDescription,
       artist: artistName,
-      dating: response.record.productionDates[0].date,
-      materials: materials,
-      technique: response.record.techniques[0]
-        ? response.record.techniques[0].text
-        : "Unknown",
-      location: response.record.galleryLocation
-        ? response.record.galleryLocation[0].current.text +
-          "case" +
-          response.record.galleryLocation[0].case +
-          "shelf" +
-          response.record.galleryLocation[0].shelf
-        : "Unknown",
-      credit: response.record.creditLine,
+      dating:
+        response.record.productionDates[0] === undefined
+          ? "Date not given"
+          : response.record.productionDates[0].date.text,
+      materials:
+        response.record.materials[0] === undefined
+          ? "Materials not provided"
+          : response.record.materials[0].text,
+      technique:
+        response.record.techniques[0] === undefined
+          ? "Techniques not provided"
+          : response.record.techniques[0].text,
+      location:
+        response.record.galleryLocation === undefined
+          ? "Location not provided"
+          : response.record.galleryLocation[0].current.text +
+            "case" +
+            response.record.galleryLocation[0].case +
+            "shelf" +
+            response.record.galleryLocation[0].shelf,
+      credit:
+        response.record.creditLine === undefined
+          ? "Credit not provided"
+          : response.record.creditLine,
       museum: "Victoria and Albert Museum",
     };
   }

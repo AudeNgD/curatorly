@@ -19,7 +19,6 @@ function Object() {
   useEffect(() => {
     if (museum === "rijksmuseum") {
       fetchRijksObjectDetails(id).then((res) => {
-        console.log("res", res);
         const formattedRes = formatObjectResponse(museum, res);
         setObject(formattedRes);
         setLoading(false);

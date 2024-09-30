@@ -9,8 +9,11 @@ function PageNotFound() {
           alt="Funny Fran sculpture"
         />
         <p>
-          Image credits: Funny Fran from the Victoria & Albert Museum
-          collections
+          Image credits:{" "}
+          <a href="https://curatorly.onrender.com/vam/object/O1223919">
+            Funny Fran
+          </a>{" "}
+          from the Victoria & Albert Museum collections
         </p>
       </div>
       <div id="page-not-found-text">
