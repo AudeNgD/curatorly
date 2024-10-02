@@ -16,7 +16,7 @@ The key can be obtained by registering for a [Rijksstudio account](https://www.r
 
 ## Instructions
 
-1. Fork and clone this repo `https://github.com/AudeNgD/curatorly`
+1. Fork and clone this repo `https://github.com/AudeNgD/curatorly.git`
 2. Change to the frontend repo `cd frontend`
 3. If Vite is not already installed on your machine run `npm install --save-dev`
 4. Install the dependencies by running `npm i`
