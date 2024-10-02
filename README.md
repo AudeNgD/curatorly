@@ -44,6 +44,7 @@ The version of curatorly uses these servers out of the box.
 
 If you would like to host your own version of the proxy servers, you can clone the repo for the servers here:
 
-- Link to Cleveland server
-- Link to V&A server
+- Cleveland server: `https://github.com/AudeNgD/cleveland-api`
+- V&A server: `https://github.com/AudeNgD/vam-api`
+- 
   Explanations on how to set up the proxy servers are in the README of these repos.
