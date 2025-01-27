@@ -2,7 +2,7 @@ import axios from "axios";
 import centuryConverter from "../src/utils/centuryConverter";
 
 const rijksAPI = axios.create({
-  baseURL: `https://www.rijksmuseum.nl/api/en/collection`,
+  baseURL: `https://rijks-api.onrender.com/search`,
   headers: {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
